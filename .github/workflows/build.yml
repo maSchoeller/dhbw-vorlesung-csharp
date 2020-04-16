@@ -1,0 +1,21 @@
+name: Build
+
+on: 
+    push:
+      branches: [master]
+
+jobs:
+    build:
+      runs-on: windows-latest
+  
+      steps:
+      - name: clone repo 
+        uses: actions/checkout@master
+        with:
+            ref: ${{ github.ref }}
+      - name: Setup MSBuild.exe
+        uses: warrenbuckley/Setup-MSBuild@v1
+  
+      - name: MSBuild Uebung1
+        working-directory: aufgabenblatt_01
+        run: msbuild /t:Restore /p:Configuration=Release Aufagbenblatt_01.sln
