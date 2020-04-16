@@ -21,4 +21,4 @@ jobs:
         run: msbuild /t:Restore /p:Configuration=Release Aufagbenblatt_01.sln
       - name: MSBuild Uebung2
         working-directory: Aufgabenblatt_02
-        run: msbuild /t:Restore /p:Configuration=Release Aufagbenblatt_02.sln
+        run: msbuild /t:Restore /p:Configuration=Release Aufgabenblatt_02.sln
