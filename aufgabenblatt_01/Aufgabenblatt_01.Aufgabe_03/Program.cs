@@ -1,9 +1,5 @@
 ﻿using Aufgabenblatt_01.Aufgabe_03.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aufgabenblatt_01.Aufgabe_04
 {
@@ -15,7 +11,7 @@ namespace Aufgabenblatt_01.Aufgabe_04
             {
                 new Fahrzeug
                 {
-                    Kennzeichen = "Ka TE 4711"
+                    Kennzeichen = "KA TE 4711"
                 },
                 new PKW
                 {
@@ -23,7 +19,7 @@ namespace Aufgabenblatt_01.Aufgabe_04
                 },
                new LKW
                {
-                   Kennzeichen ="S OS 2342"
+                   Kennzeichen = "S OS 2342"
                }
             };
 

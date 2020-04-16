@@ -10,6 +10,8 @@ namespace Aufgabenblatt_01.Aufgabe_04.Models
     {
         public string Kennzeichen { protected get;  set; }
 
+
+
         public virtual string Drive() 
             => Kennzeichen;
     }

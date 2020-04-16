@@ -7,16 +7,25 @@ using System.Threading.Tasks;
 
 namespace Aufgabenblatt_01.Aufgabe_04
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static Program()
         {
-            var factory = new ObjectFactory();
+
+        }
+
+        public int Test  => 2;
+
+        static void Main()
+        {
+            var factory1 = new ObjectFactory<Fahrzeug>();
+            var factory2 = new ObjectFactory<LKW>();
+            var factory3 = new ObjectFactory<PKW>();
             var fahrzeuge = new[]
             {
-                factory.CreateInstance<Fahrzeug>(),
-                factory.CreateInstance<LKW>(),
-                factory.CreateInstance<PKW>()
+                factory1.CreateInstance(),
+                factory2.CreateInstance(),
+                factory3.CreateInstance()
             };
 
 

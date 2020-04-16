@@ -9,7 +9,7 @@ namespace Aufgabenblatt_01.Aufgabe_05
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
 
             var words = new []

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Aufgabenblatt_01.Aufgabe_04
 {
-    public class ObjectFactory
+    public class ObjectFactory<TObject> where TObject : class, new()
     {
-        public TObject CreateInstance<TObject>() where TObject : class, new() 
+        public TObject CreateInstance() 
             => new TObject();
     }
 }
