@@ -2,11 +2,6 @@
 using Aufgabenblatt_03.Aufgabe_11.Models;
 using Aufgabenblatt_03.Aufgabe_11.ViewModels;
 using Aufgabenblatt_03.Aufgabe_11.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aufgabenblatt_03.Aufgabe_11.Controllers
 {
