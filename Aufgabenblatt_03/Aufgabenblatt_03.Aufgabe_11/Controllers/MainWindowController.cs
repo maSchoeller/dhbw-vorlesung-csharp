@@ -65,7 +65,6 @@ namespace Aufgabenblatt_03.Aufgabe_11.Controllers
                     StreetNumber = "12"
                 }
             });
-
             _viewModel.Employees.Add(new Employee
             {
 
