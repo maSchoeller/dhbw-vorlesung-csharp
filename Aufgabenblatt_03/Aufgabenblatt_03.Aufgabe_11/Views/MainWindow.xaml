@@ -1,0 +1,73 @@
+﻿<Window x:Class="Aufgabenblatt_03.Aufgabe_11.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aufgabenblatt_03.Aufgabe_11.Views"
+        xmlns:models="clr-namespace:Aufgabenblatt_03.Aufgabe_11.Models"
+        mc:Ignorable="d"
+        Title="Mitarbeiterverwaltung" 
+        WindowStartupLocation="CenterScreen"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <ListBox ItemsSource="{Binding Employees}"
+                 SelectedItem="{Binding SelectedEmployee}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Employee}">
+                    <Grid Grid.IsSharedSizeScope="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <!--Erste Reihe mit Namen-->
+                        <Label Content="Name:" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" 
+                                    VerticalAlignment="Center">
+                            <TextBlock Margin="0,0,5,0" Text="{Binding Firstname}"/>
+                            <TextBlock Text="{Binding Lastname}"/>
+                        </StackPanel>
+                        <!--Zweite Reihe mit Geschlecht-->
+                        <Label  Grid.Row="1"
+                                Content="Geschlecht:" FontWeight="Bold"/>
+                        <TextBlock  Grid.Row="1" Grid.Column="1"
+                                    Text="{Binding Gender}" 
+                                    VerticalAlignment="Center" />
+                        <!--Dritte Reihe Adresse-->
+                        <Label  Grid.Row="2"
+                                Content="Adresse:" FontWeight="Bold" />
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding Address.Street}"/>
+                                <TextBlock Text="{Binding Address.StreetNumber}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Address.Postcode}"/>
+                                <TextBlock Text="{Binding Address.City}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="1">
+            <Button Margin="5" Padding="20,0"
+                    Command="{Binding AddCommand}"
+                    Content="Hinzufügen"/>
+            <Button Margin="5" Padding="20,0"
+                    Command="{Binding DeleteCommand}"
+                    Content="Entfernen"/>
+        </StackPanel>
+    </Grid>
+</Window>

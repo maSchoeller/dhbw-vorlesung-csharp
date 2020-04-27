@@ -32,11 +32,9 @@ namespace Aufgabenblatt_02.Aufgabe_07
             Console.ResetColor();
             
             var res1 = GetSalesRepsFromBadenWuerttemberg(data);
-            //Geforderte Alternative, jedoch nicht so schön.
-            //var res1List = new List<(string FirstName, string LastName, decimal SalesVolume, string Company)>(res1);
-            //res1List.ForEach(sale => Console.WriteLine($"Name:{sale.FirstName} {sale.LastName}, Firma: {sale.Company}, Umsatz: {sale.SalesVolume}"));
-            foreach (var sale in res1)
-                Console.WriteLine($"Name:{sale.FirstName} {sale.LastName}, Firma: {sale.Company}, Umsatz: {sale.SalesVolume}");
+            var res1List = res1.ToList();
+            res1List.ForEach(sale => Console.WriteLine($"Name:{sale.FN} {sale.LN}, Firma: {sale.C}, Umsatz: {sale.SV}"));
+            //Nachfolgend wird auf das List.ForEach verzichtet, da es sich um eine unnötige Allokation handelt.
 
             //Write Result 2
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -74,28 +72,23 @@ namespace Aufgabenblatt_02.Aufgabe_07
             Console.ReadKey();
         }
 
-        private static IEnumerable<(string FirstName, string LastName, decimal SalesVolume, string Company)>
-            GetSalesRepsFromBadenWuerttemberg(IEnumerable<SalesRepresentative> salesRepresentatives)
-        {
-            return salesRepresentatives
+        private static IEnumerable<(string FN, string LN, decimal SV, string C)> GetSalesRepsFromBadenWuerttemberg(
+            IEnumerable<SalesRepresentative> salesRepresentatives) 
+            => salesRepresentatives
                 .Where(s => s.Area != "Baden-Württemberg")
                 .Select(s => (s.FirstName, s.LastName, s.SalesVolume, s.Company))
                 .OrderByDescending(s => s.SalesVolume);
-        }
 
         private static IEnumerable<IGrouping<string, SalesRepresentative>> GetSalesRepsGroupedByCompany(
-            IEnumerable<SalesRepresentative> salesRepresentatives)
-        {
-            return salesRepresentatives.GroupBy(s => s.Company)
-                .Where(sg => sg.Sum(s => s.SalesVolume) > 10_000);
-        }
+            IEnumerable<SalesRepresentative> salesRepresentatives) 
+            => salesRepresentatives
+                .Where(s => s.SalesVolume > 10_000)
+                .GroupBy(s => s.Company);
 
         private static IEnumerable<SalesRepresentative> GetTopTenLosers(
-            IEnumerable<SalesRepresentative> salesRepresentatives)
-        {
-            return salesRepresentatives
+            IEnumerable<SalesRepresentative> salesRepresentatives) 
+            => salesRepresentatives
                 .OrderBy(s => s.SalesVolume)
                 .Take(10);
-        }
     }
 }
