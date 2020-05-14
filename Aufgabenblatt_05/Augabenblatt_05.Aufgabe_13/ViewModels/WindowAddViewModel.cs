@@ -1,14 +1,14 @@
-﻿using Aufgabenblatt_03.Aufgabe_11.Framework;
-using Aufgabenblatt_03.Aufgabe_11.Models;
+﻿using Aufgabenblatt_05.Aufgabe_13.Framework;
+using Aufgabenblatt_05.Aufgabe_13.Models;
 using System;
 using System.Windows.Input;
 
-namespace Aufgabenblatt_03.Aufgabe_11.ViewModels
+namespace Aufgabenblatt_05.Aufgabe_13.ViewModels
 {
     public class WindowAddViewModel : ViewModelBase
     {
         public Array Genders => Enum.GetValues(typeof(Gender));
-        public Employee Model { get; set; } = new Employee();
+        public Customer Model { get; set; } = new Customer();
         public ICommand OkCommand { get; set; } = null!;
         public ICommand CancelCommand { get; set; } = null!;
 
