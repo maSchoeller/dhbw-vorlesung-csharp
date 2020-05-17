@@ -30,7 +30,7 @@ namespace MaSchoeller.Dublin.Server
                         })
                         .RunConsoleAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine($"Server stop ungracefully, for more informations take a look in console logs");
             }

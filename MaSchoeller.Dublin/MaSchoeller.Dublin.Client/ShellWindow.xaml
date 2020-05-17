@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MaSchoeller.Dublin.Client" xmlns:helpers="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
+        xmlns:local="clr-namespace:MaSchoeller.Dublin.Client" 
+        xmlns:helpers="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
         mc:Ignorable="d"
         Title="ShellWindow" Height="450" Width="800">
     <Window.Resources>
@@ -16,16 +17,35 @@
         </Grid.ColumnDefinitions>
         <Grid Visibility="{Binding IsNavbarVisible, Converter={StaticResource BoolToHidden}}">
             <StackPanel>
-                <Button Content="Hallo" Padding="20,5" />
-                <Button Content="Hallo" Padding="20,5" />
-                <Button Content="Hallo" Padding="20,5" />
-                <Button Command="{Binding NavigationCommand}" CommandParameter="home" 
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="portal"
+                        Content="Start" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.CalculationMonthRoute}"
+                        Content="Kosten/Monat" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.CalculationUnitRoute}"
+                        Content="Kosten/Geschäftsbereich" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.ConfigVehicleRoute}"
+                        Content="Fahrzeuge" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.ConfigEmployeeRoute}"
+                        Content="Mitarbeiter" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.ConfigBuisnessUnitRoute}"
+                        Content="Geschäftsbereiche" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="{x:Static helpers:DublinNavigations.AdminRoute}"
+                        Content="Administration" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" 
+                        CommandParameter="home" 
                         Content="Logout" Padding="20,5" />
             </StackPanel>  
         </Grid>
-        
-        <Border Grid.Column="1" x:Name="Container">
 
+        <Border Grid.Column="1" x:Name="Container">
+            <!-- The content container goes here -->
         </Border>
         
     </Grid>
