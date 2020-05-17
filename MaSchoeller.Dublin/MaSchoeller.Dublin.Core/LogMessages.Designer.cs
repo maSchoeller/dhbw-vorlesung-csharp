@@ -77,5 +77,14 @@ namespace MaSchoeller.Dublin.Core {
                 return ResourceManager.GetString("WcfSuccessfullyStarted", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with the name &apos;{0}&apos; logged in to the server..
+        /// </summary>
+        internal static string WcfUserLogin {
+            get {
+                return ResourceManager.GetString("WcfUserLogin", resourceCulture);
+            }
+        }
     }
 }

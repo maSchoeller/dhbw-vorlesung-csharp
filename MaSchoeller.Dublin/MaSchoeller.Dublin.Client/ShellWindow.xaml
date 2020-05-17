@@ -3,10 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MaSchoeller.Dublin.Client"
+        xmlns:local="clr-namespace:MaSchoeller.Dublin.Client" xmlns:helpers="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
         mc:Ignorable="d"
         Title="ShellWindow" Height="450" Width="800">
+    <Window.Resources>
+        <helpers:BooleanToHiddenConverter x:Key="BoolToHidden"/>
+    </Window.Resources>
     <Grid>
-        <Label x:Name="TestLabel"></Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Visibility="{Binding IsNavbarVisible, Converter={StaticResource BoolToHidden}}">
+            <StackPanel>
+                <Button Content="Hallo" Padding="20,5" />
+                <Button Content="Hallo" Padding="20,5" />
+                <Button Content="Hallo" Padding="20,5" />
+                <Button Command="{Binding NavigationCommand}" CommandParameter="home" 
+                        Content="Logout" Padding="20,5" />
+            </StackPanel>  
+        </Grid>
+        
+        <Border Grid.Column="1" x:Name="Container">
+
+        </Border>
+        
     </Grid>
 </Window>

@@ -123,4 +123,7 @@
   <data name="WcfSuccessfullyStarted" xml:space="preserve">
     <value>The wcf Service started listening on '{0}'.</value>
   </data>
+  <data name="WcfUserLogin" xml:space="preserve">
+    <value>User with the name '{0}' logged in to the server.</value>
+  </data>
 </root>

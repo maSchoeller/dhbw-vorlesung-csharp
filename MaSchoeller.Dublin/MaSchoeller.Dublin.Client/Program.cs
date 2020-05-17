@@ -10,8 +10,8 @@ namespace MaSchoeller.Dublin.Client
         static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                           .UseAutoFac()
                            .UseMVVMC()
+                           .UseAutoFac()
                            .ConfigureDesktopDefaults<ShellWindow>(builder =>
                            {
                                builder.UseStartup<Startup>();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaSchoeller.Dublin.Core.Communications.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,11 +8,13 @@ using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IFleetService" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(SessionMode = SessionMode.Required)]
     public interface IFleetService
     {
         [OperationContract]
         string GetTestData();
+
+        [OperationContract]
+        LoginResult Login(string username, string password);
     }
 }

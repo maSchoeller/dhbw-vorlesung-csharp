@@ -17,17 +17,24 @@ namespace MaSchoeller.Dublin.Server
     {
         static async Task Main(string[] args)
         {
-            await Host.CreateDefaultBuilder(args)
-                      .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                      .ConfigureContainer<ContainerBuilder>((context, services) =>
-                      {
-                          services.RegisterType<FleetService>().As<IFleetService>();
-                          services.RegisterType<MyCustomeService>();
-                          services.RegisterType<AuthenticationService>();
-                          services.RegisterType<CommunicationInitializer>().As<IHostedService>();
-                          services.RegisterInstance(context.Configuration.Get<ServerConfiguration>());
-                      })
-                      .RunConsoleAsync();
+            try
+            {
+                await Host.CreateDefaultBuilder(args)
+                        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                        .ConfigureContainer<ContainerBuilder>((context, services) =>
+                        {
+                            services.RegisterType<FleetService>().As<IFleetService>();
+                            services.RegisterType<CommunicationInitializer>().As<IHostedService>();
+                            services.RegisterType<JwtHelper>().SingleInstance();
+                            services.RegisterInstance(context.Configuration.Get<ServerConfiguration>()).SingleInstance();
+                        })
+                        .RunConsoleAsync();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Server stop ungracefully, for more informations take a look in console logs");
+            }
+           
         }
     }
 }

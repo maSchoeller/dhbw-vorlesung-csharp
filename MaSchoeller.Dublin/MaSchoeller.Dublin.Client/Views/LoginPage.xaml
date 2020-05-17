@@ -8,7 +8,52 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
 
-    <Grid>
-        
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1" 
+               Grid.Column="1"
+               FontSize="20"
+               HorizontalContentAlignment="Right"
+               Content="Benutzer:"/>
+        <TextBox Grid.Row="1"
+                 Grid.Column="2"
+                 Margin="5"
+                 Padding="5"
+                 Text="{Binding Username}"/>
+        <Label Grid.Row="2" 
+               Grid.Column="1"
+               FontSize="20"
+               HorizontalContentAlignment="Right"
+               Content="Passwort:"/>
+        <PasswordBox x:Name="passwordBox"
+                     Grid.Row="2"
+                     Grid.Column="2"
+                     Margin="5"
+                     Padding="5"
+                     PasswordChar="*"
+                     />
+        <Button Grid.Column="1" Grid.ColumnSpan="2"
+                Grid.Row="3"
+                Margin="10"
+                Padding="10"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=passwordBox,Path=Password}"
+                Content="Anmelden"/>
+        <Label Grid.Row="4"
+               Grid.Column="1" Grid.ColumnSpan="2"
+               Content="{Binding ErrorMessage}"/>
     </Grid>
 </Page>

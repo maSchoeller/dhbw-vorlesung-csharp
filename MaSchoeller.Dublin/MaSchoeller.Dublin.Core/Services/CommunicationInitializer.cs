@@ -36,30 +36,28 @@ namespace MaSchoeller.Dublin.Core.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             Uri baseAdress = new Uri($"http://{_options.Hostname}:{_options.Port}/fleets");
+            //Uri baseAdressMex = new Uri($"http://{_options.Hostname}:{8080}/fleets");
             _host = new ServiceHost(typeof(FleetService), baseAdress);
 
             //Note: This is totally insecure and should never happen in Production, 
             //      the login credentials will transfered on an unencrypted channel, 
             //      in Production use Protocols they support TLS
-            BasicHttpBinding httpBinding = new BasicHttpBinding();
-            httpBinding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
-            httpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+            WSHttpBinding httpBinding = new WSHttpBinding();
+            //httpBinding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
+            //httpBinding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
+            //httpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
 
             _host.AddServiceEndpoint(typeof(IFleetService), httpBinding, "");
             _host.AddDependencyInjectionBehavior<IFleetService>(_container);
-            _host.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
-
-            //Note: not the best Solution, the AuthenticationService is used as Singleton(instead of Scoped), but for now it should work...
-            _host.Credentials.UserNameAuthentication.UserNamePasswordValidationMode = UserNamePasswordValidationMode.Custom;
-            _host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = _container.Resolve<AuthenticationService>();
+            _host.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true, HttpsGetEnabled = true });
 
             try
             {
                 _host.Open();
                 _logger?.LogInformation(LogMessages.WcfSuccessfullyStarted, baseAdress);
             }
-            catch (Exception e) when (e is CommunicationObjectFaultedException || 
-                                      e is TimeoutException || 
+            catch (Exception e) when (e is CommunicationObjectFaultedException ||
+                                      e is TimeoutException ||
                                       e is AddressAlreadyInUseException)
             {
                 _logger?.LogCritical(LogMessages.WcfPortBindingError, baseAdress);
