@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
 
-    <Grid Background="AliceBlue">
+    <Grid Background="{StaticResource ResourceKey=MyMagicBlue}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="auto"/>

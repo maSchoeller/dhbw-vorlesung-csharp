@@ -1,34 +1,44 @@
-﻿using Proxies;
+﻿using MaSchoeller.Dublin.Client.Proxies.Calculations;
+using MaSchoeller.Dublin.Client.Proxies.Fleets;
+using MaSchoeller.Dublin.Client.Proxies.Users;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.Services
 {
     public class ClientConnectionHandler
     {
-        public FleetServiceClient Client { get; private set; } = null;
 
-        public async Task<(bool success, string errormessage)> TryLoginAsync(string username, string password)
+        public ClientConnectionHandler()
         {
-            var binding = new WSHttpBinding();
 
+        }
+
+        public UserServiceClient UserClient { get; private set; } = null!;
+        public FleetServiceClient FleetsClient { get; private set; } = null!;
+        public CalculationServiceClient CalculationClient { get; private set; } = null!;
+
+        public async Task<(bool success, string? errormessage)> TryLoginAsync(string username, string password)
+        {
+            await (UserClient?.CloseAsync() ?? Task.CompletedTask);
+            await (FleetsClient?.CloseAsync() ?? Task.CompletedTask);
+            await (CalculationClient?.CloseAsync() ?? Task.CompletedTask);
+
+            var userBinding = new WSHttpBinding();
             //Note: For scenarios like, login => logout => new login, i need a custome lifetime, only for this client connection.
             //      The alternative is Autofac customeliftimescopes but the solution with an extra service abstraction looks way more easier.
-            Client = new FleetServiceClient(binding, new EndpointAddress("http://localhost:8080/fleets"));
+            UserClient = new UserServiceClient(userBinding, new EndpointAddress("http://localhost:8080/users"));
             try
             {
-                Client.Open();
-                var scope = new OperationContextScope(Client.InnerChannel);
-                var result = await Client.LoginAsync(username, password);
+                UserClient.Open();
+                var scope = new OperationContextScope(UserClient.InnerChannel);
+                var result = await UserClient.LoginAsync(username, password);
                 var header = MessageHeader.CreateHeader("TokenHeader", "TokenNameSpace", result.Token);
                 OperationContext.Current.OutgoingMessageHeaders.Add(header);
-                return (true, null);
+     
             }
             catch (Exception e) when (e is EndpointNotFoundException)
             {
@@ -40,12 +50,15 @@ namespace MaSchoeller.Dublin.Client.Services
             }
             catch (Exception e)
             {
-                return (false, "Ein Unbekannter fehler ist aufgetreten.");
+                return (false, "Ein unbekannter Fehler ist aufgetreten.");
             }
+            var calcBinding = new WSHttpBinding();
+            
+
+            var fleetBinding = new WSHttpBinding();
 
 
-
+            return (true, null);
         }
-
     }
 }

@@ -12,13 +12,17 @@ using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    internal class FleetService : BaseService, IFleetService
+    internal class UserService : BaseService, IUserService
     {
+        private readonly IConnectionFactory _factory;
         private readonly ILogger<UserService>? _logger;
 
-        public FleetService(ISecurityHelper connectionHelper, ILogger<UserService>? logger = null)
+        public UserService(ISecurityHelper connectionHelper, 
+                           IConnectionFactory factory, 
+                           ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
+            _factory = factory;
             _logger = logger;
         }
 
@@ -30,6 +34,16 @@ namespace MaSchoeller.Dublin.Core.Communications
             }
 
             return "Here is the sugar.";
+        }
+
+        public LoginResult Login(string username, string password)
+        {
+            return new LoginResult
+            {
+                Success = true,
+                Token = SecurityHelper.CreateToken(username),
+                IsAdmin = true
+            };
         }
     }
 }

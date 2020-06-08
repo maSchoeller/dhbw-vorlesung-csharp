@@ -7,34 +7,33 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Proxies
+namespace MaSchoeller.Dublin.Client.Proxies.Calculations
 {
     using System.Runtime.Serialization;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LoginResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
-    public partial class LoginResult : object
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Proxies.Calculations.LoginResult))]
+    public partial class BaseResult : object
     {
         
-        private bool IsAdminField;
+        private string ErrorMessageField;
         
         private bool SuccessField;
         
-        private string TokenField;
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsAdmin
+        public string ErrorMessage
         {
             get
             {
-                return this.IsAdminField;
+                return this.ErrorMessageField;
             }
             set
             {
-                this.IsAdminField = value;
+                this.ErrorMessageField = value;
             }
         }
         
@@ -48,6 +47,31 @@ namespace Proxies
             set
             {
                 this.SuccessField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LoginResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class LoginResult : Proxies.Calculations.BaseResult
+    {
+        
+        private bool IsAdminField;
+        
+        private string TokenField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin
+        {
+            get
+            {
+                return this.IsAdminField;
+            }
+            set
+            {
+                this.IsAdminField = value;
             }
         }
         
@@ -66,34 +90,34 @@ namespace Proxies
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Proxies.IFleetService")]
-    public interface IFleetService
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Proxies.Calculations.ICalculationService")]
+    public interface ICalculationService
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetTestData", ReplyAction="http://tempuri.org/IFleetService/GetTestDataResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICalculationService/GetTestData", ReplyAction="http://tempuri.org/ICalculationService/GetTestDataResponse")]
         string GetTestData();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetTestData", ReplyAction="http://tempuri.org/IFleetService/GetTestDataResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICalculationService/GetTestData", ReplyAction="http://tempuri.org/ICalculationService/GetTestDataResponse")]
         System.Threading.Tasks.Task<string> GetTestDataAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/Login", ReplyAction="http://tempuri.org/IFleetService/LoginResponse")]
-        Proxies.LoginResult Login(string username, string password);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICalculationService/Login", ReplyAction="http://tempuri.org/ICalculationService/LoginResponse")]
+        Proxies.Calculations.LoginResult Login(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/Login", ReplyAction="http://tempuri.org/IFleetService/LoginResponse")]
-        System.Threading.Tasks.Task<Proxies.LoginResult> LoginAsync(string username, string password);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICalculationService/Login", ReplyAction="http://tempuri.org/ICalculationService/LoginResponse")]
+        System.Threading.Tasks.Task<Proxies.Calculations.LoginResult> LoginAsync(string username, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface IFleetServiceChannel : Proxies.IFleetService, System.ServiceModel.IClientChannel
+    public interface ICalculationServiceChannel : Proxies.Calculations.ICalculationService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class FleetServiceClient : System.ServiceModel.ClientBase<Proxies.IFleetService>, Proxies.IFleetService
+    public partial class CalculationServiceClient : System.ServiceModel.ClientBase<Proxies.Calculations.ICalculationService>, Proxies.Calculations.ICalculationService
     {
         
-        public FleetServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public CalculationServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
@@ -108,12 +132,12 @@ namespace Proxies
             return base.Channel.GetTestDataAsync();
         }
         
-        public Proxies.LoginResult Login(string username, string password)
+        public Proxies.Calculations.LoginResult Login(string username, string password)
         {
             return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<Proxies.LoginResult> LoginAsync(string username, string password)
+        public System.Threading.Tasks.Task<Proxies.Calculations.LoginResult> LoginAsync(string username, string password)
         {
             return base.Channel.LoginAsync(username, password);
         }

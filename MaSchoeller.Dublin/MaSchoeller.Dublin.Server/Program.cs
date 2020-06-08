@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using MaSchoeller.Dublin.Core;
+using MaSchoeller.Dublin.Core.Abstracts;
 using MaSchoeller.Dublin.Core.Communications;
 using MaSchoeller.Dublin.Core.Configurations;
 using MaSchoeller.Dublin.Core.Services;
@@ -23,10 +25,7 @@ namespace MaSchoeller.Dublin.Server
                         .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                         .ConfigureContainer<ContainerBuilder>((context, services) =>
                         {
-                            services.RegisterType<FleetService>().As<IFleetService>();
-                            services.RegisterType<CommunicationInitializer>().As<IHostedService>();
-                            services.RegisterType<JwtHelper>().SingleInstance();
-                            services.RegisterInstance(context.Configuration.Get<ServerConfiguration>()).SingleInstance();
+                            services.AddDublin(context.Configuration.Get<ServerConfiguration>());
                         })
                         .RunConsoleAsync();
             }

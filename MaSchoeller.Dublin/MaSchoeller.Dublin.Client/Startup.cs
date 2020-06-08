@@ -1,13 +1,13 @@
 ﻿using Autofac;
 using MaSchoeller.Dublin.Client.Controllers;
 using MaSchoeller.Dublin.Client.Helpers;
+using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Dublin.Client.Views;
 using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using Microsoft.Extensions.DependencyInjection;
-using Proxies;
 using System;
 using System.Windows;
 
@@ -25,7 +25,7 @@ namespace MaSchoeller.Dublin.Client
 
         public void ConfigureContainer(ContainerBuilder services)
         {
-            services.RegisterType<FleetServiceClient>();
+            services.RegisterType<UserServiceClient>();
             services.RegisterType<ShellViewModel>();
             services.RegisterType<ClientConnectionHandler>();
             RegisterViewModels(services);
@@ -33,7 +33,7 @@ namespace MaSchoeller.Dublin.Client
 
         public void ConfigureNavigation(INavigationServiceBuilder router)
         {
-            router.AddRoute<LoginPage, LoginController>(Navigation.DefaultRoute);
+            router.AddRoute<LoginPage, LoginController>(Navigation.DefaultRoute, ServiceLifetime.Scoped);
             router.AddRoute<PortalPage, PortalController>(DublinNavigations.PortalRoute);
             router.AddRoute<AdminPage, AdminController>(DublinNavigations.AdminRoute);
             router.AddRoute<CalculationMonthPage, CalculationMonthController>(DublinNavigations.CalculationMonthRoute);

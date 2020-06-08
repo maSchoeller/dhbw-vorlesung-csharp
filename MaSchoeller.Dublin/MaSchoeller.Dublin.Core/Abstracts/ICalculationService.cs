@@ -6,15 +6,13 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace MaSchoeller.Dublin.Core.Communications
+namespace MaSchoeller.Dublin.Core.Abstracts
 {
-    [ServiceContract(SessionMode = SessionMode.Required)]
-    public interface IFleetService
+    [ServiceContract()]
+    public interface ICalculationService
     {
         [OperationContract]
         string GetTestData();
 
-        [OperationContract]
-        LoginResult Login(string username, string password);
     }
 }

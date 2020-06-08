@@ -12,11 +12,11 @@ using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    internal class FleetService : BaseService, IFleetService
+    internal class CalculationService : BaseService, ICalculationService
     {
         private readonly ILogger<UserService>? _logger;
 
-        public FleetService(ISecurityHelper connectionHelper, ILogger<UserService>? logger = null)
+        public CalculationService(ISecurityHelper connectionHelper, ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
             _logger = logger;
@@ -25,9 +25,7 @@ namespace MaSchoeller.Dublin.Core.Communications
         public string GetTestData()
         {
             if (!Validate())
-            {
                 throw new SecurityAccessDeniedException();
-            }
 
             return "Here is the sugar.";
         }

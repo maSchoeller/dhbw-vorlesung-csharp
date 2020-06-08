@@ -7,20 +7,24 @@ using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MaSchoeller.Dublin.Core.Abstracts;
+using Microsoft.Extensions.Logging;
 
 namespace MaSchoeller.Dublin.Core.Services
 {
-    public class JwtHelper
+    internal class JwtHelper : ISecurityHelper
     {
         private readonly ServerConfiguration _configuration;
+        private readonly ILogger<JwtHelper>? _logger;
         private readonly JwtSecurityTokenHandler _handler;
-        public JwtHelper(ServerConfiguration configuration)
+        public JwtHelper(ServerConfiguration configuration, ILogger<JwtHelper>? logger)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _logger = logger;
             _handler = new JwtSecurityTokenHandler();
         }
 
-        public string CreateToken(string username, IEnumerable<string> roles)
+        public string CreateToken(string username)
         {
             var key = Encoding.ASCII.GetBytes(_configuration.TokenSecret);
             var listClaims = new List<Claim>()
@@ -28,6 +32,7 @@ namespace MaSchoeller.Dublin.Core.Services
                 new Claim(ClaimTypes.Name, username),
             };
 
+            var roles = Enumerable.Empty<string>();
             foreach (var role in roles)
             {
                 listClaims.Add(new Claim(ClaimTypes.Role, role));
@@ -49,7 +54,6 @@ namespace MaSchoeller.Dublin.Core.Services
             {
                 var claims = _handler.ValidateToken(token, new TokenValidationParameters
                 {
-
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.TokenSecret)),
                     ValidateIssuer = false,
@@ -60,6 +64,7 @@ namespace MaSchoeller.Dublin.Core.Services
             }
             catch (Exception e)
             {
+                //Todo: maybe log the message?
                 return false;
             }
 

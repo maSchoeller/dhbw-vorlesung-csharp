@@ -46,7 +46,7 @@ namespace MaSchoeller.Dublin.Client
             set => SetProperty(ref _isNavbarVisible, value);
         }
 
-        private string _route;
+        private string _route = string.Empty;
         public string Route { get => _route; set => SetProperty(ref _route, value); }
 
         public ICommand NavigationCommand { get; }

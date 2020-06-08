@@ -10,6 +10,7 @@ namespace MaSchoeller.Dublin.Core.Configurations
     {
         public string TokenSecret { get; set; } = Guid.NewGuid().ToString().Replace('-','a');
         public string Hostname { get; set; } = string.Empty;
-        public int Port { get; set; }
+        public int Port { get; set; } = 8080;
+        public string DatabasePath { get; set; } = "FleetManagement.db";
     }
 }

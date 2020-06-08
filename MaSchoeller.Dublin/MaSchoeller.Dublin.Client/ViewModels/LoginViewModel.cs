@@ -17,6 +17,6 @@ namespace MaSchoeller.Dublin.Client.ViewModels
         private string _username = string.Empty;
         public string Username { get => _username; set => SetProperty(ref _username, value); }
 
-        public ICommand LoginCommand { get; set; } = null;
+        public ICommand LoginCommand { get; set; } = null!;
     }
 }

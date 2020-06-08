@@ -1,4 +1,5 @@
-﻿using MaSchoeller.Dublin.Client.Services;
+﻿using MaSchoeller.Dublin.Client.Helpers;
+using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Helpers;
@@ -50,11 +51,11 @@ namespace MaSchoeller.Dublin.Client.Controllers
                 if (success)
                 {
                     _viewModel.ErrorMessage = "";
-                    _navigationService.NavigateTo("portal");
+                    _navigationService.NavigateTo(DublinNavigations.PortalRoute);
                 }
                 else
                 {
-                    _viewModel.ErrorMessage = errormessage;
+                    _viewModel.ErrorMessage = errormessage!;
                 }
             }
             else

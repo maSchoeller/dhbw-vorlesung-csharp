@@ -20,5 +20,6 @@ namespace MaSchoeller.Dublin.Client.Controllers
         {
             return _viewModel;
         }
+
     }
 }
