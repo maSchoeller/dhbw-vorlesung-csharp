@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IEmployeeRepository : IRepository<Employee>
     {
     }
 }

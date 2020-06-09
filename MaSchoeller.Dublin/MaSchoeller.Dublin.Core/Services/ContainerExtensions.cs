@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using MaSchoeller.Dublin.Core.Communications;
 using MaSchoeller.Dublin.Core.Configurations;
-using MaSchoeller.Dublin.Core.Services;
+using MaSchoeller.Dublin.Core.Database;
+using MaSchoeller.Dublin.Core.Database.Abstracts;
 using Microsoft.Extensions.Hosting;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Services
 {
     public static class ContainerExtensions
     {
@@ -25,7 +26,8 @@ namespace MaSchoeller.Dublin.Core.Abstracts
             container.RegisterType<ConnectionFactory>()
                      .As<IConnectionFactory>()
                      .SingleInstance();
-            container.RegisterInstance(configuration).SingleInstance();
+            container.RegisterInstance(configuration)
+                     .SingleInstance();
 
             return container;
         }
@@ -45,6 +47,9 @@ namespace MaSchoeller.Dublin.Core.Abstracts
             container.RegisterType<VehicleRepository>()
                      .As<IVehicleRepository>()
                      .InstancePerLifetimeScope();
+            container.RegisterType<BuisnessUnitRepository>()
+                    .As<IBuisnessUnitRepository>()
+                    .InstancePerLifetimeScope();
             return container;
         }
 

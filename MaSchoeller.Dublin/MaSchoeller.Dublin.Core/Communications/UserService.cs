@@ -1,49 +1,62 @@
-﻿using MaSchoeller.Dublin.Core.Abstracts;
-using MaSchoeller.Dublin.Core.Communications.Models;
+﻿using MaSchoeller.Dublin.Core.Communications.Models;
 using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.ServiceModel.Security;
-using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
     internal class UserService : BaseService, IUserService
     {
-        private readonly IConnectionFactory _factory;
         private readonly ILogger<UserService>? _logger;
 
-        public UserService(ISecurityHelper connectionHelper, 
-                           IConnectionFactory factory, 
+        public UserService(ISecurityHelper connectionHelper,
                            ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
-            _factory = factory;
             _logger = logger;
         }
 
-        public string GetTestData()
+        public PasswordChangeResult ChangePassword(string oldPassword, string newPassword)
         {
             if (!Validate())
-            {
-                throw new SecurityAccessDeniedException();
-            }
+                return new PasswordChangeResult
+                {
+                    Success = false,
+                    ErrorMessage = "Ein Fehler ist aufgetreten, das Passwort wurde nicht aktualisiert."
+                };
 
-            return "Here is the sugar.";
+            var success = SecurityHelper.UpdatePassword(User.Username, oldPassword, newPassword);
+            if (success)
+                return new PasswordChangeResult { Success = true };
+            else
+                return new PasswordChangeResult
+                {
+                    Success = false,
+                    ErrorMessage = "Ein Fehler ist aufgetreten, das Passwort wurde nicht aktualisiert."
+                };
         }
 
         public LoginResult Login(string username, string password)
         {
-            return new LoginResult
+            if (SecurityHelper.Login(username, password))
             {
-                Success = true,
-                Token = SecurityHelper.CreateToken(username),
-                IsAdmin = true
-            };
+                return new LoginResult
+                {
+                    Success = true,
+                    Token = SecurityHelper.CreateToken(username),
+                    IsAdmin = false
+                };
+            }
+            else
+            {
+                return new LoginResult
+                {
+                    Success = false,
+                    Token = null,
+                    ErrorMessage = "Benutzername oder Password sind falsch!"
+                };
+            }
+
         }
     }
 }

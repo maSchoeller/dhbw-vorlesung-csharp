@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
-using MaSchoeller.Dublin.Core.Abstracts;
 using MaSchoeller.Dublin.Core.Communications;
 using MaSchoeller.Dublin.Core.Configurations;
 using Microsoft.Extensions.Hosting;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.ViewModels
 {
-    public class CalculationMonthViewModel : NotifyPropertyChangedBase
+    public class CalculationMonthViewModel : ViewModelBase
     {
     }
 }

@@ -1,14 +1,6 @@
-﻿using MaSchoeller.Dublin.Core.Abstracts;
-using MaSchoeller.Dublin.Core.Communications.Models;
-using MaSchoeller.Dublin.Core.Services;
+﻿using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.ServiceModel.Security;
-using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {

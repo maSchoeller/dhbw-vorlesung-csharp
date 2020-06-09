@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
-    public interface IVehicleRepository : IRepository<Vehicle>
+    public interface IBuisnessUnitRepository : IRepository<BuisnessUnit>
     {
     }
 }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
-    public interface IEmployeeRepository : IRepository<Employee>
+    public interface IUserRepository : IRepository<User>
     {
+        User? FindByName(string username);
     }
 }

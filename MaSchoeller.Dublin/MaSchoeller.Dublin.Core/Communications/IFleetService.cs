@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Communications
 {
     [ServiceContract()]
     public interface IFleetService

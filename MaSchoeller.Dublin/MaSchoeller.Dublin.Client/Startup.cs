@@ -25,15 +25,21 @@ namespace MaSchoeller.Dublin.Client
 
         public void ConfigureContainer(ContainerBuilder services)
         {
-            services.RegisterType<UserServiceClient>();
             services.RegisterType<ShellViewModel>();
-            services.RegisterType<ClientConnectionHandler>();
+            services.RegisterType<ClientConnectionHandler>().SingleInstance();
             RegisterViewModels(services);
+            RegisterDialogs(services);
+        }
+
+        private void RegisterDialogs(ContainerBuilder services)
+        {
+            services.RegisterType<ChangePasswordController>();
+            services.RegisterType<ChangePasswordViewModel>();
         }
 
         public void ConfigureNavigation(INavigationServiceBuilder router)
         {
-            router.AddRoute<LoginPage, LoginController>(Navigation.DefaultRoute, ServiceLifetime.Scoped);
+            router.AddRoute<LoginPage, LoginController>(Navigation.DefaultRoute);
             router.AddRoute<PortalPage, PortalController>(DublinNavigations.PortalRoute);
             router.AddRoute<AdminPage, AdminController>(DublinNavigations.AdminRoute);
             router.AddRoute<CalculationMonthPage, CalculationMonthController>(DublinNavigations.CalculationMonthRoute);

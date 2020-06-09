@@ -1,11 +1,5 @@
-﻿using MaSchoeller.Dublin.Core.Abstracts;
-using MaSchoeller.Dublin.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MaSchoeller.Dublin.Core.Services;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
@@ -17,18 +11,42 @@ namespace MaSchoeller.Dublin.Core.Communications
             SecurityHelper = helper;
         }
 
+        private UserContext _user = new UserContext();
+        protected UserContext User
+        {
+            get
+            {
+                if (!_user.Inialized)
+                {
+                    var token = GetToken();
+                    if (!(token is null))
+                    {
+                        var user = SecurityHelper.GetUserContext(token);
+                        if (!(user is null)) _user = user;
+                    }
+                    _user.Inialized = true;
+                }
+                return _user;
+            }
+        }
+
         protected bool Validate()
         {
-            if (OperationContext.Current.IncomingMessageHeaders.FindHeader("TokenHeader", "TokenNameSpace") == -1)
-            {
-                return false;
-            }
-            var token = OperationContext.Current.IncomingMessageHeaders.GetHeader<string>("TokenHeader", "TokenNameSpace");
+            var token = GetToken();
             if (token is null)
             {
                 return false;
             }
             return SecurityHelper.ValidateToken(token);
+        }
+
+        private string? GetToken()
+        {
+            if (OperationContext.Current.IncomingMessageHeaders.FindHeader("TokenHeader", "TokenNameSpace") == -1)
+            {
+                return null;
+            }
+            return OperationContext.Current.IncomingMessageHeaders.GetHeader<string>("TokenHeader", "TokenNameSpace");
         }
     }
 }

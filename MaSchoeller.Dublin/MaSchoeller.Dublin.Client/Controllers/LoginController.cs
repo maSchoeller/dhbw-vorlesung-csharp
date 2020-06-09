@@ -5,9 +5,12 @@ using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
+using System.Security;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
@@ -37,6 +40,8 @@ namespace MaSchoeller.Dublin.Client.Controllers
         {
             _viewModel.ErrorMessage = string.Empty;
             _viewModel.Username = string.Empty;
+            _viewModel.IsBusy = false;
+            _viewModel.Password = "";
         }
 
         #region LoginCommand
@@ -45,23 +50,18 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         private async void TryLogin(object obj)
         {
-            if (obj is string password)
+            _viewModel.IsBusy = true;
+            var (success, errormessage) = await _clientHandler.TryLoginAsync(_viewModel.Username, _viewModel.ClearPassword);
+            if (success)
             {
-                var (success, errormessage) = await _clientHandler.TryLoginAsync(_viewModel.Username, password);
-                if (success)
-                {
-                    _viewModel.ErrorMessage = "";
-                    _navigationService.NavigateTo(DublinNavigations.PortalRoute);
-                }
-                else
-                {
-                    _viewModel.ErrorMessage = errormessage!;
-                }
+                _viewModel.ErrorMessage = "";
+                _navigationService.NavigateTo(DublinNavigations.PortalRoute);
             }
             else
             {
-                _viewModel.ErrorMessage = "Bei der eingabe der Passwortes ist etwas schief gegangen, dieser fehler sollte nicht auftreten.";
+                _viewModel.ErrorMessage = errormessage!;
             }
+            _viewModel.IsBusy = false;
         }
         #endregion
     }

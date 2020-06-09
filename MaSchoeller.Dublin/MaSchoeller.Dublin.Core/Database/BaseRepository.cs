@@ -1,4 +1,5 @@
-﻿using MaSchoeller.Dublin.Core.Abstracts;
+﻿using MaSchoeller.Dublin.Core.Database.Abstracts;
+using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaSchoeller.Dublin.Core.Services
+namespace MaSchoeller.Dublin.Core.Database
 {
     internal abstract class BaseRepository<T> : IRepository<T> where T : class
     {
@@ -44,10 +45,24 @@ namespace MaSchoeller.Dublin.Core.Services
             transaction.Commit();
         }
 
+        public void Update(T entity)
+        {
+            using var session = Factory.OpenSession();
+            using var transaction = session.BeginTransaction();
+            session.Update(entity);
+            transaction.Commit();
+        }
+
         public T FindById(int id)
         {
             using var session = Factory.OpenSession();
             return session.Get<T>(id);
+        }
+
+        public (IQueryable<T> query, IDisposable session) GetQuery()
+        {
+            var session = Factory.OpenSession();
+            return (session.Query<T>(), session);
         }
     }
 }

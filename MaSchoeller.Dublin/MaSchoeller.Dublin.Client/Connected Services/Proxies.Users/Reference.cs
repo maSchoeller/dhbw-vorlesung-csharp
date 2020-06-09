@@ -16,7 +16,8 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Proxies.Users.LoginResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.LoginResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult))]
     public partial class BaseResult : object
     {
         
@@ -55,7 +56,7 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LoginResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
-    public partial class LoginResult : Proxies.Users.BaseResult
+    public partial class LoginResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
         
         private bool IsAdminField;
@@ -89,32 +90,40 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Proxies.Users.IUserService")]
-    public interface IUserService
+    [System.Runtime.Serialization.DataContractAttribute(Name="PasswordChangeResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class PasswordChangeResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTestData", ReplyAction="http://tempuri.org/IUserService/GetTestDataResponse")]
-        string GetTestData();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTestData", ReplyAction="http://tempuri.org/IUserService/GetTestDataResponse")]
-        System.Threading.Tasks.Task<string> GetTestDataAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
-        Proxies.Users.LoginResult Login(string username, string password);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
-        System.Threading.Tasks.Task<Proxies.Users.LoginResult> LoginAsync(string username, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface IUserServiceChannel : Proxies.Users.IUserService, System.ServiceModel.IClientChannel
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MaSchoeller.Dublin.Client.Proxies.Users.IUserService")]
+    public interface IUserService
+    {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/ChangePassword", ReplyAction="http://tempuri.org/IUserService/ChangePasswordResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult ChangePassword(string oldPassword, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/ChangePassword", ReplyAction="http://tempuri.org/IUserService/ChangePasswordResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult> ChangePasswordAsync(string oldPassword, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Users.LoginResult Login(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.LoginResult> LoginAsync(string username, string password);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    public interface IUserServiceChannel : MaSchoeller.Dublin.Client.Proxies.Users.IUserService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class UserServiceClient : System.ServiceModel.ClientBase<Proxies.Users.IUserService>, Proxies.Users.IUserService
+    public partial class UserServiceClient : System.ServiceModel.ClientBase<MaSchoeller.Dublin.Client.Proxies.Users.IUserService>, MaSchoeller.Dublin.Client.Proxies.Users.IUserService
     {
         
         public UserServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
@@ -122,22 +131,22 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         {
         }
         
-        public string GetTestData()
+        public MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult ChangePassword(string oldPassword, string newPassword)
         {
-            return base.Channel.GetTestData();
+            return base.Channel.ChangePassword(oldPassword, newPassword);
         }
         
-        public System.Threading.Tasks.Task<string> GetTestDataAsync()
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult> ChangePasswordAsync(string oldPassword, string newPassword)
         {
-            return base.Channel.GetTestDataAsync();
+            return base.Channel.ChangePasswordAsync(oldPassword, newPassword);
         }
         
-        public Proxies.Users.LoginResult Login(string username, string password)
+        public MaSchoeller.Dublin.Client.Proxies.Users.LoginResult Login(string username, string password)
         {
             return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<Proxies.Users.LoginResult> LoginAsync(string username, string password)
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.LoginResult> LoginAsync(string username, string password)
         {
             return base.Channel.LoginAsync(username, password);
         }

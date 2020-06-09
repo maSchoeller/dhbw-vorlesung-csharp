@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.ViewModels
 {
-    public class ConfigEmployeeViewModel : NotifyPropertyChangedBase
+    public class ConfigEmployeeViewModel : ViewModelBase
     {
     }
 }

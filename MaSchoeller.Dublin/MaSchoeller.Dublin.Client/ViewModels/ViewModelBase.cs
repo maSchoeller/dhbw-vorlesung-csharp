@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.ViewModels
 {
-    public class AdminViewModel : ViewModelBase
+    public class ViewModelBase : NotifyPropertyChangedBase
     {
+        private bool _isBusy;
+        public bool IsBusy { get => _isBusy; set => SetProperty(ref _isBusy, value); }
     }
 }

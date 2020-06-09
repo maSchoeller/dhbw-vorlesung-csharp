@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="Autofac.Wcf" Version="5.0.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.0" />
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />
@@ -25,10 +26,10 @@
     <Compile Update="Communications\CalculationService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Abstracts\ICalculationService.cs">
+    <Compile Update="Communications\ICalculationService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Abstracts\IFleetService.cs">
+    <Compile Update="Communications\IFleetService.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Communications\FleetService.cs">
@@ -37,7 +38,7 @@
     <Compile Update="Communications\UserService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Abstracts\IUserService.cs">
+    <Compile Update="Communications\IUserService.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="LogMessages.Designer.cs">

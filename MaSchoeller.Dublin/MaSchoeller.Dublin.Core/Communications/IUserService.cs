@@ -6,13 +6,15 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace MaSchoeller.Dublin.Core.Abstracts
+namespace MaSchoeller.Dublin.Core.Communications
 {
     [ServiceContract()]
-    public interface ICalculationService
+    public interface IUserService
     {
         [OperationContract]
-        string GetTestData();
+        PasswordChangeResult ChangePassword(string oldPassword, string newPassword);
 
+        [OperationContract]
+        LoginResult Login(string username, string password);
     }
 }

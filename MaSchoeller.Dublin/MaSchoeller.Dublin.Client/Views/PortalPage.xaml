@@ -8,6 +8,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PortalPage" Background="Red" >
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Grid.Column="1" 
+                Grid.Row="1"
+                Content="Password Ändern"
+                Command="{Binding ChangePassswordCommand}"/>
     </Grid>
 </Page>
