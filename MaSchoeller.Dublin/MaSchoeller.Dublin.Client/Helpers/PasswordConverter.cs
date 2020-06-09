@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentNHibernate.Conventions.Helpers.Prebuilt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,25 @@ namespace MaSchoeller.Dublin.Client.Helpers
 {
     public static class PasswordConverter
     {
-        public const char ReplaceChar = '*';
+        public const char ReplaceChar = '●';
         public static string PasswordChange(string source, string input)
         {
-            var dif = source.Length - input.Length;            
-            if (dif <= 0)
+            var builder = new StringBuilder();
+            var offset = 0;
+            for (int i = 0; i < input.Length; i++)
             {
-                var newSection = input.Trim(ReplaceChar);
-                source += newSection;
-                return source;
+                if (input[i] == ReplaceChar)
+                {
+                    builder.Append(source[i + offset]);
+                    
+                }
+                else
+                {
+                    builder.Append(input[i]);
+                    offset--;
+                }
             }
-            else
-            {
-                return source.Substring(0, source.Length - dif);
-            }
+            return builder.ToString();
         }
     }
 }

@@ -24,26 +24,18 @@ namespace MaSchoeller.Dublin.Client.Services
         public CalculationServiceClient CalculationClient { get; private set; } = null!;
 
 
-        private OperationContextScope? _fleetsScope;
-        private OperationContextScope? _calculationScope;
-        private OperationContextScope? _userScope;
-
         public async Task<(bool success, string? errormessage)> TryLoginAsync(string username, string password)
         {
             await CleanupAsync();
-            MessageHeader header;
             TokenEndpointBehavior behavior = new TokenEndpointBehavior();
             //Note: For scenarios like, login => logout => new login, i need a custome lifetime, only for this client connection.
-            //      The alternative is Autofac customeliftimescopes but the solution with an extra service abstraction looks way more easier.
+            //      The alternative is autofac customeliftimescopes but the solution with an extra service abstraction looks way more easier.
             UserClient = new UserServiceClient(new WSHttpBinding(), new EndpointAddress("http://localhost:8080/users"));
-                UserClient.Endpoint.EndpointBehaviors.Add(behavior);
+            UserClient.Endpoint.EndpointBehaviors.Add(behavior);
             try
             {
                 await UserClient.OpenAsync();
-                _userScope = new OperationContextScope(UserClient.InnerChannel);
                 var result = await UserClient.LoginAsync(username, password);
-                //header = MessageHeader.CreateHeader("TokenHeader", "TokenNameSpace", result.Token);
-                //OperationContext.Current.OutgoingMessageHeaders.Add(header);
                 if (!result.Success)
                     return (false, result.ErrorMessage!);
                 behavior.Inspector.Token = result.Token;
@@ -64,12 +56,9 @@ namespace MaSchoeller.Dublin.Client.Services
             try
             {
                 FleetsClient = new FleetServiceClient(new WSHttpBinding(), new EndpointAddress("http://localhost:8080/fleets"));
-                _fleetsScope = new OperationContextScope(FleetsClient.InnerChannel);
-                //OperationContext.Current.OutgoingMessageHeaders.Add(header);
-
+                FleetsClient.Endpoint.EndpointBehaviors.Add(behavior);
                 CalculationClient = new CalculationServiceClient(new WSHttpBinding(), new EndpointAddress("http://localhost:8080/calculations"));
-                _calculationScope = new OperationContextScope(CalculationClient.InnerChannel);
-                //OperationContext.Current.OutgoingMessageHeaders.Add(header);
+                CalculationClient.Endpoint.EndpointBehaviors.Add(behavior);
             }
             catch (Exception e)
             {
@@ -81,10 +70,6 @@ namespace MaSchoeller.Dublin.Client.Services
 
         private async Task CleanupAsync()
         {
-            _calculationScope?.Dispose();
-            _fleetsScope?.Dispose();
-            _userScope?.Dispose();
-
             if (UserClient?.State == CommunicationState.Opened)
                 await (UserClient?.CloseAsync() ?? Task.CompletedTask);
             if (FleetsClient?.State == CommunicationState.Opened)
