@@ -53,9 +53,10 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
 
 
-        private async void ExecuteNewCommand(object o)
+        private  void ExecuteNewCommand(object o)
         {
             _viewModel.InEdit = true;
+            _viewModel.SelectedUser = null;
         }
 
         private void ExecuteEditCommand(object o)

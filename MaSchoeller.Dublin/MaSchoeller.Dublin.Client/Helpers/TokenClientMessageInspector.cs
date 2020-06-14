@@ -47,15 +47,11 @@ namespace MaSchoeller.Dublin.Client.Helpers
         public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
         {
             clientRuntime.MessageInspectors.Add(Inspector);
-            //foreach (ClientOperation op in clientRuntime.Operations)
-            //    op.ParameterInspectors.Add(new TokenClientMessageInspector(_token));
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
         {
-            //endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new TokenClientMessageInspector(_token));
-            //foreach (DispatchOperation op in endpointDispatcher.DispatchRuntime.Operations)
-            //    op.ParameterInspectors.Add(new TokenClientMessageInspector(_token));
+
         }
 
         public void Validate(ServiceEndpoint endpoint) { }

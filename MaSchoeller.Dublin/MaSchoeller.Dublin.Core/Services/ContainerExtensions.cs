@@ -11,13 +11,13 @@ namespace MaSchoeller.Dublin.Core.Services
     {
         public static ContainerBuilder AddDublin(this ContainerBuilder container, ServerConfiguration configuration)
         {
-            container.AddDublinCommen(configuration);
+            container.AddDublinCommon(configuration);
             container.AddCommunications();
             container.AddRepositories();
             return container;
         }
 
-        public static ContainerBuilder AddDublinCommen(this ContainerBuilder container, ServerConfiguration configuration)
+        public static ContainerBuilder AddDublinCommon(this ContainerBuilder container, ServerConfiguration configuration)
         {
 
             container.RegisterType<JwtHelper>()

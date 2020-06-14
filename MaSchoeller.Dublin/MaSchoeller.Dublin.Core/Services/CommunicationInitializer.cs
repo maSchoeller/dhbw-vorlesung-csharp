@@ -53,7 +53,7 @@ namespace MaSchoeller.Dublin.Core.Services
 
             //Note: This is totally insecure and should never happen in Production, 
             //      the login credentials will transfered on an unencrypted channel, 
-            //      in Production use Protocols they support TLS
+            //      in Production use Protocols that support TLS
             WSHttpBinding httpBinding = new WSHttpBinding();
             host.AddServiceEndpoint(typeof(IUserService), httpBinding, "");
             host.AddDependencyInjectionBehavior<IUserService>(_container);
