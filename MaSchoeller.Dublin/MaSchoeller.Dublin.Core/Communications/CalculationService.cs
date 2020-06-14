@@ -1,9 +1,11 @@
 ﻿using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
+using System.ServiceModel;
 using System.ServiceModel.Security;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     internal class CalculationService : BaseService, ICalculationService
     {
         private readonly ILogger<UserService>? _logger;

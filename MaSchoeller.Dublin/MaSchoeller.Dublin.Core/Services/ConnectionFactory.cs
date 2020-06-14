@@ -23,13 +23,13 @@ namespace MaSchoeller.Dublin.Core.Services
                                .BuildSessionFactory();
         }
 
-        private void AddMappings(FluentMappingsContainer mappings)
+        private static void AddMappings(FluentMappingsContainer mappings)
         {
             mappings.Add<BuisnessUnitMapping>();
             mappings.Add<VehicleMapping>();
             mappings.Add<UserMapping>();
             mappings.Add<EmployeeMapping>();
-
+            mappings.Add<VehicleEmployeeMapping>();
 
             mappings.Conventions.Add(DefaultLazy.Never());
         }

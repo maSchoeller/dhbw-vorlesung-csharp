@@ -61,6 +61,24 @@ namespace MaSchoeller.Dublin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sie konnten sich nicht Autentifizieren..
+        /// </summary>
+        internal static string WcfAutherizeResultMessage {
+            get {
+                return ResourceManager.GetString("WcfAutherizeResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Du hast keine Rechte den Admin status zu ändern..
+        /// </summary>
+        internal static string WcfNoAdminRightsMessage {
+            get {
+                return ResourceManager.GetString("WcfNoAdminRightsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while start the wcf Service listen on &apos; {0} &apos;, close the application they blocking the startup or change the port in &apos;appsettings.json&apos;.
         /// </summary>
         internal static string WcfPortBindingError {

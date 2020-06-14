@@ -14,7 +14,7 @@ namespace MaSchoeller.Dublin.Core.Database
         protected IConnectionFactory Factory { get; }
         protected ILogger? Logger { get; }
 
-        protected BaseRepository(IConnectionFactory factory) 
+        protected BaseRepository(IConnectionFactory factory)
             : this(factory, null) { }
 
         protected BaseRepository(IConnectionFactory factory, ILogger? logger)
@@ -23,46 +23,89 @@ namespace MaSchoeller.Dublin.Core.Database
             Logger = logger;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual ICollection<T> GetAll()
         {
             using var session = Factory.OpenSession();
             return session.CreateCriteria<T>().List<T>();
         }
 
-        public void Delete(T entity)
+        public virtual OperationResult Delete(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
-            session.Delete(entity);
-            transaction.Commit();
+            try
+            {
+                session.Delete(entity);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                return OperationResult.CascadingDeleteError;
+            }
+            return OperationResult.Success;
         }
 
-        public void Save(T entity)
+        public virtual OperationResult Save(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
-            session.Save(entity);
-            transaction.Commit();
+            try
+            {
+                session.Save(entity);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                return OperationResult.SaveFailure;
+            }
+            return OperationResult.Success;
         }
 
-        public void Update(T entity)
+        public virtual OperationResult Update(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
-            session.Update(entity);
-            transaction.Commit();
+            try
+            {
+                session.Update(entity);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                return OperationResult.SaveFailure;
+            }
+            return OperationResult.Success;
         }
 
-        public T FindById(int id)
+        public virtual T FindById(int id)
         {
             using var session = Factory.OpenSession();
             return session.Get<T>(id);
         }
 
-        public (IQueryable<T> query, IDisposable session) GetQuery()
+        public virtual (IQueryable<T> query, IDisposable session) GetQuery()
         {
             var session = Factory.OpenSession();
             return (session.Query<T>(), session);
+        }
+
+        public virtual OperationResult Update(int id, Action<T> modifier)
+        {
+            using var session = Factory.OpenSession();
+            var model = session.Get<T>(id);
+            if (model is null) return OperationResult.NotFound;
+            modifier(model);
+            using var transaction = session.BeginTransaction();
+            try
+            {
+                session.Update(model);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                return OperationResult.SaveFailure;
+            }
+            return OperationResult.Success;
         }
     }
 }

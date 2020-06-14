@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,7 @@ namespace MaSchoeller.Dublin.Core.Models
         public DateTime LeasingTo { get; set; }
         public double LeasingRate { get; set; }
         public int Version { get; set; }
+
+        public ICollection<VehicleEmployee> VehicleEmployees { get; set; } = new Collection<VehicleEmployee>();
     }
 }

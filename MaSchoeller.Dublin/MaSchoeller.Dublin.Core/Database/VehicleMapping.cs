@@ -13,22 +13,24 @@ namespace MaSchoeller.Dublin.Core.Database
         public VehicleMapping()
         {
             Table("Vehicles");
-            Id(g => g.Id).GeneratedBy.Native();
-            Map(g => g.Brand)
+            Id(v => v.Id).GeneratedBy.Native();
+            Map(v => v.Brand)
                 .Not.Nullable().Length(50);
-            Map(g => g.LicensePlate)
+            Map(v => v.LicensePlate)
                 .Not.Nullable().Length(50);
-            Map(g => g.Model)
+            Map(v => v.Model)
                 .Not.Nullable().Length(50);
-            Map(g => g.Insurance)
+            Map(v => v.Insurance)
                 .Not.Nullable();
-            Map(g => g.LeasingFrom)
+            Map(v => v.LeasingFrom)
                 .Not.Nullable();
-            Map(g => g.LeasingTo)
+            Map(v => v.LeasingTo)
                 .Not.Nullable();
-            Map(g => g.LeasingRate)
+            Map(v => v.LeasingRate)
                 .Not.Nullable();
-            Version(x => x.Version);
+            Version(v => v.Version);
+            HasMany(v => v.VehicleEmployees).KeyColumn("VehicleId")
+                .Cascade.All();
         }
     }
 }

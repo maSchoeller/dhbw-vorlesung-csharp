@@ -1,4 +1,5 @@
 ﻿using MaSchoeller.Dublin.Core.Communications.Models;
+using MaSchoeller.Dublin.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace MaSchoeller.Dublin.Core.Communications
     [ServiceContract()]
     public interface IFleetService
     {
-        [OperationContract]
-        string GetTestData();
 
+        [OperationContract]
+        DeleteResult DeleteBuisnessUnit(BuisnessUnit buisnessUnit);
+
+        [OperationContract]
+        SaveOrUpdateResult SaveOrUpdateBuisnessUnit(BuisnessUnit buisnessUnit);
+
+        [OperationContract]
+        IEnumerable<BuisnessUnit> GetAllBuisnessUnits();
     }
 }

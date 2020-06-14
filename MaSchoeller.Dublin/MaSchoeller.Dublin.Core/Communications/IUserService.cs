@@ -1,4 +1,5 @@
 ﻿using MaSchoeller.Dublin.Core.Communications.Models;
+using MaSchoeller.Dublin.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,17 @@ namespace MaSchoeller.Dublin.Core.Communications
 
         [OperationContract]
         LoginResult Login(string username, string password);
+
+        [OperationContract]
+        SaveOrUpdateResult SaveOrUpdateUser(User user);
+
+        [OperationContract]
+        DeleteResult DeleteUser(User user);
+
+        [OperationContract]
+        IEnumerable<User> GetAllUsers();
+
+        [OperationContract]
+        AdminResult SetAdminRights(int userId, bool AdminRight);
     }
 }

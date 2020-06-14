@@ -14,16 +14,21 @@ namespace MaSchoeller.Dublin.Core.Database
         {
 
             Table("Employees");
-            Id(g => g.Id).GeneratedBy.Native();
-            Map(g => g.Firstname)
+            Id(e => e.Id).GeneratedBy.Native();
+            Map(e => e.Firstname)
                 .Not.Nullable().Length(50);
-            Map(g => g.Lastname)
+            Map(e => e.Lastname)
                 .Not.Nullable().Length(50);
-            Map(g => g.EmployeeNumber)
+            Map(e => e.EmployeeNumber)
                 .Not.Nullable();
-            Map(g => g.Salutation).Length(50);
-            Map(g => g.Title).Length(50);
-            Version(x => x.Version);
+            Map(e => e.Salutation).Length(50);
+            Map(e => e.Title).Length(50);
+            Version(e => e.Version);
+            References(e => e.BuisnessUnit).Column("BuisnessUnitId")
+                .Not.Nullable()
+                .Cascade.All();
+            HasMany(e => e.VehicleEmployees).KeyColumn("EmployeeId")
+                    .Cascade.All();
         }
     }
 }

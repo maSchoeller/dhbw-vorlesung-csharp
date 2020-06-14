@@ -14,11 +14,12 @@ namespace MaSchoeller.Dublin.Core.Database
         {
 
             Table("BuisnessUnits");
-            Id(g => g.Id).GeneratedBy.Native();
-            Map(g => g.Name).Not.Nullable()
+            Id(b => b.Id).GeneratedBy.Native();
+            Map(b => b.Name).Not.Nullable()
                                 .Length(100);
-            Map(g => g.Description).Length(250);
-            Version(x => x.Version);
+            Map(b => b.Description).Length(250);
+            Version(b => b.Version);
+
         }
     }
 }

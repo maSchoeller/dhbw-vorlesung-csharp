@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,7 @@ namespace MaSchoeller.Dublin.Core.Models
         public string? Title { get; set; }
         public BuisnessUnit BuisnessUnit { get; set; } = null!;
         public int Version { get; set; }
+
+        public ICollection<VehicleEmployee> VehicleEmployees { get; set; } = new Collection<VehicleEmployee>();
     }
 }

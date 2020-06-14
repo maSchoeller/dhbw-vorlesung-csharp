@@ -11,12 +11,12 @@ namespace MaSchoeller.Dublin.Core.Communications
             SecurityHelper = helper;
         }
 
-        private UserContext _user = new UserContext();
-        protected UserContext User
+        private UserContext? _user = null!;
+        protected UserContext? User
         {
             get
             {
-                if (!_user.Inialized)
+                if (_user is null)
                 {
                     var token = GetToken();
                     if (!(token is null))
@@ -24,7 +24,6 @@ namespace MaSchoeller.Dublin.Core.Communications
                         var user = SecurityHelper.GetUserContext(token);
                         if (!(user is null)) _user = user;
                     }
-                    _user.Inialized = true;
                 }
                 return _user;
             }

@@ -3,9 +3,12 @@ using MaSchoeller.Dublin.Client.Proxies.Calculations;
 using MaSchoeller.Dublin.Client.Proxies.Fleets;
 using MaSchoeller.Dublin.Client.Proxies.Users;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Configuration;
 using System.ServiceModel.Security;
 using System.Threading.Tasks;
 
@@ -13,6 +16,11 @@ namespace MaSchoeller.Dublin.Client.Services
 {
     public class ClientConnectionHandler
     {
+
+        public const string AdminIdentifier = "admin";
+        public const string NameIdentifier = "username";
+        public const string FullnameIdentifier = "fullname";
+        public const string RoleIdentifier = "role";
 
         public ClientConnectionHandler()
         {
@@ -23,6 +31,7 @@ namespace MaSchoeller.Dublin.Client.Services
         public FleetServiceClient FleetsClient { get; private set; } = null!;
         public CalculationServiceClient CalculationClient { get; private set; } = null!;
 
+        public UserContext? ActiveUser { get; private set; }
 
         public async Task<(bool success, string? errormessage)> TryLoginAsync(string username, string password)
         {
@@ -36,17 +45,14 @@ namespace MaSchoeller.Dublin.Client.Services
             {
                 await UserClient.OpenAsync();
                 var result = await UserClient.LoginAsync(username, password);
-                if (!result.Success)
-                    return (false, result.ErrorMessage!);
+                if (result.Reason != OperationResult.Success)
+                    return (false, "Passwort oder Benutzername sind falsch.");
                 behavior.Inspector.Token = result.Token;
+                SetUserContext(result.Token);
             }
-            catch (Exception e) when (e is EndpointNotFoundException)
+            catch (EndpointNotFoundException e)
             {
                 return (false, "Der Server ist momentan leider nicht erreichbar.");
-            }
-            catch (Exception e) when (e is MessageSecurityException)
-            {
-                return (false, "Benutzer oder Passwort sind falsch.");
             }
             catch (Exception e)
             {
@@ -68,14 +74,37 @@ namespace MaSchoeller.Dublin.Client.Services
             return (true, null);
         }
 
+        private void SetUserContext(string token)
+        {
+            var handler = new  JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            ActiveUser = new UserContext();
+
+            foreach (var claim in jwtToken.Claims)
+            {
+                if (claim.Type == NameIdentifier)
+                {
+                    ActiveUser.Username = claim.Value;
+                }
+                if (claim.Type == NameIdentifier)
+                {
+                    ActiveUser.Username = claim.Value;
+                }
+                if (claim.Type == RoleIdentifier && claim.Value == AdminIdentifier)
+                {
+                    ActiveUser.IsAdmin = true;
+                }
+            }
+        }
+
         private async Task CleanupAsync()
         {
             if (UserClient?.State == CommunicationState.Opened)
-                await (UserClient?.CloseAsync() ?? Task.CompletedTask);
+                await UserClient.CloseAsync();
             if (FleetsClient?.State == CommunicationState.Opened)
-                await (FleetsClient?.CloseAsync() ?? Task.CompletedTask);
+                await FleetsClient.CloseAsync();
             if (CalculationClient?.State == CommunicationState.Opened)
-                await (CalculationClient?.CloseAsync() ?? Task.CompletedTask);
+                await CalculationClient.CloseAsync();
         }
     }
 }

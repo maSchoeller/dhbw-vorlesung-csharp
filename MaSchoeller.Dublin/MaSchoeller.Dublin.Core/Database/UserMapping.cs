@@ -14,18 +14,19 @@ namespace MaSchoeller.Dublin.Core.Database
         {
 
             Table("Users");
-            Id(g => g.Id).GeneratedBy.Native();
-            Map(g => g.Username)
+            Id(u => u.Id).GeneratedBy.Native();
+            Map(u => u.Username)
                 .Not.Nullable().Length(20);
-            Map(g => g.Firstname).Length(50);
-            Map(g => g.Lastname)
+            Map(u => u.Firstname).Length(50);
+            Map(u => u.Lastname)
                 .Not.Nullable().Length(50);
-            Map(g => g.PasswordHash)
+            Map(u => u.PasswordHash)
                 .Column("Password")
                 .Not.Nullable().Length(60);
-            Map(g => g.IsAdmin)
+            Map(u => u.IsAdmin)
                 .Not.Nullable();
-            Version(x => x.Version);
+            Version(u => u.Version);
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Antlr.Runtime.Misc;
+using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Dublin.Client.Views;
@@ -41,6 +42,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             {
                 DataContext = _viewModel
             };
+            window.Owner = Application.Current.MainWindow;
 
             Task.Run(() => { _blocker.WaitOne(); Application.Current.Dispatcher.Invoke(() => window.DialogResult = true);});
             
@@ -62,13 +64,13 @@ namespace MaSchoeller.Dublin.Client.Controllers
             {
                 var userClient = _connectionHandler.UserClient;
                 var result = await userClient.ChangePasswordAsync(_viewModel.OldPasswordClear, _viewModel.NewOnePasswordClear);
-                if (result.Success)
+                if (result.Reason == OperationResult.Success)
                 {
                     _blocker.Set();
                 }
                 else
                 {
-                    _viewModel.ErrorMessage = result.ErrorMessage!;
+                    _viewModel.ErrorMessage = "Refactor error Message"; //Todo: Refactor message
                 }
             }
             _viewModel.IsBusy = false;

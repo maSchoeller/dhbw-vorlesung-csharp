@@ -17,37 +17,25 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.LoginResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.AdminResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult))]
     public partial class BaseResult : object
     {
         
-        private string ErrorMessageField;
-        
-        private bool SuccessField;
+        private MaSchoeller.Dublin.Client.Proxies.Users.OperationResult ReasonField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ErrorMessage
+        public MaSchoeller.Dublin.Client.Proxies.Users.OperationResult Reason
         {
             get
             {
-                return this.ErrorMessageField;
+                return this.ReasonField;
             }
             set
             {
-                this.ErrorMessageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Success
-        {
-            get
-            {
-                return this.SuccessField;
-            }
-            set
-            {
-                this.SuccessField = value;
+                this.ReasonField = value;
             }
         }
     }
@@ -59,22 +47,7 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     public partial class LoginResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
         
-        private bool IsAdminField;
-        
         private string TokenField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsAdmin
-        {
-            get
-            {
-                return this.IsAdminField;
-            }
-            set
-            {
-                this.IsAdminField = value;
-            }
-        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token
@@ -92,10 +65,164 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SaveOrUpdateResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class SaveOrUpdateResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
+    {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class DeleteResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
+    {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AdminResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class AdminResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
+    {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PasswordChangeResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
     public partial class PasswordChangeResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OperationResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Database")]
+    public enum OperationResult : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Success = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Lock = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NotFound = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SaveFailure = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CascadingDeleteError = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AlreadyExists = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NotAuthorized = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NotAuthenticated = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        UnkownError = 2147483647,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
+    public partial class User : object
+    {
+        
+        private string FirstnameField;
+        
+        private int IdField;
+        
+        private bool IsAdminField;
+        
+        private string LastnameField;
+        
+        private string UsernameField;
+        
+        private int VersionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Firstname
+        {
+            get
+            {
+                return this.FirstnameField;
+            }
+            set
+            {
+                this.FirstnameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin
+        {
+            get
+            {
+                return this.IsAdminField;
+            }
+            set
+            {
+                this.IsAdminField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Lastname
+        {
+            get
+            {
+                return this.LastnameField;
+            }
+            set
+            {
+                this.LastnameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username
+        {
+            get
+            {
+                return this.UsernameField;
+            }
+            set
+            {
+                this.UsernameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Version
+        {
+            get
+            {
+                return this.VersionField;
+            }
+            set
+            {
+                this.VersionField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -114,6 +241,30 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
         System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.LoginResult> LoginAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SaveOrUpdateUser", ReplyAction="http://tempuri.org/IUserService/SaveOrUpdateUserResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SaveOrUpdateUser", ReplyAction="http://tempuri.org/IUserService/SaveOrUpdateUserResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/DeleteUser", ReplyAction="http://tempuri.org/IUserService/DeleteUserResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/DeleteUser", ReplyAction="http://tempuri.org/IUserService/DeleteUserResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetAllUsers", ReplyAction="http://tempuri.org/IUserService/GetAllUsersResponse")]
+        System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Users.User> GetAllUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetAllUsers", ReplyAction="http://tempuri.org/IUserService/GetAllUsersResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Users.User>> GetAllUsersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SetAdminRights", ReplyAction="http://tempuri.org/IUserService/SetAdminRightsResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Users.AdminResult SetAdminRights(int userId, bool AdminRight);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SetAdminRights", ReplyAction="http://tempuri.org/IUserService/SetAdminRightsResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.AdminResult> SetAdminRightsAsync(int userId, bool AdminRight);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -149,6 +300,46 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.LoginResult> LoginAsync(string username, string password)
         {
             return base.Channel.LoginAsync(username, password);
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        {
+            return base.Channel.SaveOrUpdateUser(user);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        {
+            return base.Channel.SaveOrUpdateUserAsync(user);
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        {
+            return base.Channel.DeleteUser(user);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        {
+            return base.Channel.DeleteUserAsync(user);
+        }
+        
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Users.User> GetAllUsers()
+        {
+            return base.Channel.GetAllUsers();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Users.User>> GetAllUsersAsync()
+        {
+            return base.Channel.GetAllUsersAsync();
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Users.AdminResult SetAdminRights(int userId, bool AdminRight)
+        {
+            return base.Channel.SetAdminRights(userId, AdminRight);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.AdminResult> SetAdminRightsAsync(int userId, bool AdminRight)
+        {
+            return base.Channel.SetAdminRightsAsync(userId, AdminRight);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

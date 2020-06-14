@@ -6,7 +6,6 @@
     <TargetFramework>net48</TargetFramework>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
-    <UserSecretsId>d7434660-9ad4-4142-ab0b-b41d67a3e3e5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -23,9 +23,6 @@ namespace MaSchoeller.Dublin.Core.Services
             container.RegisterType<JwtHelper>()
                      .As<ISecurityHelper>()
                      .InstancePerLifetimeScope();
-            container.RegisterType<ConnectionFactory>()
-                     .As<IConnectionFactory>()
-                     .SingleInstance();
             container.RegisterInstance(configuration)
                      .SingleInstance();
 

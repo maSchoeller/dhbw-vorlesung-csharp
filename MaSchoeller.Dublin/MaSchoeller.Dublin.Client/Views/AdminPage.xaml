@@ -3,12 +3,85 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views"
+      xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views" xmlns:helper="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AdminPage" Background="DarkCyan" >
+    <Page.Resources>
+        <helper:InvertBoolConverter x:Key="invertBoolConverter"/>
+    </Page.Resources>
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser}"
+                  AutoGenerateColumns="False"
+                  Grid.Row="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vollständiger Name" 
+                                    IsReadOnly="True"
+                                    Binding="{Binding Fullname}" />
+                <DataGridTextColumn Header="Benutzername"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Username}" />
+                <DataGridCheckBoxColumn Header="Admin"
+                                        Binding="{Binding IsAdmin}"
+                                        IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label  Grid.Row="1" Grid.Column="1"
+                    Content="Benutzername"/>
+            <TextBox  Grid.Row="2" Grid.Column="1"
+                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
+                      Text="{Binding Username}"/>
+            <Label  Grid.Row="3" Grid.Column="1"
+                    Content="Vorname"/>
+            <TextBox  Grid.Row="4" Grid.Column="1"
+                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
+                      Text="{Binding Firstname}"/>
+            <Label  Grid.Row="5" Grid.Column="1"
+                    Content="Nachname"/>
+            <TextBox  Grid.Row="6" Grid.Column="1"
+                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
+                      Text="{Binding Lastname}"/>
+            <CheckBox  Grid.Row="7" Grid.Column="1"
+                       Content="Administrator"
+                       IsEnabled="{Binding InEdit}"
+                       IsChecked="{Binding IsAdmin}"/>
+            <StackPanel Grid.Row="9" Grid.Column="1"
+                        Orientation="Horizontal">
+                <Button Content="Neu" 
+                        Command="{Binding NewCommand}"/>
+                <Button Content="Bearbeiten" 
+                        Command="{Binding EditCommand}"/>
+                <Button Content="Speichern"
+                        Command="{Binding SaveCommand}"/>
+                <Button Content="Löschen"
+                        Command="{Binding DeleteCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

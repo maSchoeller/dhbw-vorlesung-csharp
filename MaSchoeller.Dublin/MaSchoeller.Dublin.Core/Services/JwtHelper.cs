@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using MaSchoeller.Dublin.Core.Database.Abstracts;
 using MaSchoeller.Dublin.Core.Communications;
 using System.Linq;
+using MaSchoeller.Dublin.Core.Models;
 
 namespace MaSchoeller.Dublin.Core.Services
 {
@@ -16,6 +17,7 @@ namespace MaSchoeller.Dublin.Core.Services
     {
         public const string AdminIdentifier = "admin";
         public const string NameIdentifier = "username";
+        public const string FullnameIdentifier = "fullname";
         public const string RoleIdentifier = "role";
 
         private readonly ServerConfiguration _configuration;
@@ -32,14 +34,15 @@ namespace MaSchoeller.Dublin.Core.Services
             _handler = new JwtSecurityTokenHandler();
         }
 
-        public string CreateToken(string username, bool isAdmin = false)
+        public string CreateToken(User user)
         {
             var key = Encoding.ASCII.GetBytes(_configuration.TokenSecret);
             var listClaims = new List<Claim>()
             {
-                new Claim(NameIdentifier, username),
+                new Claim(NameIdentifier, user.Username),
+                new Claim(FullnameIdentifier, user.FullName),
             };
-            if (isAdmin)
+            if (user.IsAdmin)
                 listClaims.Add(new Claim(RoleIdentifier, AdminIdentifier));
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -90,12 +93,12 @@ namespace MaSchoeller.Dublin.Core.Services
             }
 
         }
-        public bool Login(string username, string password)
+        public (bool, User?) Login(string username, string password)
         {
             var user = _repository.FindByName(username);
             if (user is null)
-                return false;
-            return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+                return (false,null);
+            return (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash), user);
         }
 
         public bool UpdatePassword(string username, string oldPassword, string newPassword)
