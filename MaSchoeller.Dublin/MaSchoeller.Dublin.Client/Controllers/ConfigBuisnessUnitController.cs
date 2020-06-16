@@ -21,5 +21,21 @@ namespace MaSchoeller.Dublin.Client.Controllers
         {
             return _viewModel;
         }
+
+
+        private void ExecuteNewCommand()
+        {
+
+        }
+
+        private void ExecuteSaveCommand()
+        {
+
+        }
+
+        public void ExecuteDeleteCommand()
+        {
+
+        }
     }
 }
