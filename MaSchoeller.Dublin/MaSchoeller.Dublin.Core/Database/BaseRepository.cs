@@ -1,6 +1,7 @@
 ﻿using MaSchoeller.Dublin.Core.Database.Abstracts;
 using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,11 @@ namespace MaSchoeller.Dublin.Core.Database
             return session.CreateCriteria<T>().List<T>();
         }
 
-        public virtual OperationResult Delete(T entity)
+        public virtual (OperationResult result, T entity) Delete(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
+
             try
             {
                 session.Delete(entity);
@@ -40,41 +42,52 @@ namespace MaSchoeller.Dublin.Core.Database
             }
             catch (Exception e)
             {
-                return OperationResult.CascadingDeleteError;
+                return (OperationResult.CascadingDeleteError, entity);
             }
-            return OperationResult.Success;
+            return (OperationResult.Success, entity);
+
         }
 
-        public virtual OperationResult Save(T entity)
+        public virtual (OperationResult result, T entity) Save(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
+
             try
             {
-                session.Save(entity);
+                var id = session.Save(entity);
                 transaction.Commit();
             }
             catch (Exception e)
             {
-                return OperationResult.SaveFailure;
+                return (OperationResult.SaveFailure, entity);
             }
-            return OperationResult.Success;
+            return (OperationResult.Success, entity);
+
         }
 
-        public virtual OperationResult Update(T entity)
+        public virtual (OperationResult result, T entity) Update(T entity)
         {
             using var session = Factory.OpenSession();
             using var transaction = session.BeginTransaction();
             try
-            {
+            { 
+                //Note: uncomment for checking version conflicts
+                //dynamic t = entity;
+                //t.Version = 1;
                 session.Update(entity);
                 transaction.Commit();
             }
+            catch(StaleObjectStateException e)
+            {
+                return (OperationResult.SaveConflict, entity);
+            }
             catch (Exception e)
             {
-                return OperationResult.SaveFailure;
+                return (OperationResult.SaveFailure, entity);
             }
-            return OperationResult.Success;
+            return (OperationResult.Success, entity);
+
         }
 
         public virtual T FindById(int id)
@@ -89,11 +102,11 @@ namespace MaSchoeller.Dublin.Core.Database
             return (session.Query<T>(), session);
         }
 
-        public virtual OperationResult Update(int id, Action<T> modifier)
+        public virtual (OperationResult result, T entity) Update(int id, Action<T> modifier)
         {
             using var session = Factory.OpenSession();
             var model = session.Get<T>(id);
-            if (model is null) return OperationResult.NotFound;
+            if (model is null) return (OperationResult.NotFound, null!);
             modifier(model);
             using var transaction = session.BeginTransaction();
             try
@@ -103,9 +116,9 @@ namespace MaSchoeller.Dublin.Core.Database
             }
             catch (Exception e)
             {
-                return OperationResult.SaveFailure;
+                return (OperationResult.SaveFailure, model);
             }
-            return OperationResult.Success;
+            return (OperationResult.Success, model);
         }
     }
 }

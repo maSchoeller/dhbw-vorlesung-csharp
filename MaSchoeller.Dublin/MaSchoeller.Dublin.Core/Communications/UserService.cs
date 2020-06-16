@@ -79,45 +79,45 @@ namespace MaSchoeller.Dublin.Core.Communications
                 return new AdminResult { Reason = OperationResult.NotAuthorized };
 
             var result = _users.Update(userId, u => u.IsAdmin = AdminRight);
-            return new AdminResult { Reason = result };
+            return new AdminResult { Reason = result.result };
         }
 
-        public SaveOrUpdateResult SaveOrUpdateUser(User user)
+        public SaveOrUpdateUserResult SaveOrUpdateUser(User user)
         {
             if (!Validate())
-                return new SaveOrUpdateResult { Reason = OperationResult.NotAuthenticated };
+                return new SaveOrUpdateUserResult { Reason = OperationResult.NotAuthenticated, User = user };
 
             if (!User!.IsAdmin)
-                return new SaveOrUpdateResult { Reason = OperationResult.NotAuthorized };
+                return new SaveOrUpdateUserResult { Reason = OperationResult.NotAuthorized, User = user };
 
-            OperationResult reason;
             //Note: if the Id is zero or negative, the id is not set and it's a create user action
             //      in Production i would use a DTO to handle data and maybe send the id as separate parameter of type int? to indicate my intention.
             //      But for this it should work.
             if (user.Id <= 0)
             {
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword("geheim");
-                reason = _users.Save(user);
+                var reason = _users.Save(user);
+                return new SaveOrUpdateUserResult { Reason = reason.result, User = reason.entity };
             }
             else
             {
-                reason = _users.Update(user);
+                var reason = _users.Update(user);
+                return new SaveOrUpdateUserResult { Reason = reason.result, User = reason.entity };
             }
-            return new SaveOrUpdateResult { Reason = reason };
         }
 
-      
 
-        public DeleteResult DeleteUser(User user)
+
+        public DeleteUserResult DeleteUser(User user)
         {
             if (!Validate())
-                return new DeleteResult() { Reason = OperationResult.NotAuthenticated };
+                return new DeleteUserResult() { Reason = OperationResult.NotAuthenticated };
 
             if (!User!.IsAdmin)
-                return new DeleteResult() { Reason = OperationResult.NotAuthorized };
+                return new DeleteUserResult() { Reason = OperationResult.NotAuthorized };
 
             var result = _users.Delete(user);
-            return new DeleteResult() { Reason = result };
+            return new DeleteUserResult() { Reason = result.result, User = result.entity };
         }
     }
 }

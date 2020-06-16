@@ -3,6 +3,7 @@ using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Dublin.Client.Views;
+using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,16 @@ namespace MaSchoeller.Dublin.Client.Controllers
     {
         private readonly ChangePasswordViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
-
+        private readonly INavigationService _navigationService;
         private readonly AutoResetEvent _blocker = new AutoResetEvent(false);
 
         public ChangePasswordController(ChangePasswordViewModel viewModel,
-                                        ClientConnectionHandler connectionHandler)
+                                        ClientConnectionHandler connectionHandler,
+                                        INavigationService navigationService)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
+            _navigationService = navigationService;
             _viewModel.ChangeCommand =
                  ConfigurableCommand.Create(PasswordChangeExecute).Build();
         }
@@ -44,8 +47,8 @@ namespace MaSchoeller.Dublin.Client.Controllers
             };
             window.Owner = Application.Current.MainWindow;
 
-            Task.Run(() => { _blocker.WaitOne(); Application.Current.Dispatcher.Invoke(() => window.DialogResult = true);});
-            
+            Task.Run(() => { _blocker.WaitOne(); Application.Current.Dispatcher.Invoke(() => window.DialogResult = true); });
+
             window.ShowDialog();
         }
 
@@ -54,23 +57,31 @@ namespace MaSchoeller.Dublin.Client.Controllers
             _viewModel.IsBusy = true;
             if (_viewModel.OldPasswordClear == _viewModel.NewOnePasswordClear)
             {
-                _viewModel.ErrorMessage = "Das alte und neue Passwort stimmen über ein.";
+                _viewModel.ErrorMessage = DisplayMesages.OldAndNewAreSame;
             }
             else if (_viewModel.NewOnePasswordClear != _viewModel.NewTwoPasswordClear)
             {
-                _viewModel.ErrorMessage = "Die neuen Passwörter stimmen nicht über ein.";
+                _viewModel.ErrorMessage = DisplayMesages.NewPasswordAreNotSame;
             }
             else
             {
-                var userClient = _connectionHandler.UserClient;
-                var result = await userClient.ChangePasswordAsync(_viewModel.OldPasswordClear, _viewModel.NewOnePasswordClear);
-                if (result.Reason == OperationResult.Success)
+                try
                 {
-                    _blocker.Set();
+                    var userClient = _connectionHandler.UserClient;
+                    var result = await userClient.ChangePasswordAsync(_viewModel.OldPasswordClear, _viewModel.NewOnePasswordClear);
+                    if (result.Reason == OperationResult.Success)
+                    {
+                        _blocker.Set();
+                    }
+                    else
+                    {
+                        _viewModel.ErrorMessage = "Refactor error Message"; //Todo: Refactor message
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    _viewModel.ErrorMessage = "Refactor error Message"; //Todo: Refactor message
+                    MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
+                    _navigationService.NavigateTo(Navigation.DefaultRoute);
                 }
             }
             _viewModel.IsBusy = false;

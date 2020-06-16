@@ -3,6 +3,7 @@ using MaSchoeller.Dublin.Client.Proxies.Calculations;
 using MaSchoeller.Dublin.Client.Proxies.Fleets;
 using MaSchoeller.Dublin.Client.Proxies.Users;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -16,7 +17,6 @@ namespace MaSchoeller.Dublin.Client.Services
 {
     public class ClientConnectionHandler
     {
-
         public const string AdminIdentifier = "admin";
         public const string NameIdentifier = "username";
         public const string FullnameIdentifier = "fullname";
@@ -45,7 +45,7 @@ namespace MaSchoeller.Dublin.Client.Services
             {
                 await UserClient.OpenAsync();
                 var result = await UserClient.LoginAsync(username, password);
-                if (result.Reason != OperationResult.Success)
+                if (result.Reason != Proxies.Users.OperationResult.Success)
                     return (false, "Passwort oder Benutzername sind falsch.");
                 behavior.Inspector.Token = result.Token;
                 SetUserContext(result.Token);
@@ -76,7 +76,7 @@ namespace MaSchoeller.Dublin.Client.Services
 
         private void SetUserContext(string token)
         {
-            var handler = new  JwtSecurityTokenHandler();
+            var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
             ActiveUser = new UserContext();
 
@@ -99,11 +99,11 @@ namespace MaSchoeller.Dublin.Client.Services
 
         private async Task CleanupAsync()
         {
-            if (UserClient?.State == CommunicationState.Opened)
+            if (UserClient?.State == CommunicationState.Opened || UserClient?.State == CommunicationState.Faulted)
                 await UserClient.CloseAsync();
-            if (FleetsClient?.State == CommunicationState.Opened)
+            if (FleetsClient?.State == CommunicationState.Opened || FleetsClient?.State == CommunicationState.Faulted)
                 await FleetsClient.CloseAsync();
-            if (CalculationClient?.State == CommunicationState.Opened)
+            if (CalculationClient?.State == CommunicationState.Opened || CalculationClient?.State == CommunicationState.Faulted)
                 await CalculationClient.CloseAsync();
         }
     }

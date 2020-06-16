@@ -10,12 +10,12 @@ namespace MaSchoeller.Dublin.Core.Database.Abstracts
     {
         ICollection<T> GetAll();
         (IQueryable<T> query, IDisposable session) GetQuery();
-        OperationResult Delete(T entity);
+        (OperationResult result,T entity) Delete(T entity);
 
-        OperationResult Update(int id, Action<T> modifier);
+        (OperationResult result, T entity) Update(int id, Action<T> modifier);
 
-        OperationResult Update(T entity);
-        OperationResult Save(T entity);
+        (OperationResult result, T entity) Update(T entity);
+        (OperationResult result, T entity) Save(T entity);
         T? FindById(int id);
 
     }

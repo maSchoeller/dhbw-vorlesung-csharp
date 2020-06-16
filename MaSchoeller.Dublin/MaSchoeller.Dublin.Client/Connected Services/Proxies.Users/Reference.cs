@@ -17,8 +17,8 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.LoginResult))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateUserResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.DeleteUserResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.AdminResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Users.PasswordChangeResult))]
     public partial class BaseResult : object
@@ -65,18 +65,48 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SaveOrUpdateResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="SaveOrUpdateUserResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
-    public partial class SaveOrUpdateResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
+    public partial class SaveOrUpdateUserResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Users.User UserField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Users.User User
+        {
+            get
+            {
+                return this.UserField;
+            }
+            set
+            {
+                this.UserField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteUserResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
-    public partial class DeleteResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
+    public partial class DeleteUserResult : MaSchoeller.Dublin.Client.Proxies.Users.BaseResult
     {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Users.User UserField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Users.User User
+        {
+            get
+            {
+                return this.UserField;
+            }
+            set
+            {
+                this.UserField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -123,6 +153,9 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         NotAuthenticated = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SaveConflict = 8,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         UnkownError = 2147483647,
@@ -243,16 +276,16 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
         System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.LoginResult> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SaveOrUpdateUser", ReplyAction="http://tempuri.org/IUserService/SaveOrUpdateUserResponse")]
-        MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateUserResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/SaveOrUpdateUser", ReplyAction="http://tempuri.org/IUserService/SaveOrUpdateUserResponse")]
-        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateUserResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/DeleteUser", ReplyAction="http://tempuri.org/IUserService/DeleteUserResponse")]
-        MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        MaSchoeller.Dublin.Client.Proxies.Users.DeleteUserResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/DeleteUser", ReplyAction="http://tempuri.org/IUserService/DeleteUserResponse")]
-        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteUserResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetAllUsers", ReplyAction="http://tempuri.org/IUserService/GetAllUsersResponse")]
         System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Users.User> GetAllUsers();
@@ -302,22 +335,22 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
             return base.Channel.LoginAsync(username, password);
         }
         
-        public MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        public MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateUserResult SaveOrUpdateUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
         {
             return base.Channel.SaveOrUpdateUser(user);
         }
         
-        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.SaveOrUpdateUserResult> SaveOrUpdateUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
         {
             return base.Channel.SaveOrUpdateUserAsync(user);
         }
         
-        public MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        public MaSchoeller.Dublin.Client.Proxies.Users.DeleteUserResult DeleteUser(MaSchoeller.Dublin.Client.Proxies.Users.User user)
         {
             return base.Channel.DeleteUser(user);
         }
         
-        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Users.DeleteUserResult> DeleteUserAsync(MaSchoeller.Dublin.Client.Proxies.Users.User user)
         {
             return base.Channel.DeleteUserAsync(user);
         }

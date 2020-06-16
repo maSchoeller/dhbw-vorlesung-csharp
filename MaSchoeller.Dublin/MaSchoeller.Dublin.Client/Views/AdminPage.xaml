@@ -31,6 +31,9 @@
                 <DataGridCheckBoxColumn Header="Admin"
                                         Binding="{Binding IsAdmin}"
                                         IsReadOnly="True" />
+                <DataGridTextColumn Header="State"
+                                    IsReadOnly="True"
+                                    Binding="{Binding EditState}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -55,32 +58,27 @@
             <Label  Grid.Row="1" Grid.Column="1"
                     Content="Benutzername"/>
             <TextBox  Grid.Row="2" Grid.Column="1"
-                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
-                      Text="{Binding Username}"/>
+                      Text="{Binding SelectedUser.Username, UpdateSourceTrigger=PropertyChanged}"/>
             <Label  Grid.Row="3" Grid.Column="1"
                     Content="Vorname"/>
             <TextBox  Grid.Row="4" Grid.Column="1"
-                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
-                      Text="{Binding Firstname}"/>
+                      Text="{Binding  SelectedUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
             <Label  Grid.Row="5" Grid.Column="1"
                     Content="Nachname"/>
             <TextBox  Grid.Row="6" Grid.Column="1"
-                      IsReadOnly="{Binding InEdit, Converter={StaticResource invertBoolConverter}}"
-                      Text="{Binding Lastname}"/>
+                      Text="{Binding  SelectedUser.Lastname, UpdateSourceTrigger=PropertyChanged}"/>
             <CheckBox  Grid.Row="7" Grid.Column="1"
                        Content="Administrator"
-                       IsEnabled="{Binding InEdit}"
-                       IsChecked="{Binding IsAdmin}"/>
+                       IsChecked="{Binding  SelectedUser.IsAdmin}"/>
             <StackPanel Grid.Row="9" Grid.Column="1"
                         Orientation="Horizontal">
                 <Button Content="Neu" 
                         Command="{Binding NewCommand}"/>
-                <Button Content="Bearbeiten" 
-                        Command="{Binding EditCommand}"/>
                 <Button Content="Speichern"
                         Command="{Binding SaveCommand}"/>
                 <Button Content="Löschen"
                         Command="{Binding DeleteCommand}"/>
+                <Label Content="{Binding SelectedUser.ErrorMessage}" />
             </StackPanel>
         </Grid>
     </Grid>

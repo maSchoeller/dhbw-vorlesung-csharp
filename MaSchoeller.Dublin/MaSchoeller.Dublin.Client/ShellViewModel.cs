@@ -1,4 +1,6 @@
-﻿using MaSchoeller.Extensions.Desktop.Abstracts;
+﻿using MaSchoeller.Dublin.Client.Helpers;
+using MaSchoeller.Dublin.Client.Services;
+using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,7 +16,9 @@ namespace MaSchoeller.Dublin.Client
     public class ShellViewModel : NotifyPropertyChangedBase
     {
 
-        public ShellViewModel(INavigationService navigationService, ILogger<ShellViewModel>? logger = null)
+        public ShellViewModel(INavigationService navigationService,
+                              ClientConnectionHandler connectionHandler,
+                              ILogger<ShellViewModel>? logger = null)
         {
             NavigationCommand = ConfigurableCommand.Create(
             async o =>
@@ -39,12 +43,22 @@ namespace MaSchoeller.Dublin.Client
             {
                 logger?.LogWarning("Failed navigating to Page {0}", e.Route);
             };
+            
+            void OnDisconnect(object sender, EventArgs e)
+            {
+                if (_route != Navigation.DefaultRoute)
+                {
+                    navigationService.NavigateTo(Navigation.DefaultRoute);
+                }
+            }
         }
+
 
         private bool _isNavbarVisible = false;
         public bool IsNavbarVisible { get => _isNavbarVisible; set => SetProperty(ref _isNavbarVisible, value); }
 
         private string _route = string.Empty;
+
         public string Route { get => _route; set => SetProperty(ref _route, value); }
 
         public ICommand NavigationCommand { get; }

@@ -26,6 +26,21 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DisplayMesages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DisplayMesages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="DisplayMesages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayMesages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
 
 

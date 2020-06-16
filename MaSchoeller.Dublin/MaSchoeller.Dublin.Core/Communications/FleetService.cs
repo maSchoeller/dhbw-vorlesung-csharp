@@ -33,52 +33,52 @@ namespace MaSchoeller.Dublin.Core.Communications
             return _buisnesses.GetAll();
         }
 
-        public SaveOrUpdateResult SaveOrUpdateBuisnessUnit(BuisnessUnit buisnessUnit)
+        public SaveOrUpdateBuisnessUnitResult SaveOrUpdateBuisnessUnit(BuisnessUnit buisnessUnit)
         {
             if (!Validate())
-                return new SaveOrUpdateResult { Reason = OperationResult.NotAuthenticated };
+                return new SaveOrUpdateBuisnessUnitResult { Reason = OperationResult.NotAuthenticated };
 
-            OperationResult result;
             if (buisnessUnit.Id <= 0)
             {
-                result = _buisnesses.Save(buisnessUnit);
+                var result = _buisnesses.Save(buisnessUnit);
+                return new SaveOrUpdateBuisnessUnitResult { Reason = result.result, BuisnessUnit = result.entity };
             }
             else
             {
-                result = _buisnesses.Update(buisnessUnit);
+                var result = _buisnesses.Update(buisnessUnit);
+                return new SaveOrUpdateBuisnessUnitResult { Reason = result.result, BuisnessUnit = result.entity };
             }
-            return new SaveOrUpdateResult { Reason = result };
         }
 
-        public DeleteResult DeleteBuisnessUnit(BuisnessUnit buisnessUnit)
+        public DeleteBuisnessUnitResult DeleteBuisnessUnit(BuisnessUnit buisnessUnit)
         {
             if (!Validate())
-                return new DeleteResult { Reason = OperationResult.NotAuthenticated };
+                return new DeleteBuisnessUnitResult { Reason = OperationResult.NotAuthenticated };
 
             var result = _buisnesses.Delete(buisnessUnit);
-            return new DeleteResult { Reason = result };
+            return new DeleteBuisnessUnitResult { Reason = result.result, BuisnessUnit = result.entity };
         }
 
 
-        public IEnumerable<Employee> GetAllEmployees() 
+        public IEnumerable<Employee> GetAllEmployees()
             => _employees.GetAll();
 
-        public SaveOrUpdateResult SaveOrUpdateEmployee(Employee employee)
+        public SaveOrUpdateEmployeeResult SaveOrUpdateEmployee(Employee employee)
         {
             if (!Validate())
-                return new SaveOrUpdateResult { Reason = OperationResult.NotAuthenticated };
+                return new SaveOrUpdateEmployeeResult { Reason = OperationResult.NotAuthenticated };
 
-            OperationResult result = employee.Id <= 0 ? _employees.Save(employee) : _employees.Update(employee);
-            return new SaveOrUpdateResult { Reason = result };
+            var r = employee.Id <= 0 ? _employees.Save(employee) : _employees.Update(employee);
+            return new SaveOrUpdateEmployeeResult { Reason = r.result, Employee = r.entity };
         }
 
-        public DeleteResult DeleteEmployee(Employee employee)
+        public DeleteEmployeeResult DeleteEmployee(Employee employee)
         {
             if (!Validate())
-                return new DeleteResult { Reason = OperationResult.NotAuthenticated };
+                return new DeleteEmployeeResult { Reason = OperationResult.NotAuthenticated };
 
-            OperationResult result = _employees.Delete(employee);
-            return new DeleteResult { Reason = result };
+            var result = _employees.Delete(employee);
+            return new DeleteEmployeeResult { Reason = result.result, Employee = result.entity };
         }
 
     }

@@ -16,6 +16,7 @@ namespace MaSchoeller.Dublin.Core.Database
         AlreadyExists = 5,
         NotAuthorized = 6,
         NotAuthenticated = 7,
+        SaveConflict = 8,
         UnkownError = int.MaxValue,
     }
 }

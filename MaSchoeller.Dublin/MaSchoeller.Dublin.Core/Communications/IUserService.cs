@@ -19,10 +19,10 @@ namespace MaSchoeller.Dublin.Core.Communications
         LoginResult Login(string username, string password);
 
         [OperationContract]
-        SaveOrUpdateResult SaveOrUpdateUser(User user);
+        SaveOrUpdateUserResult SaveOrUpdateUser(User user);
 
         [OperationContract]
-        DeleteResult DeleteUser(User user);
+        DeleteUserResult DeleteUser(User user);
 
         [OperationContract]
         IEnumerable<User> GetAllUsers();

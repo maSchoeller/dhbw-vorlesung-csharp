@@ -3,6 +3,7 @@ using MaSchoeller.Dublin.Core.Models;
 using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Text;
 
 namespace MaSchoeller.Dublin.Core.Database
 {
@@ -18,28 +19,29 @@ namespace MaSchoeller.Dublin.Core.Database
                           .FirstOrDefault(u => u.Username.ToUpper() == username.ToUpper());
         }
 
-        public override OperationResult Update(User entity)
+        public override (OperationResult result, User entity) Update(User entity)
         {
             var user = FindById(entity.Id);
-            if (user is null) return OperationResult.NotFound;
-            entity.PasswordHash = user.PasswordHash;
+            if (user is null) return (OperationResult.NotFound, entity);
+            if (string.IsNullOrEmpty(user.PasswordHash))
+                entity.PasswordHash = user.PasswordHash;
             return base.Update(entity);
         }
 
-        public override OperationResult Delete(User entity)
+        public override (OperationResult result, User entity) Delete(User entity)
         {
             var user = FindById(entity.Id);
-            if (user is null) return OperationResult.NotFound;
+            if (user is null) return (OperationResult.NotFound, entity);
             entity.PasswordHash = user.PasswordHash;
             return base.Delete(entity);
         }
 
-        public override OperationResult Save(User entity)
+        public override (OperationResult result, User entity) Save(User entity)
         {
             using (var session = Factory.OpenSession())
             {
                 var exists = session.Query<User>().Any(u => u.Username.ToUpper() == entity.Username.ToUpper());
-                if (exists) return OperationResult.AlreadyExists;
+                if (exists) return (OperationResult.AlreadyExists, entity);
             }
             return base.Save(entity);
         }
