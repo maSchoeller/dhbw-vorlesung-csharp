@@ -15,16 +15,16 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 {
     public class AdminViewModel : ViewModelBase
     {
-        private ObservableCollection<UserNotifiyable> _users = new ObservableCollection<UserNotifiyable>();
-        public ObservableCollection<UserNotifiyable> Users
+        private ObservableCollection<DisplayUser> _users = new ObservableCollection<DisplayUser>();
+        public ObservableCollection<DisplayUser> Users
         {
             get => _users;
             set => SetProperty(ref _users, value);
         }
 
-        private UserNotifiyable? _selectedUser;
+        private DisplayUser? _selectedUser;
 
-        public UserNotifiyable? SelectedUser
+        public DisplayUser? SelectedUser
         {
             get => _selectedUser;
             set

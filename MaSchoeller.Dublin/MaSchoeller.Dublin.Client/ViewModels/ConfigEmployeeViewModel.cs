@@ -17,7 +17,7 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 
         }
 
-        private ObservableCollection<DisplayEmployee> _employees;
+        private ObservableCollection<DisplayEmployee> _employees = new ObservableCollection<DisplayEmployee>();
         public ObservableCollection<DisplayEmployee> Employees
         {
             get => _employees;
@@ -25,15 +25,15 @@ namespace MaSchoeller.Dublin.Client.ViewModels
         }
 
 
-        private DisplayEmployee _selectedEmployee;
-        public DisplayEmployee SelectedEmployee
+        private DisplayEmployee? _selectedEmployee;
+        public DisplayEmployee? SelectedEmployee
         {
             get => _selectedEmployee;
             set => SetProperty(ref _selectedEmployee, value);
         }
 
         public ICommand NewCommand { get; set; } = null!;
-        public ICommand EditCommand { get; set; } = null!;
+        public ICommand DeleteCommand { get; set; } = null!;
         public ICommand SaveCommand { get; set; } = null!;
     }
 }

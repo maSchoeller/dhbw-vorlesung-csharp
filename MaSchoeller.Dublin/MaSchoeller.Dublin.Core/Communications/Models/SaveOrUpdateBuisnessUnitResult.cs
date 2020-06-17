@@ -12,7 +12,7 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
     public class SaveOrUpdateBuisnessUnitResult : BaseResult
     {
         [DataMember]
-        public BuisnessUnit? BuisnessUnit { get; set; } = null!;
+        public BusinessUnit? BuisnessUnit { get; set; } = null!;
     }
 
     [DataContract]

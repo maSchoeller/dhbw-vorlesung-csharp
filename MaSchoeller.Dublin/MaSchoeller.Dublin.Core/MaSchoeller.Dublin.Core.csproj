@@ -57,7 +57,7 @@
 
   <ItemGroup>
     <None Update="FleetManagement.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>

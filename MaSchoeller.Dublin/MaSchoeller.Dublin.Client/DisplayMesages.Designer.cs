@@ -115,6 +115,33 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwort oder Benutzername sind falsch..
+        /// </summary>
+        internal static string PasswordOrUsernameIsWrong {
+            get {
+                return ResourceManager.GetString("PasswordOrUsernameIsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der Server ist momentan leider nicht erreichbar..
+        /// </summary>
+        internal static string ServerNotAvailable {
+            get {
+                return ResourceManager.GetString("ServerNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ein unbekannter Fehler ist aufgetreten..
+        /// </summary>
+        internal static string UnkonwError {
+            get {
+                return ResourceManager.GetString("UnkonwError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Benutzer konnte nicht gelöscht werden..
         /// </summary>
         internal static string UserCantDelete {

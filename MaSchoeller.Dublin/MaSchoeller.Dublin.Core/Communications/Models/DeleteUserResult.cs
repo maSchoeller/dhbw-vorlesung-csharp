@@ -19,7 +19,7 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
     public class DeleteBuisnessUnitResult : BaseResult
     {
         [DataMember]
-        public BuisnessUnit? BuisnessUnit { get; set; }
+        public BusinessUnit? BuisnessUnit { get; set; }
     }
 
     [DataContract]

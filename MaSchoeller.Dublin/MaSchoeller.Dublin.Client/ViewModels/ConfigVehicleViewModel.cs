@@ -9,5 +9,6 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 {
     public class ConfigVehicleViewModel : ViewModelBase
     {
+
     }
 }

@@ -27,6 +27,7 @@ namespace MaSchoeller.Dublin.Client
         {
             services.RegisterType<ShellViewModel>();
             services.RegisterType<ClientConnectionHandler>().SingleInstance();
+            services.RegisterType<ConnectionLostHelper>().SingleInstance();
             RegisterViewModels(services);
             RegisterDialogs(services);
         }

@@ -46,17 +46,17 @@ namespace MaSchoeller.Dublin.Client.Services
                 await UserClient.OpenAsync();
                 var result = await UserClient.LoginAsync(username, password);
                 if (result.Reason != Proxies.Users.OperationResult.Success)
-                    return (false, "Passwort oder Benutzername sind falsch.");
+                    return (false, DisplayMesages.PasswordOrUsernameIsWrong);
                 behavior.Inspector.Token = result.Token;
                 SetUserContext(result.Token);
             }
             catch (EndpointNotFoundException e)
             {
-                return (false, "Der Server ist momentan leider nicht erreichbar.");
+                return (false, DisplayMesages.ServerNotAvailable);
             }
             catch (Exception e)
             {
-                return (false, "Ein unbekannter Fehler ist aufgetreten.");
+                return (false, DisplayMesages.UnkonwError);
             }
 
             try
@@ -69,7 +69,7 @@ namespace MaSchoeller.Dublin.Client.Services
             catch (Exception e)
             {
                 //Todo: add logging
-                return (false, "Ein unbekannter Fehler ist aufgetreten.");
+                return (false, DisplayMesages.UnkonwError);
             }
             return (true, null);
         }
@@ -99,11 +99,11 @@ namespace MaSchoeller.Dublin.Client.Services
 
         private async Task CleanupAsync()
         {
-            if (UserClient?.State == CommunicationState.Opened || UserClient?.State == CommunicationState.Faulted)
+            if (UserClient?.State == CommunicationState.Opened)
                 await UserClient.CloseAsync();
-            if (FleetsClient?.State == CommunicationState.Opened || FleetsClient?.State == CommunicationState.Faulted)
+            if (FleetsClient?.State == CommunicationState.Opened )
                 await FleetsClient.CloseAsync();
-            if (CalculationClient?.State == CommunicationState.Opened || CalculationClient?.State == CommunicationState.Faulted)
+            if (CalculationClient?.State == CommunicationState.Opened )
                 await CalculationClient.CloseAsync();
         }
     }

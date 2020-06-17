@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Core.Database
 {
-    public class BuisnessUnitMapping : ClassMap<BuisnessUnit>
+    public class BusinessUnitMapping : ClassMap<BusinessUnit>
     {
-        public BuisnessUnitMapping()
+        public BusinessUnitMapping()
         {
 
-            Table("BuisnessUnits");
+            Table("BusinessUnits");
             Id(b => b.Id).GeneratedBy.Native();
             Map(b => b.Name).Not.Nullable()
                                 .Length(100);

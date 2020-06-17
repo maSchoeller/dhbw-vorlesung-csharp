@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MaSchoeller.Dublin.Core.Models
 {
     [DataContract]
-    public class BuisnessUnit
+    public class BusinessUnit
     {
         [DataMember]
         public int Id { get; set; }

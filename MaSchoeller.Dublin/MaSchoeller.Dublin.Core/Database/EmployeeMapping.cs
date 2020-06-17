@@ -24,7 +24,7 @@ namespace MaSchoeller.Dublin.Core.Database
             Map(e => e.Salutation).Length(50);
             Map(e => e.Title).Length(50);
             Version(e => e.Version);
-            References(e => e.BuisnessUnit).Column("BuisnessUnitId")
+            References(e => e.BusinessUnit).Column("BusinessUnitId")
                 .Not.Nullable()
                 .Cascade.All();
             HasMany(e => e.VehicleEmployees).KeyColumn("EmployeeId")

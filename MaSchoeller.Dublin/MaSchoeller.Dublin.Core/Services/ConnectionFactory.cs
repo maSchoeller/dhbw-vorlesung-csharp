@@ -25,7 +25,7 @@ namespace MaSchoeller.Dublin.Core.Services
 
         private static void AddMappings(FluentMappingsContainer mappings)
         {
-            mappings.Add<BuisnessUnitMapping>();
+            mappings.Add<BusinessUnitMapping>();
             mappings.Add<VehicleMapping>();
             mappings.Add<UserMapping>();
             mappings.Add<EmployeeMapping>();

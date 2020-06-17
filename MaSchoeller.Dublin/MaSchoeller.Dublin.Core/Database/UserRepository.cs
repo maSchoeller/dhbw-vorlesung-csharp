@@ -22,9 +22,13 @@ namespace MaSchoeller.Dublin.Core.Database
         public override (OperationResult result, User entity) Update(User entity)
         {
             var user = FindById(entity.Id);
-            if (user is null) return (OperationResult.NotFound, entity);
-            if (string.IsNullOrEmpty(user.PasswordHash))
+
+            if (user is null) 
+                return (OperationResult.NotFound, entity);
+
+            if (string.IsNullOrEmpty(entity.PasswordHash))
                 entity.PasswordHash = user.PasswordHash;
+
             return base.Update(entity);
         }
 

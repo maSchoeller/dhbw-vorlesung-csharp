@@ -14,12 +14,21 @@ namespace MaSchoeller.Dublin.Core.Communications
     {
 
         [OperationContract]
-        DeleteBuisnessUnitResult DeleteBuisnessUnit(BuisnessUnit buisnessUnit);
+        DeleteBuisnessUnitResult DeleteBusinessUnit(BusinessUnit buisnessUnit);
 
         [OperationContract]
-        SaveOrUpdateBuisnessUnitResult SaveOrUpdateBuisnessUnit(BuisnessUnit buisnessUnit);
+        SaveOrUpdateBuisnessUnitResult SaveOrUpdateBusinessUnit(BusinessUnit buisnessUnit);
 
         [OperationContract]
-        IEnumerable<BuisnessUnit> GetAllBuisnessUnits();
+        IEnumerable<BusinessUnit> GetAllBusinessUnits();
+
+        [OperationContract]
+        SaveOrUpdateEmployeeResult SaveOrUpdateEmployee(Employee employee);
+
+        [OperationContract]
+        DeleteEmployeeResult DeleteEmployee(Employee employee);
+        
+        [OperationContract]
+        IEnumerable<Employee> GetAllEmployees();
     }
 }

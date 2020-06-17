@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Core.Database
 {
-    internal class BuisnessUnitRepository : BaseRepository<BuisnessUnit>, IBuisnessUnitRepository
+    internal class BusinessUnitRepository : BaseRepository<BusinessUnit>, IBuisnessUnitRepository
     {
-        public BuisnessUnitRepository(IConnectionFactory factory, ILogger<BuisnessUnitRepository>? logger = null) 
+        public BusinessUnitRepository(IConnectionFactory factory, ILogger<BusinessUnitRepository>? logger = null) 
             : base(factory, logger) { }
     }
 }

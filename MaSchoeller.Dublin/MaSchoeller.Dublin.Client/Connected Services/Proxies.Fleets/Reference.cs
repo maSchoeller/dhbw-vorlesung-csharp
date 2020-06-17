@@ -14,8 +14,8 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BuisnessUnit", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
-    public partial class BuisnessUnit : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="BusinessUnit", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
+    public partial class BusinessUnit : object
     {
         
         private string DescriptionField;
@@ -84,6 +84,8 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult))]
     public partial class BaseResult : object
     {
@@ -111,10 +113,10 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     public partial class SaveOrUpdateBuisnessUnitResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
     {
         
-        private MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit BuisnessUnitField;
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BuisnessUnitField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit BuisnessUnit
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BuisnessUnit
         {
             get
             {
@@ -129,15 +131,61 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SaveOrUpdateEmployeeResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class SaveOrUpdateEmployeeResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Employee EmployeeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Employee Employee
+        {
+            get
+            {
+                return this.EmployeeField;
+            }
+            set
+            {
+                this.EmployeeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteEmployeeResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class DeleteEmployeeResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Employee EmployeeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Employee Employee
+        {
+            get
+            {
+                return this.EmployeeField;
+            }
+            set
+            {
+                this.EmployeeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DeleteBuisnessUnitResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
         "dels")]
     public partial class DeleteBuisnessUnitResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
     {
         
-        private MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit BuisnessUnitField;
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BuisnessUnitField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit BuisnessUnit
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BuisnessUnit
         {
             get
             {
@@ -180,7 +228,391 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
         NotAuthenticated = 7,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
+        SaveConflict = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         UnkownError = 2147483647,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Employee", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
+    public partial class Employee : object
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BusinessUnitField;
+        
+        private int EmployeeNumberField;
+        
+        private string FirstnameField;
+        
+        private int IdField;
+        
+        private string LastnameField;
+        
+        private string SalutationField;
+        
+        private string TitleField;
+        
+        private System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.VehicleEmployee> VehicleEmployeesField;
+        
+        private int VersionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit BusinessUnit
+        {
+            get
+            {
+                return this.BusinessUnitField;
+            }
+            set
+            {
+                this.BusinessUnitField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EmployeeNumber
+        {
+            get
+            {
+                return this.EmployeeNumberField;
+            }
+            set
+            {
+                this.EmployeeNumberField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Firstname
+        {
+            get
+            {
+                return this.FirstnameField;
+            }
+            set
+            {
+                this.FirstnameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Lastname
+        {
+            get
+            {
+                return this.LastnameField;
+            }
+            set
+            {
+                this.LastnameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Salutation
+        {
+            get
+            {
+                return this.SalutationField;
+            }
+            set
+            {
+                this.SalutationField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title
+        {
+            get
+            {
+                return this.TitleField;
+            }
+            set
+            {
+                this.TitleField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.VehicleEmployee> VehicleEmployees
+        {
+            get
+            {
+                return this.VehicleEmployeesField;
+            }
+            set
+            {
+                this.VehicleEmployeesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Version
+        {
+            get
+            {
+                return this.VersionField;
+            }
+            set
+            {
+                this.VersionField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VehicleEmployee", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
+    public partial class VehicleEmployee : object
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Employee EmployeeField;
+        
+        private System.Nullable<System.DateTime> EndDateField;
+        
+        private int IdField;
+        
+        private System.DateTime StartDateField;
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle VehicleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Employee Employee
+        {
+            get
+            {
+                return this.EmployeeField;
+            }
+            set
+            {
+                this.EmployeeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle Vehicle
+        {
+            get
+            {
+                return this.VehicleField;
+            }
+            set
+            {
+                this.VehicleField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Vehicle", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Models")]
+    public partial class Vehicle : object
+    {
+        
+        private string BrandField;
+        
+        private int IdField;
+        
+        private double InsuranceField;
+        
+        private System.DateTime LeasingFromField;
+        
+        private double LeasingRateField;
+        
+        private System.DateTime LeasingToField;
+        
+        private string LicensePlateField;
+        
+        private string ModelField;
+        
+        private System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.VehicleEmployee> VehicleEmployeesField;
+        
+        private int VersionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Brand
+        {
+            get
+            {
+                return this.BrandField;
+            }
+            set
+            {
+                this.BrandField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Insurance
+        {
+            get
+            {
+                return this.InsuranceField;
+            }
+            set
+            {
+                this.InsuranceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LeasingFrom
+        {
+            get
+            {
+                return this.LeasingFromField;
+            }
+            set
+            {
+                this.LeasingFromField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double LeasingRate
+        {
+            get
+            {
+                return this.LeasingRateField;
+            }
+            set
+            {
+                this.LeasingRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LeasingTo
+        {
+            get
+            {
+                return this.LeasingToField;
+            }
+            set
+            {
+                this.LeasingToField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LicensePlate
+        {
+            get
+            {
+                return this.LicensePlateField;
+            }
+            set
+            {
+                this.LicensePlateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Model
+        {
+            get
+            {
+                return this.ModelField;
+            }
+            set
+            {
+                this.ModelField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.VehicleEmployee> VehicleEmployees
+        {
+            get
+            {
+                return this.VehicleEmployeesField;
+            }
+            set
+            {
+                this.VehicleEmployeesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Version
+        {
+            get
+            {
+                return this.VersionField;
+            }
+            set
+            {
+                this.VersionField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -188,23 +620,41 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     public interface IFleetService
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteBuisnessUnit", ReplyAction="http://tempuri.org/IFleetService/DeleteBuisnessUnitResponse")]
-        MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult DeleteBuisnessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteBusinessUnit", ReplyAction="http://tempuri.org/IFleetService/DeleteBusinessUnitResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult DeleteBusinessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteBuisnessUnit", ReplyAction="http://tempuri.org/IFleetService/DeleteBuisnessUnitResponse")]
-        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult> DeleteBuisnessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteBusinessUnit", ReplyAction="http://tempuri.org/IFleetService/DeleteBusinessUnitResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult> DeleteBusinessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateBuisnessUnit", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateBuisnessUnitResponse")]
-        MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult SaveOrUpdateBuisnessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateBusinessUnit", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateBusinessUnitResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult SaveOrUpdateBusinessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateBuisnessUnit", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateBuisnessUnitResponse")]
-        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult> SaveOrUpdateBuisnessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateBusinessUnit", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateBusinessUnitResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult> SaveOrUpdateBusinessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllBuisnessUnits", ReplyAction="http://tempuri.org/IFleetService/GetAllBuisnessUnitsResponse")]
-        System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit> GetAllBuisnessUnits();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllBusinessUnits", ReplyAction="http://tempuri.org/IFleetService/GetAllBusinessUnitsResponse")]
+        System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit> GetAllBusinessUnits();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllBuisnessUnits", ReplyAction="http://tempuri.org/IFleetService/GetAllBuisnessUnitsResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit>> GetAllBuisnessUnitsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllBusinessUnits", ReplyAction="http://tempuri.org/IFleetService/GetAllBusinessUnitsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit>> GetAllBusinessUnitsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateEmployee", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateEmployeeResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult SaveOrUpdateEmployee(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateEmployee", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateEmployeeResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult> SaveOrUpdateEmployeeAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteEmployee", ReplyAction="http://tempuri.org/IFleetService/DeleteEmployeeResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult DeleteEmployee(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteEmployee", ReplyAction="http://tempuri.org/IFleetService/DeleteEmployeeResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult> DeleteEmployeeAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllEmployees", ReplyAction="http://tempuri.org/IFleetService/GetAllEmployeesResponse")]
+        System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee> GetAllEmployees();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllEmployees", ReplyAction="http://tempuri.org/IFleetService/GetAllEmployeesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee>> GetAllEmployeesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -222,34 +672,64 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
         {
         }
         
-        public MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult DeleteBuisnessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit)
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult DeleteBusinessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit)
         {
-            return base.Channel.DeleteBuisnessUnit(buisnessUnit);
+            return base.Channel.DeleteBusinessUnit(buisnessUnit);
         }
         
-        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult> DeleteBuisnessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit)
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult> DeleteBusinessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit)
         {
-            return base.Channel.DeleteBuisnessUnitAsync(buisnessUnit);
+            return base.Channel.DeleteBusinessUnitAsync(buisnessUnit);
         }
         
-        public MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult SaveOrUpdateBuisnessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit)
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult SaveOrUpdateBusinessUnit(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit)
         {
-            return base.Channel.SaveOrUpdateBuisnessUnit(buisnessUnit);
+            return base.Channel.SaveOrUpdateBusinessUnit(buisnessUnit);
         }
         
-        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult> SaveOrUpdateBuisnessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit buisnessUnit)
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult> SaveOrUpdateBusinessUnitAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit buisnessUnit)
         {
-            return base.Channel.SaveOrUpdateBuisnessUnitAsync(buisnessUnit);
+            return base.Channel.SaveOrUpdateBusinessUnitAsync(buisnessUnit);
         }
         
-        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit> GetAllBuisnessUnits()
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit> GetAllBusinessUnits()
         {
-            return base.Channel.GetAllBuisnessUnits();
+            return base.Channel.GetAllBusinessUnits();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BuisnessUnit>> GetAllBuisnessUnitsAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.BusinessUnit>> GetAllBusinessUnitsAsync()
         {
-            return base.Channel.GetAllBuisnessUnitsAsync();
+            return base.Channel.GetAllBusinessUnitsAsync();
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult SaveOrUpdateEmployee(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee)
+        {
+            return base.Channel.SaveOrUpdateEmployee(employee);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult> SaveOrUpdateEmployeeAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee)
+        {
+            return base.Channel.SaveOrUpdateEmployeeAsync(employee);
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult DeleteEmployee(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee)
+        {
+            return base.Channel.DeleteEmployee(employee);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult> DeleteEmployeeAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Employee employee)
+        {
+            return base.Channel.DeleteEmployeeAsync(employee);
+        }
+        
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee> GetAllEmployees()
+        {
+            return base.Channel.GetAllEmployees();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee>> GetAllEmployeesAsync()
+        {
+            return base.Channel.GetAllEmployeesAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
-    public interface IBuisnessUnitRepository : IRepository<BuisnessUnit>
+    public interface IBuisnessUnitRepository : IRepository<BusinessUnit>
     {
     }
 }

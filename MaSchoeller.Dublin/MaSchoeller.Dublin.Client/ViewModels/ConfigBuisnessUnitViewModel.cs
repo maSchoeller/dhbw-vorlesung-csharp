@@ -12,23 +12,23 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 
         }
 
-        private ObservableCollection<DisplayBuisnessUnit> _buisnessUnits
-            = new ObservableCollection<DisplayBuisnessUnit>();
-        public ObservableCollection<DisplayBuisnessUnit> BuisnessUnits
+        private ObservableCollection<DisplayBusinessUnit> _buisnessUnits
+            = new ObservableCollection<DisplayBusinessUnit>();
+        public ObservableCollection<DisplayBusinessUnit> BuisnessUnits
         {
             get => _buisnessUnits;
             set => SetProperty(ref _buisnessUnits, value);
         }
 
-        private DisplayBuisnessUnit _selectedBuisnessUit;
-        public DisplayBuisnessUnit SelectedBuisnessUnit
+        private DisplayBusinessUnit? _selectedBuisnessUit;
+        public DisplayBusinessUnit? SelectedBuisnessUnit
         {
             get => _selectedBuisnessUit;
             set => SetProperty(ref _selectedBuisnessUit, value);
         }
 
         public ICommand NewCommand { get; set; } = null!;
-        public ICommand EditCommand { get; set; } = null!;
+        public ICommand DeleteCommand { get; set; } = null!;
         public ICommand SaveCommand { get; set; } = null!;
     }
 }

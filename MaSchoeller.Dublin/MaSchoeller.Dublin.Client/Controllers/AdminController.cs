@@ -1,5 +1,4 @@
-﻿using FluentNHibernate.Utils;
-using MaSchoeller.Dublin.Client.Helpers;
+﻿using MaSchoeller.Dublin.Client.Helpers;
 using MaSchoeller.Dublin.Client.Models;
 using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
@@ -7,16 +6,9 @@ using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Drawing.Design;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
@@ -24,15 +16,15 @@ namespace MaSchoeller.Dublin.Client.Controllers
     {
         private readonly AdminViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
-        private readonly INavigationService _navigationService;
+        private readonly ConnectionLostHelper _lostHelper;
 
         public AdminController(AdminViewModel viewModel,
                                ClientConnectionHandler connectionHandler,
-                               INavigationService navigationService)
+                               ConnectionLostHelper lostHelper)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
-            _navigationService = navigationService;
+            _lostHelper = lostHelper;
         }
 
 
@@ -56,7 +48,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         private void ExecuteNewCommand(object o)
         {
-            _viewModel.SelectedUser = new UserNotifiyable();
+            _viewModel.SelectedUser = new DisplayUser();
             _viewModel.Users.Add(_viewModel.SelectedUser);
         }
 
@@ -67,7 +59,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             if (!(_viewModel.SelectedUser is null))
             {
                 var userClient = _connectionHandler.UserClient;
-                try
+                await _lostHelper.InvokeAsync(async () =>
                 {
                     var result = await userClient.DeleteUserAsync(_viewModel.SelectedUser!.AsUser());
                     if (result.Reason == OperationResult.Success)
@@ -79,12 +71,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     {
                         _viewModel.SelectedUser!.ErrorMessage = DisplayMesages.UserCantDelete;
                     }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
-                    _navigationService.NavigateTo(Navigation.DefaultRoute);
-                }
+                });
             }
         }
 
@@ -95,7 +82,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             {
                 if (user.EditState == EditState.Modified)
                 {
-                    try
+                    await _lostHelper.InvokeAsync(async () =>
                     {
                         var result = await client.SaveOrUpdateUserAsync(user.AsUser());
                         switch (result.Reason)
@@ -128,12 +115,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             }
                             break;
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
-                        _navigationService.NavigateTo(Navigation.DefaultRoute);
-                    }
+                    });
                 }
             }
         }
@@ -141,17 +123,11 @@ namespace MaSchoeller.Dublin.Client.Controllers
         public override async Task EnterAsync()
         {
             var userClient = _connectionHandler.UserClient;
-            try
+            await _lostHelper.InvokeAsync(async () =>
             {
                 var result = await userClient.GetAllUsersAsync();
-                _viewModel.Users = new ObservableCollection<UserNotifiyable>(result.Select(u => new UserNotifiyable(u)));
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
-                _navigationService.NavigateTo(Navigation.DefaultRoute);
-            }
+                _viewModel.Users = new ObservableCollection<DisplayUser>(result.Select(u => new DisplayUser(u)));
+            });
         }
-
     }
 }

@@ -9,6 +9,41 @@
       Title="ConfigBuisnessUnitPage" Background="Bisque">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="5*" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Column="1"
+                  Grid.Row="1"
+                  ItemsSource="{Binding BuisnessUnits}"
+                  SelectedItem="{Binding SelectedBuisnessUnit}">
+        </DataGrid>
+
+        <Label Grid.Row="3" Grid.Column="1"
+               Content="Name"/>
+        <TextBox Grid.Row="4" Grid.Column="1"
+                 Text="{Binding SelectedBuisnessUnit.Name, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="5" Grid.Column="1"
+               Content="Beschreibung"/>
+        <TextBox Grid.Row="6" Grid.Column="1"
+                 Text="{Binding SelectedBuisnessUnit.Description, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="7" Grid.Column="1"
+                    Orientation="Horizontal">
+            <Button Content="Neu" Command="{Binding NewCommand}" />
+            <Button Content="Speichern" Command="{Binding SaveCommand}" />
+            <Button Content="Löschen" Command="{Binding DeleteCommand}" />
+        </StackPanel>
     </Grid>
 </Page>

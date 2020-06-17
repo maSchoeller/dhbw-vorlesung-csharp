@@ -135,6 +135,15 @@
   <data name="OldAndNewAreSame" xml:space="preserve">
     <value>Das alte und neue Passwort stimmen über ein.</value>
   </data>
+  <data name="PasswordOrUsernameIsWrong" xml:space="preserve">
+    <value>Passwort oder Benutzername sind falsch.</value>
+  </data>
+  <data name="ServerNotAvailable" xml:space="preserve">
+    <value>Der Server ist momentan leider nicht erreichbar.</value>
+  </data>
+  <data name="UnkonwError" xml:space="preserve">
+    <value>Ein unbekannter Fehler ist aufgetreten.</value>
+  </data>
   <data name="UserCantDelete" xml:space="preserve">
     <value>Benutzer konnte nicht gelöscht werden.</value>
   </data>

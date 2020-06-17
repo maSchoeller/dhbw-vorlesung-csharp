@@ -15,7 +15,7 @@ namespace MaSchoeller.Dublin.Core.Models
         public int EmployeeNumber { get; set; }
         public string? Salutation { get; set; }
         public string? Title { get; set; }
-        public BuisnessUnit BuisnessUnit { get; set; } = null!;
+        public BusinessUnit BusinessUnit { get; set; } = null!;
         public int Version { get; set; }
 
         public ICollection<VehicleEmployee> VehicleEmployees { get; set; } = new Collection<VehicleEmployee>();

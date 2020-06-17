@@ -28,12 +28,12 @@ namespace MaSchoeller.Dublin.Core.Communications
             _logger = logger;
         }
 
-        public IEnumerable<BuisnessUnit> GetAllBuisnessUnits()
+        public IEnumerable<BusinessUnit> GetAllBusinessUnits()
         {
             return _buisnesses.GetAll();
         }
 
-        public SaveOrUpdateBuisnessUnitResult SaveOrUpdateBuisnessUnit(BuisnessUnit buisnessUnit)
+        public SaveOrUpdateBuisnessUnitResult SaveOrUpdateBusinessUnit(BusinessUnit buisnessUnit)
         {
             if (!Validate())
                 return new SaveOrUpdateBuisnessUnitResult { Reason = OperationResult.NotAuthenticated };
@@ -50,7 +50,7 @@ namespace MaSchoeller.Dublin.Core.Communications
             }
         }
 
-        public DeleteBuisnessUnitResult DeleteBuisnessUnit(BuisnessUnit buisnessUnit)
+        public DeleteBuisnessUnitResult DeleteBusinessUnit(BusinessUnit buisnessUnit)
         {
             if (!Validate())
                 return new DeleteBuisnessUnitResult { Reason = OperationResult.NotAuthenticated };

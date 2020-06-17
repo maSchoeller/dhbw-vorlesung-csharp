@@ -49,14 +49,14 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             }
         }
 
-        private string _errorMessage;
+        private string? _errorMessage;
 
-        public string ErrorMessage
+        public string? ErrorMessage
         {
             get => _errorMessage;
             set => SetProperty(ref _errorMessage, value);
         }
 
-        public ICommand ChangeCommand { get; set; }
+        public ICommand ChangeCommand { get; set; } = null!;
     }
 }

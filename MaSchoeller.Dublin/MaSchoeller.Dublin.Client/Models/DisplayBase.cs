@@ -7,26 +7,22 @@ using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.Models
 {
-    public class DisplayModel : NotifyPropertyChangedBase
+    public class DisplayBase : NotifyPropertyChangedBase
     {
-        private EditState _state;
+        private EditState _editstate;
 
-        public EditState State
+        public EditState EditState
         {
-            get => _state;
-            set => SetProperty(ref _state, value);
+            get => _editstate;
+            set => SetProperty(ref _editstate, value);
         }
 
-        private string _errorMessage;
+        private string? _errorMessage;
 
-        public string ErrorMessage
+        public string? ErrorMessage
         {
             get => _errorMessage;
             set => SetProperty(ref _errorMessage, value);
         }
-
-
-
-
     }
 }
