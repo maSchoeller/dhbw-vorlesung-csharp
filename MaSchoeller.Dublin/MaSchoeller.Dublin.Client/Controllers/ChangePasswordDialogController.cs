@@ -20,18 +20,15 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly ChangePasswordViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
-        private readonly INavigationService _navigationService;
         private readonly AutoResetEvent _blocker = new AutoResetEvent(false);
 
         public ChangePasswordDialogController(ChangePasswordViewModel viewModel,
                                               ClientConnectionHandler connectionHandler,
-                                              ConnectionLostHelper lostHelper,
-                                              INavigationService navigationService)
+                                              ConnectionLostHelper lostHelper)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
             _lostHelper = lostHelper;
-            _navigationService = navigationService;
             _viewModel.ChangeCommand =
                  ConfigurableCommand.Create(PasswordChangeExecute).Build();
         }
@@ -64,7 +61,6 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             else if (_viewModel.NewOnePasswordClear != _viewModel.NewTwoPasswordClear)
             {
-
                 _viewModel.ErrorMessage = DisplayMesages.NewPasswordAreNotSame;
             }
             else
