@@ -43,11 +43,19 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
             var window = new ChangePasswordWindow
             {
-                DataContext = _viewModel
+                DataContext = _viewModel,
+                Owner = Application.Current.MainWindow
             };
-            window.Owner = Application.Current.MainWindow;
 
-            Task.Run(() => { _blocker.WaitOne(); Application.Current.Dispatcher.Invoke(() => window.DialogResult = true); });
+            Task.Run(() =>
+            {
+                _blocker.WaitOne();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (window.DialogResult is null)
+                        window.DialogResult = true;
+                });
+            });
 
             window.ShowDialog();
         }

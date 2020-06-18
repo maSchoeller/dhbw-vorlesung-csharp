@@ -84,7 +84,7 @@ namespace MaSchoeller.Dublin.Core.Communications
             return new DeleteEmployeeResult { Reason = result.result, Employee = result.entity };
         }
 
-        public SaveOrUpdateVehicleResult SaveOrUpdateEmployee(Vehicle vehicle)
+        public SaveOrUpdateVehicleResult SaveOrUpdateVehicle(Vehicle vehicle)
         {
             if (!Validate())
                 return new SaveOrUpdateVehicleResult { Reason = OperationResult.NotAuthenticated };

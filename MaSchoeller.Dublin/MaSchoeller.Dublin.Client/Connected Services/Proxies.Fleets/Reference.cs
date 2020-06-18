@@ -86,6 +86,8 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateBuisnessUnitResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateEmployeeResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteEmployeeResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateVehicleResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteVehicleResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteBuisnessUnitResult))]
     public partial class BaseResult : object
     {
@@ -171,6 +173,52 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
             set
             {
                 this.EmployeeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SaveOrUpdateVehicleResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class SaveOrUpdateVehicleResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle VehicleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle Vehicle
+        {
+            get
+            {
+                return this.VehicleField;
+            }
+            set
+            {
+                this.VehicleField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteVehicleResult", Namespace="http://schemas.datacontract.org/2004/07/MaSchoeller.Dublin.Core.Communications.Mo" +
+        "dels")]
+    public partial class DeleteVehicleResult : MaSchoeller.Dublin.Client.Proxies.Fleets.BaseResult
+    {
+        
+        private MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle VehicleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle Vehicle
+        {
+            get
+            {
+                return this.VehicleField;
+            }
+            set
+            {
+                this.VehicleField = value;
             }
         }
     }
@@ -655,6 +703,24 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllEmployees", ReplyAction="http://tempuri.org/IFleetService/GetAllEmployeesResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee>> GetAllEmployeesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateVehicle", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateVehicleResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateVehicleResult SaveOrUpdateVehicle(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/SaveOrUpdateVehicle", ReplyAction="http://tempuri.org/IFleetService/SaveOrUpdateVehicleResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateVehicleResult> SaveOrUpdateVehicleAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteVehicle", ReplyAction="http://tempuri.org/IFleetService/DeleteVehicleResponse")]
+        MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteVehicleResult DeleteVehicle(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/DeleteVehicle", ReplyAction="http://tempuri.org/IFleetService/DeleteVehicleResponse")]
+        System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteVehicleResult> DeleteVehicleAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllVehicles", ReplyAction="http://tempuri.org/IFleetService/GetAllVehiclesResponse")]
+        System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle> GetAllVehicles();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFleetService/GetAllVehicles", ReplyAction="http://tempuri.org/IFleetService/GetAllVehiclesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle>> GetAllVehiclesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -730,6 +796,36 @@ namespace MaSchoeller.Dublin.Client.Proxies.Fleets
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Employee>> GetAllEmployeesAsync()
         {
             return base.Channel.GetAllEmployeesAsync();
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateVehicleResult SaveOrUpdateVehicle(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle)
+        {
+            return base.Channel.SaveOrUpdateVehicle(vehicle);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.SaveOrUpdateVehicleResult> SaveOrUpdateVehicleAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle)
+        {
+            return base.Channel.SaveOrUpdateVehicleAsync(vehicle);
+        }
+        
+        public MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteVehicleResult DeleteVehicle(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle)
+        {
+            return base.Channel.DeleteVehicle(vehicle);
+        }
+        
+        public System.Threading.Tasks.Task<MaSchoeller.Dublin.Client.Proxies.Fleets.DeleteVehicleResult> DeleteVehicleAsync(MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle vehicle)
+        {
+            return base.Channel.DeleteVehicleAsync(vehicle);
+        }
+        
+        public System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle> GetAllVehicles()
+        {
+            return base.Channel.GetAllVehicles();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MaSchoeller.Dublin.Client.Proxies.Fleets.Vehicle>> GetAllVehiclesAsync()
+        {
+            return base.Channel.GetAllVehiclesAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
