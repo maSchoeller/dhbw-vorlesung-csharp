@@ -64,6 +64,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             else if (_viewModel.NewOnePasswordClear != _viewModel.NewTwoPasswordClear)
             {
+
                 _viewModel.ErrorMessage = DisplayMesages.NewPasswordAreNotSame;
             }
             else
