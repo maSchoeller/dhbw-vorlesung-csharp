@@ -46,17 +46,17 @@ namespace MaSchoeller.Dublin.Client.Services
                 await UserClient.OpenAsync();
                 var result = await UserClient.LoginAsync(username, password);
                 if (result.Reason != Proxies.Users.OperationResult.Success)
-                    return (false, DisplayMesages.PasswordOrUsernameIsWrong);
+                    return (false, DisplayMessages.PasswordOrUsernameIsWrong);
                 behavior.Inspector.Token = result.Token;
                 SetUserContext(result.Token);
             }
             catch (EndpointNotFoundException e)
             {
-                return (false, DisplayMesages.ServerNotAvailable);
+                return (false, DisplayMessages.ServerNotAvailable);
             }
             catch (Exception e)
             {
-                return (false, DisplayMesages.UnkonwError);
+                return (false, DisplayMessages.UnkonwError);
             }
 
             try
@@ -69,7 +69,7 @@ namespace MaSchoeller.Dublin.Client.Services
             catch (Exception e)
             {
                 //Todo: add logging
-                return (false, DisplayMesages.UnkonwError);
+                return (false, DisplayMessages.UnkonwError);
             }
             return (true, null);
         }

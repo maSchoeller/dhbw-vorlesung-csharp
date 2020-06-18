@@ -65,11 +65,11 @@ namespace MaSchoeller.Dublin.Client.Controllers
             _viewModel.IsBusy = true;
             if (_viewModel.OldPasswordClear == _viewModel.NewOnePasswordClear)
             {
-                _viewModel.ErrorMessage = DisplayMesages.OldAndNewAreSame;
+                _viewModel.ErrorMessage = DisplayMessages.OldAndNewAreSame;
             }
             else if (_viewModel.NewOnePasswordClear != _viewModel.NewTwoPasswordClear)
             {
-                _viewModel.ErrorMessage = DisplayMesages.NewPasswordAreNotSame;
+                _viewModel.ErrorMessage = DisplayMessages.NewPasswordAreNotSame;
             }
             else
             {
@@ -83,7 +83,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                     else
                     {
-                        _viewModel.ErrorMessage = DisplayMesages.PasswordChangeError; //Todo: Refactor message
+                        _viewModel.ErrorMessage = DisplayMessages.PasswordChangeError; //Todo: Refactor message
                     }
                 });
             }

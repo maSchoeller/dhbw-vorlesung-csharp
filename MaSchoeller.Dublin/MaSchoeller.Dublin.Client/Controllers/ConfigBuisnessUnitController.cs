@@ -71,7 +71,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                     else
                     {
-                        _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMesages.UserCantDelete;
+                        _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMessages.UserCantDelete;
                     }
                 });
             }
@@ -98,21 +98,21 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.AlreadyExists:
                             {
                                 businessUnit.EditState = EditState.InValid;
-                                businessUnit.ErrorMessage = DisplayMesages.UserIdAlreadyExists;
+                                businessUnit.ErrorMessage = DisplayMessages.UserIdAlreadyExists;
 
                             }
                             break;
                             case OperationResult.SaveConflict:
                             {
                                 businessUnit.EditState = EditState.InValid;
-                                businessUnit.ErrorMessage = DisplayMesages.ConcurrentServerException;
+                                businessUnit.ErrorMessage = DisplayMessages.ConcurrentServerException;
 
                             }
                             break;
                             default:
                             {
                                 businessUnit.EditState = EditState.InValid;
-                                businessUnit.ErrorMessage = DisplayMesages.ErrorOnSave;
+                                businessUnit.ErrorMessage = DisplayMessages.ErrorOnSave;
                             }
                             break;
                         }

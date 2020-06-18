@@ -26,7 +26,7 @@ namespace MaSchoeller.Dublin.Client.Services
             }
             catch (Exception e)
             {
-                MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
+                MessageBox.Show(DisplayMessages.DisconnectMessage, DisplayMessages.DisconnectMessageCaption, MessageBoxButton.OK);
                 _navigationService.NavigateTo(Navigation.DefaultRoute);
                 return false;
             }

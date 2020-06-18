@@ -3,7 +3,6 @@ using MaSchoeller.Dublin.Client.Models;
 using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
-using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System.Collections.ObjectModel;
@@ -69,7 +68,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                     else
                     {
-                        _viewModel.SelectedUser!.ErrorMessage = DisplayMesages.UserCantDelete;
+                        _viewModel.SelectedUser!.ErrorMessage = DisplayMessages.UserCantDelete;
                     }
                 });
             }
@@ -96,21 +95,21 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.AlreadyExists:
                             {
                                 user.EditState = EditState.InValid;
-                                user.ErrorMessage = DisplayMesages.UserIdAlreadyExists;
+                                user.ErrorMessage = DisplayMessages.UserIdAlreadyExists;
 
                             }
                             break;
                             case OperationResult.SaveConflict:
                             {
                                 user.EditState = EditState.InValid;
-                                user.ErrorMessage = DisplayMesages.ConcurrentServerException;
+                                user.ErrorMessage = DisplayMessages.ConcurrentServerException;
 
                             }
                             break;
                             default:
                             {
                                 user.EditState = EditState.InValid;
-                                user.ErrorMessage = DisplayMesages.ErrorOnSave;
+                                user.ErrorMessage = DisplayMessages.ErrorOnSave;
 
                             }
                             break;

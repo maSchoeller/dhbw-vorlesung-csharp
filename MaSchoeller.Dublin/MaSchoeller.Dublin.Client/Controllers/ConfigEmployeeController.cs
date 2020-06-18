@@ -80,21 +80,21 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.AlreadyExists:
                             {
                                 employee.EditState = EditState.InValid;
-                                employee.ErrorMessage = DisplayMesages.EmployeeIdAlreadyExists;
+                                employee.ErrorMessage = DisplayMessages.EmployeeIdAlreadyExists;
 
                             }
                             break;
                             case OperationResult.SaveConflict:
                             {
                                 employee.EditState = EditState.InValid;
-                                employee.ErrorMessage = DisplayMesages.ConcurrentServerException;
+                                employee.ErrorMessage = DisplayMessages.ConcurrentServerException;
 
                             }
                             break;
                             default:
                             {
                                 employee.EditState = EditState.InValid;
-                                employee.ErrorMessage = DisplayMesages.ErrorOnSave;
+                                employee.ErrorMessage = DisplayMessages.ErrorOnSave;
 
                             }
                             break;
@@ -119,7 +119,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                     else
                     {
-                        _viewModel.SelectedEmployee.ErrorMessage = DisplayMesages.EmployeeCantDelete;
+                        _viewModel.SelectedEmployee.ErrorMessage = DisplayMessages.EmployeeCantDelete;
                     }
                 });
             }
