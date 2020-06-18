@@ -21,9 +21,7 @@ namespace MaSchoeller.Dublin.Client.Helpers
 
         public string? Token { get; set; }
 
-        public void AfterReceiveReply(ref Message reply, object correlationState)
-        {
-        }
+        public void AfterReceiveReply(ref Message reply, object correlationState) { }
 
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {
@@ -40,19 +38,16 @@ namespace MaSchoeller.Dublin.Client.Helpers
     {
         public TokenClientMessageInspector Inspector { get; set; } = new TokenClientMessageInspector();
 
-        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
-        {
-        }
+        public void AddBindingParameters(ServiceEndpoint endpoint, 
+            BindingParameterCollection bindingParameters) { }
 
         public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
         {
             clientRuntime.MessageInspectors.Add(Inspector);
         }
 
-        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
-        {
-
-        }
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, 
+            EndpointDispatcher endpointDispatcher) { }
 
         public void Validate(ServiceEndpoint endpoint) { }
     }

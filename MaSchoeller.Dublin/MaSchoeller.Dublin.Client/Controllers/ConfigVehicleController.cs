@@ -22,6 +22,11 @@ namespace MaSchoeller.Dublin.Client.Controllers
             return _viewModel;
         }
 
+        public override async Task EnterAsync()
+        {
+
+        }
+
         public void ExecuteNewCommand(object o)
         {
 
