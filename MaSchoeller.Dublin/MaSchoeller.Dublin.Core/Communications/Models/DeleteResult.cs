@@ -28,4 +28,13 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
         [DataMember]
         public Employee? Employee { get; set; }
     }
+
+    [DataContract]
+    public class DeleteVehicleResult : BaseResult
+    {
+        [DataMember]
+        public Vehicle? Vehicle { get; set; }
+    }
+
 }
+

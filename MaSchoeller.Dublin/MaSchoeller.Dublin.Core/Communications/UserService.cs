@@ -14,7 +14,7 @@ using System.ServiceModel.Security;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    //[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior]
     internal class UserService : BaseService, IUserService
     {
         private readonly IUserRepository _users;

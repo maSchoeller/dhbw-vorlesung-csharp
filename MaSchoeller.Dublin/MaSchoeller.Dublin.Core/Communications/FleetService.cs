@@ -10,21 +10,24 @@ using System.ServiceModel.Security;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior]
     internal class FleetService : BaseService, IFleetService
     {
         private readonly IBuisnessUnitRepository _buisnesses;
         private readonly IEmployeeRepository _employees;
+        private readonly IVehicleRepository _vehicles;
         private readonly ILogger<UserService>? _logger;
 
         public FleetService(ISecurityHelper connectionHelper,
                             IBuisnessUnitRepository buisnesses,
                             IEmployeeRepository employees,
+                            IVehicleRepository vehicles,
                             ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
             _buisnesses = buisnesses;
             _employees = employees;
+            _vehicles = vehicles;
             _logger = logger;
         }
 
@@ -68,8 +71,8 @@ namespace MaSchoeller.Dublin.Core.Communications
             if (!Validate())
                 return new SaveOrUpdateEmployeeResult { Reason = OperationResult.NotAuthenticated };
 
-            var r = employee.Id <= 0 ? _employees.Save(employee) : _employees.Update(employee);
-            return new SaveOrUpdateEmployeeResult { Reason = r.result, Employee = r.entity };
+            var (result, entity) = employee.Id <= 0 ? _employees.Save(employee) : _employees.Update(employee);
+            return new SaveOrUpdateEmployeeResult { Reason = result, Employee = entity };
         }
 
         public DeleteEmployeeResult DeleteEmployee(Employee employee)
@@ -81,5 +84,25 @@ namespace MaSchoeller.Dublin.Core.Communications
             return new DeleteEmployeeResult { Reason = result.result, Employee = result.entity };
         }
 
+        public SaveOrUpdateVehicleResult SaveOrUpdateEmployee(Vehicle vehicle)
+        {
+            if (!Validate())
+                return new SaveOrUpdateVehicleResult { Reason = OperationResult.NotAuthenticated };
+
+            var (result, entity) = vehicle.Id <= 0 ? _vehicles.Save(vehicle) : _vehicles.Update(vehicle);
+            return new SaveOrUpdateVehicleResult { Reason = result, Vehicle = entity };
+        }
+
+        public DeleteVehicleResult DeleteVehicle(Vehicle vehicle)
+        {
+            if (!Validate())
+                return new DeleteVehicleResult { Reason = OperationResult.NotAuthenticated };
+
+            var result = _vehicles.Delete(vehicle);
+            return new DeleteVehicleResult { Reason = result.result, Vehicle = result.entity };
+        }
+
+        public IEnumerable<Vehicle> GetAllVehicles() 
+            => _vehicles.GetAll();
     }
 }

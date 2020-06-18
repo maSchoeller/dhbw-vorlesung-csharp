@@ -1,27 +1,34 @@
-﻿using MaSchoeller.Dublin.Core.Services;
+﻿using MaSchoeller.Dublin.Core.Communications.Models;
+using MaSchoeller.Dublin.Core.Database.Abstracts;
+using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 
 namespace MaSchoeller.Dublin.Core.Communications
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior]
     internal class CalculationService : BaseService, ICalculationService
     {
         private readonly ILogger<UserService>? _logger;
 
-        public CalculationService(ISecurityHelper connectionHelper, ILogger<UserService>? logger = null)
+        public CalculationService(ISecurityHelper connectionHelper,
+                                  IVehicleRepository vehicleRepository,
+                                  ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
             _logger = logger;
         }
 
-        public string GetTestData()
+        public IEnumerable<CalculationMonthSet> GetCalculationMonthSets()
         {
-            if (!Validate())
-                throw new SecurityAccessDeniedException();
+            throw new System.NotImplementedException();
+        }
 
-            return "Here is the sugar.";
+        public IEnumerable<CalculationsBusinessUnitSet> GetCalculationsBusinessUnitSets()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

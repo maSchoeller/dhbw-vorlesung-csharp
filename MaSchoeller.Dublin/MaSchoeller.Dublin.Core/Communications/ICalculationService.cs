@@ -12,7 +12,10 @@ namespace MaSchoeller.Dublin.Core.Communications
     public interface ICalculationService
     {
         [OperationContract]
-        string GetTestData();
+        IEnumerable<CalculationMonthSet> GetCalculationMonthSets();
+
+        [OperationContract]
+        IEnumerable<CalculationsBusinessUnitSet> GetCalculationsBusinessUnitSets();
 
     }
 }

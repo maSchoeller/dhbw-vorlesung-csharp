@@ -88,6 +88,24 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mitarbeiter konnte nicht gelöscht werden..
+        /// </summary>
+        internal static string EmployeeCantDelete {
+            get {
+                return ResourceManager.GetString("EmployeeCantDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Personalnummer ist bereits vergeben..
+        /// </summary>
+        internal static string EmployeeIdAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmployeeIdAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beim Speichern ist etwas schief gegangen..
         /// </summary>
         internal static string ErrorOnSave {
@@ -111,6 +129,15 @@ namespace MaSchoeller.Dublin.Client {
         internal static string OldAndNewAreSame {
             get {
                 return ResourceManager.GetString("OldAndNewAreSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error message, refactor message. PasswordChangeError.
+        /// </summary>
+        internal static string PasswordChangeError {
+            get {
+                return ResourceManager.GetString("PasswordChangeError", resourceCulture);
             }
         }
         

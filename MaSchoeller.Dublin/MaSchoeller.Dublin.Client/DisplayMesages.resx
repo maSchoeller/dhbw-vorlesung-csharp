@@ -126,6 +126,12 @@
   <data name="DisconnectMessageCaption" xml:space="preserve">
     <value>Server Verbindung verloren</value>
   </data>
+  <data name="EmployeeCantDelete" xml:space="preserve">
+    <value>Mitarbeiter konnte nicht gelöscht werden.</value>
+  </data>
+  <data name="EmployeeIdAlreadyExists" xml:space="preserve">
+    <value>Die Personalnummer ist bereits vergeben.</value>
+  </data>
   <data name="ErrorOnSave" xml:space="preserve">
     <value>Beim Speichern ist etwas schief gegangen.</value>
   </data>
@@ -134,6 +140,9 @@
   </data>
   <data name="OldAndNewAreSame" xml:space="preserve">
     <value>Das alte und neue Passwort stimmen über ein.</value>
+  </data>
+  <data name="PasswordChangeError" xml:space="preserve">
+    <value>Error message, refactor message. PasswordChangeError</value>
   </data>
   <data name="PasswordOrUsernameIsWrong" xml:space="preserve">
     <value>Passwort oder Benutzername sind falsch.</value>

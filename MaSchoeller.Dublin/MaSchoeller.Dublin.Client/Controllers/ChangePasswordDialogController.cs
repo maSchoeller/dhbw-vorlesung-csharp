@@ -15,26 +15,29 @@ using System.Windows;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
-    public class ChangePasswordController
+    public class ChangePasswordDialogController
     {
         private readonly ChangePasswordViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
+        private readonly ConnectionLostHelper _lostHelper;
         private readonly INavigationService _navigationService;
         private readonly AutoResetEvent _blocker = new AutoResetEvent(false);
 
-        public ChangePasswordController(ChangePasswordViewModel viewModel,
-                                        ClientConnectionHandler connectionHandler,
-                                        INavigationService navigationService)
+        public ChangePasswordDialogController(ChangePasswordViewModel viewModel,
+                                              ClientConnectionHandler connectionHandler,
+                                              ConnectionLostHelper lostHelper,
+                                              INavigationService navigationService)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
+            _lostHelper = lostHelper;
             _navigationService = navigationService;
             _viewModel.ChangeCommand =
                  ConfigurableCommand.Create(PasswordChangeExecute).Build();
         }
 
 
-        public void ShowPasswordDialog()
+        public void ShowDialog()
         {
             _viewModel.ErrorMessage = string.Empty;
             _viewModel.OldPassword = string.Empty;
@@ -65,7 +68,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             else
             {
-                try
+                await _lostHelper.InvokeAsync(async () =>
                 {
                     var userClient = _connectionHandler.UserClient;
                     var result = await userClient.ChangePasswordAsync(_viewModel.OldPasswordClear, _viewModel.NewOnePasswordClear);
@@ -75,14 +78,9 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                     else
                     {
-                        _viewModel.ErrorMessage = "Refactor error Message"; //Todo: Refactor message
+                        _viewModel.ErrorMessage = DisplayMesages.PasswordChangeError; //Todo: Refactor message
                     }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(DisplayMesages.DisconnectMessage, DisplayMesages.DisconnectMessageCaption, MessageBoxButton.OK);
-                    _navigationService.NavigateTo(Navigation.DefaultRoute);
-                }
+                });
             }
             _viewModel.IsBusy = false;
         }

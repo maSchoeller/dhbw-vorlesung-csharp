@@ -1,4 +1,5 @@
 ﻿using MaSchoeller.Dublin.Client.Models;
+using MaSchoeller.Dublin.Client.Proxies.Fleets;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,6 @@ namespace MaSchoeller.Dublin.Client.ViewModels
         public ICommand NewCommand { get; set; } = null!;
         public ICommand DeleteCommand { get; set; } = null!;
         public ICommand SaveCommand { get; set; } = null!;
+        public IEnumerable<BusinessUnit> BusinessUnits { get; set; }
     }
 }

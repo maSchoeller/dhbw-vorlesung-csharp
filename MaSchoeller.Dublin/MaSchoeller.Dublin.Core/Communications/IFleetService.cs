@@ -30,5 +30,14 @@ namespace MaSchoeller.Dublin.Core.Communications
         
         [OperationContract]
         IEnumerable<Employee> GetAllEmployees();
+
+        [OperationContract]
+        SaveOrUpdateVehicleResult SaveOrUpdateEmployee(Vehicle vehicle);
+
+        [OperationContract]
+        DeleteVehicleResult DeleteVehicle(Vehicle vehicle);
+
+        [OperationContract]
+        IEnumerable<Vehicle> GetAllVehicles();
     }
 }

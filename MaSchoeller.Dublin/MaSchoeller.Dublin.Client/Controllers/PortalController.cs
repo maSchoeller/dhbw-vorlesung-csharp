@@ -12,9 +12,9 @@ namespace MaSchoeller.Dublin.Client.Controllers
     public class PortalController : ControllerBase
     {
         private readonly PortalViewModel _viewModel;
-        private readonly ChangePasswordController _passwordController;
+        private readonly ChangePasswordDialogController _passwordController;
 
-        public PortalController(PortalViewModel viewModel, ChangePasswordController passwordController)
+        public PortalController(PortalViewModel viewModel, ChangePasswordDialogController passwordController)
         {
             _viewModel = viewModel;
             _passwordController = passwordController;
@@ -29,7 +29,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public void ChangePasswordExecute(object o)
         {
-            _passwordController.ShowPasswordDialog();
+            _passwordController.ShowDialog();
         }
     }
 }

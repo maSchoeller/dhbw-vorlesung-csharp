@@ -14,17 +14,21 @@ namespace MaSchoeller.Dublin.Client.Models
         public DisplayEmployee(Employee employee)
         {
             Id = employee.Id;
-            BusinessUnit = employee.BusinessUnit;
-            EmployeeNumber = employee.EmployeeNumber;
-            Firstname = employee.Firstname;
-            Lastname = employee.Lastname;
-            Salutation = employee.Salutation;
-            Title = employee.Title;
             Version = employee.Version;
+            _businessUnit = employee.BusinessUnit;
+            _employeeNumber = employee.EmployeeNumber;
+            _firstname = employee.Firstname;
+            _lastname = employee.Lastname;
+            _salutation = employee.Salutation;
+            _title = employee.Title;
+        }
+        public DisplayEmployee()
+        {
+
         }
 
-        private BusinessUnit _businessUnit;
-        public BusinessUnit BusinessUnit
+        private BusinessUnit? _businessUnit;
+        public BusinessUnit? BusinessUnit
         {
             get => _businessUnit;
             set
@@ -49,7 +53,7 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        private string _lastname;
+        private string _lastname = string.Empty;
         public string Lastname
         {
             get => _lastname;
@@ -60,7 +64,7 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        private string _salutation;
+        private string _salutation = string.Empty;
         public string Salutation
         {
             get => _salutation;
@@ -71,7 +75,7 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        private string _title;
+        private string _title = string.Empty;
         public string Title
         {
             get => _title;
@@ -82,7 +86,7 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        private string _firstname;
+        private string _firstname = string.Empty;
 
         public string Firstname
         {

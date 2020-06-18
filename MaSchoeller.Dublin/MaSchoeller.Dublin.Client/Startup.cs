@@ -34,7 +34,7 @@ namespace MaSchoeller.Dublin.Client
 
         private void RegisterDialogs(ContainerBuilder services)
         {
-            services.RegisterType<ChangePasswordController>();
+            services.RegisterType<ChangePasswordDialogController>();
             services.RegisterType<ChangePasswordViewModel>();
         }
 

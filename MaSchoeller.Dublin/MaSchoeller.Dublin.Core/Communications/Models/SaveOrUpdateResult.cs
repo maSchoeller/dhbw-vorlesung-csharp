@@ -28,4 +28,11 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
         [DataMember]
         public User? User { get; set; } = null!;
     }
+
+    [DataContract]
+    public class SaveOrUpdateVehicleResult : BaseResult
+    {
+        [DataMember]
+        public Vehicle? Vehicle { get; set; } = null!;
+    }
 }

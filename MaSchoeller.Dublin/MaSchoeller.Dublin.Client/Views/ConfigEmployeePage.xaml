@@ -9,6 +9,54 @@
       Title="ConfigEmployeePage" Background="Brown">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Column="1"
+                  ItemsSource="{Binding Employees}"
+                  SelectedItem="{Binding SelectedEmployee}">
+            
+        </DataGrid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Personalnummer"/>
+            <TextBox Grid.Row="1" />
+
+            <Label Grid.Column="1" 
+                   Content="Anrede"/>
+            <TextBox Grid.Row="1" Grid.Column="1" />
+            <Label Grid.Row="2" Grid.Column="1" 
+                   Content="Titel"/>
+            <TextBox Grid.Row="3" Grid.Column="1" />
+            <Label Grid.Row="2" Content="Vorname"/>
+            <TextBox Grid.Row="3" />
+            <Label Grid.Row="4" Content="Nachname"/>
+            <TextBox Grid.Row="5" />
+            <Label Grid.Column="1" Grid.Row="4"
+                   Content="Geschäftsbereich"/>
+            <ComboBox Grid.Column="1" Grid.Row="5"
+                      ItemsSource="{Binding BusinessUnits}"
+                      SelectedItem="{Binding SelectedEmployee}"/>
+
+        </Grid>
     </Grid>
 </Page>
