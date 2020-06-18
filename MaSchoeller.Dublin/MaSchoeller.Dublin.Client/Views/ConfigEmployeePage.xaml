@@ -9,23 +9,18 @@
       Title="ConfigEmployeePage" Background="Brown">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0.1*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Column="1"
-                  ItemsSource="{Binding Employees}"
+        <DataGrid ItemsSource="{Binding Employees}"
                   SelectedItem="{Binding SelectedEmployee}">
             
         </DataGrid>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -43,20 +38,30 @@
 
             <Label Grid.Column="1" 
                    Content="Anrede"/>
-            <TextBox Grid.Row="1" Grid.Column="1" />
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     Text="{Binding Salutation}"/>
             <Label Grid.Row="2" Grid.Column="1" 
                    Content="Titel"/>
-            <TextBox Grid.Row="3" Grid.Column="1" />
+            <TextBox Grid.Row="3" Grid.Column="1"
+                     Text="{Binding Title}"/>
             <Label Grid.Row="2" Content="Vorname"/>
-            <TextBox Grid.Row="3" />
+            <TextBox Grid.Row="3"
+                     Text="{Binding Firstname}"/>
             <Label Grid.Row="4" Content="Nachname"/>
-            <TextBox Grid.Row="5" />
+            <TextBox Grid.Row="5" 
+                     Text="{Binding Lastname}"/>
             <Label Grid.Column="1" Grid.Row="4"
                    Content="Geschäftsbereich"/>
             <ComboBox Grid.Column="1" Grid.Row="5"
                       ItemsSource="{Binding BusinessUnits}"
-                      SelectedItem="{Binding SelectedEmployee}"/>
-
+                      SelectedItem="{Binding SelectedEmployee.BusinessUnit}"
+                      DisplayMemberPath="Name"/>
         </Grid>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal">
+            <Button Content="Neu" Command="{Binding NewCommand}" />
+            <Button Content="Speichern" Command="{Binding SaveCommand}" />
+            <Button Content="Löschen" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
     </Grid>
 </Page>

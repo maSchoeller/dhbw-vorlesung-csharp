@@ -1,5 +1,4 @@
-﻿using Antlr.Runtime.Misc;
-using MaSchoeller.Dublin.Client.Proxies.Users;
+﻿using MaSchoeller.Dublin.Client.Proxies.Users;
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Dublin.Client.Views;

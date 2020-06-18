@@ -51,9 +51,9 @@ namespace MaSchoeller.Dublin.Core.Services
             Uri baseAdress = new Uri(baseUrl + "/users");
             var host = new ServiceHost(typeof(UserService), baseAdress);
 
-            //Note: This is totally insecure and should never happen in Production, 
+            //Note: This is totally insecure and should never happen in production, 
             //      the login credentials will transfered on an unencrypted channel, 
-            //      in Production use Protocols that support TLS
+            //      in production use Protocols that support TLS.
             WSHttpBinding httpBinding = new WSHttpBinding();
             host.AddServiceEndpoint(typeof(IUserService), httpBinding, "");
             host.AddDependencyInjectionBehavior<IUserService>(_container);

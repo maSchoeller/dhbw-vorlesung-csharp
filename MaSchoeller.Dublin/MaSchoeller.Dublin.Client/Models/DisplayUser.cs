@@ -1,5 +1,4 @@
 ﻿using MaSchoeller.Dublin.Client.Models;
-using NHibernate.Cfg.ConfigurationSchema;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +18,11 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
             Id = user.Id;
             Version = user.Version;
             EditState = EditState.None;
-            Username = user.Username;
-            Lastname = user.Lastname;
-            Firstname = user.Firstname;
-            IsAdmin = user.IsAdmin;
+            _username = user.Username;
+            _lastname = user.Lastname;
+            _firstname = user.Firstname;
+            _username = user.Username;
+            _isAdmin = user.IsAdmin;
         }
 
         public DisplayUser()

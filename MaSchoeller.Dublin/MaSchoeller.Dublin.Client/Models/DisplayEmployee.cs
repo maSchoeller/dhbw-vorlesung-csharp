@@ -60,6 +60,7 @@ namespace MaSchoeller.Dublin.Client.Models
             set
             {
                 SetProperty(ref _lastname, value);
+                RaisePropertyChanged(nameof(Fullname));
                 EditState = EditState.Modified;
             }
         }
@@ -94,9 +95,13 @@ namespace MaSchoeller.Dublin.Client.Models
             set
             {
                 SetProperty(ref _firstname, value);
+                RaisePropertyChanged(nameof(Fullname));
+                
                 EditState = EditState.Modified;
             }
         }
+
+        public string Fullname => Firstname is null ? Lastname : $"{Firstname} {Lastname}"; 
 
         public Employee AsEmployee()
         {

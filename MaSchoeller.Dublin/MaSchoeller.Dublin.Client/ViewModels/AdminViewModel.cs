@@ -1,15 +1,6 @@
-﻿using MaSchoeller.Dublin.Client.Helpers;
-using MaSchoeller.Dublin.Client.Proxies.Users;
-using MaSchoeller.Extensions.Desktop.Mvvm;
-using NHibernate.Mapping;
-using System;
-using System.Collections.Generic;
+﻿using MaSchoeller.Dublin.Client.Proxies.Users;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace MaSchoeller.Dublin.Client.ViewModels
 {

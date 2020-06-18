@@ -32,10 +32,11 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             get => _selectedEmployee;
             set => SetProperty(ref _selectedEmployee, value);
         }
+        private ICollection<BusinessUnit> _businessUnits;
+        public ICollection<BusinessUnit> BusinessUnits { get => _businessUnits; set => SetProperty(ref _businessUnits, value); }
 
         public ICommand NewCommand { get; set; } = null!;
         public ICommand DeleteCommand { get; set; } = null!;
         public ICommand SaveCommand { get; set; } = null!;
-        public IEnumerable<BusinessUnit> BusinessUnits { get; set; }
     }
 }

@@ -3,5 +3,5 @@
                     xmlns:local="clr-namespace:MaSchoeller.Dublin.Client"
                     x:Name="DublinDefaultStyles">
     <SolidColorBrush x:Key="MyMagicBlue"  Color="Aqua" />
-
+    
 </ResourceDictionary>
