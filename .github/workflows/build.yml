@@ -17,8 +17,17 @@ jobs:
         uses: warrenbuckley/Setup-MSBuild@v1
   
       - name: MSBuild Uebung1
-        working-directory: aufgabenblatt_01
+        working-directory: Aufgabenblatt_01
         run: msbuild /t:Restore /p:Configuration=Release Aufagbenblatt_01.sln
       - name: MSBuild Uebung2
         working-directory: Aufgabenblatt_02
         run: msbuild /t:Restore /p:Configuration=Release Aufgabenblatt_02.sln
+      - name: MSBuild Uebung3
+        working-directory: Aufgabenblatt_03
+        run: msbuild /t:Restore /p:Configuration=Release Aufagbenblatt_03.sln
+      - name: MSBuild Uebung4
+        working-directory: Aufgabenblatt_04
+        run: msbuild /t:Restore /p:Configuration=Release Aufgabenblatt_04.sln
+      - name: MSBuild Uebung5
+        working-directory: Aufgabenblatt_05
+        run: msbuild /t:Restore /p:Configuration=Release Aufgabenblatt_05.sln
