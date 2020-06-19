@@ -10,6 +10,6 @@ namespace MaSchoeller.Dublin.Client.Models
     {
         None = 0,
         Modified = 1,
-        InValid = 2
+        InValid = 2,
     }
 }

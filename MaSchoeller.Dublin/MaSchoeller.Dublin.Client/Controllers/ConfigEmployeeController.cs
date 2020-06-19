@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,7 +69,13 @@ namespace MaSchoeller.Dublin.Client.Controllers
                 {
                     await _lostHelper.InvokeAsync(async () =>
                     {
-                        var result = await client.SaveOrUpdateEmployeeAsync(employee.AsEmployee());
+                        var validEmployee = employee.AsEmployee();
+                        if (validEmployee is null)
+                        {
+                            employee.ErrorMessage = DisplayMessages.EmployeeIsNotValid;
+                            return;
+                        }
+                        var result = await client.SaveOrUpdateEmployeeAsync(validEmployee);
                         switch (result.Reason)
                         {
                             case OperationResult.Success:

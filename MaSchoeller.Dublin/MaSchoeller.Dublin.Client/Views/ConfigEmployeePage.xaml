@@ -3,11 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views"
+      xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views" xmlns:helper="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ConfigEmployeePage" Background="Brown">
-
+    <Page.Resources>
+        <helper:NullToBoolConverter x:Key="nullToBoolConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,11 +18,14 @@
         </Grid.RowDefinitions>
 
         <DataGrid ItemsSource="{Binding Employees}"
-                  SelectedItem="{Binding SelectedEmployee}">
-            
+                  SelectedItem="{Binding SelectedEmployee}"
+                  SelectionMode="Single"
+                  IsReadOnly="True">
+
         </DataGrid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              IsEnabled="{Binding SelectedEmployee, Converter={StaticResource nullToBoolConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -34,22 +39,27 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Content="Personalnummer"/>
-            <TextBox Grid.Row="1" />
+            <TextBox Grid.Row="1" 
+                     Text="{Binding SelectedEmployee.EmployeeNumber, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Grid.Column="1" 
                    Content="Anrede"/>
             <TextBox Grid.Row="1" Grid.Column="1"
-                     Text="{Binding Salutation}"/>
+                     Text="{Binding SelectedEmployee.Salutation, UpdateSourceTrigger=PropertyChanged}"/>
+
             <Label Grid.Row="2" Grid.Column="1" 
                    Content="Titel"/>
             <TextBox Grid.Row="3" Grid.Column="1"
-                     Text="{Binding Title}"/>
+                     Text="{Binding SelectedEmployee.Title, UpdateSourceTrigger=PropertyChanged}"/>
+
             <Label Grid.Row="2" Content="Vorname"/>
             <TextBox Grid.Row="3"
-                     Text="{Binding Firstname}"/>
+                     Text="{Binding SelectedEmployee.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
+
             <Label Grid.Row="4" Content="Nachname"/>
             <TextBox Grid.Row="5" 
-                     Text="{Binding Lastname}"/>
+                     Text="{Binding SelectedEmployee.Lastname}"/>
+
             <Label Grid.Column="1" Grid.Row="4"
                    Content="Geschäftsbereich"/>
             <ComboBox Grid.Column="1" Grid.Row="5"

@@ -21,6 +21,7 @@ namespace MaSchoeller.Dublin.Client.Models
             _leasingFrom = vehicle.LeasingFrom;
             _leasingTo = vehicle.LeasingTo;
             _leasingRate = vehicle.LeasingRate;
+            IsSynced = true;
         }
 
         public DisplayVehicle()
@@ -107,6 +108,13 @@ namespace MaSchoeller.Dublin.Client.Models
                 SetProperty(ref _leasingRate, value);
                 EditState = EditState.Modified;
             }
+        }
+
+        public override bool Validate()
+        {
+            return !(string.IsNullOrWhiteSpace(Brand) ||
+                     string.IsNullOrWhiteSpace(Model) ||
+                     string.IsNullOrWhiteSpace(LicensePlate));
         }
 
 

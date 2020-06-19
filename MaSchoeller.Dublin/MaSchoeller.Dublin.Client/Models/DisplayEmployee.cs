@@ -2,6 +2,7 @@
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace MaSchoeller.Dublin.Client.Models
             _lastname = employee.Lastname;
             _salutation = employee.Salutation;
             _title = employee.Title;
+            IsSynced = true;
         }
         public DisplayEmployee()
         {
@@ -42,14 +44,15 @@ namespace MaSchoeller.Dublin.Client.Models
         public int Version { get; set; }
 
 
-        private int _employeeNumber;
-        public int EmployeeNumber
+        private int? _employeeNumber;
+        public int? EmployeeNumber
         {
             get => _employeeNumber;
             set
             {
                 SetProperty(ref _employeeNumber, value);
                 EditState = EditState.Modified;
+
             }
         }
 
@@ -96,20 +99,32 @@ namespace MaSchoeller.Dublin.Client.Models
             {
                 SetProperty(ref _firstname, value);
                 RaisePropertyChanged(nameof(Fullname));
-                
                 EditState = EditState.Modified;
             }
         }
 
-        public string Fullname => Firstname is null ? Lastname : $"{Firstname} {Lastname}"; 
+        public string Fullname => $"{Firstname} {Lastname}";
 
-        public Employee AsEmployee()
+        public override bool Validate()
         {
-            return new Employee
+            if (EmployeeNumber is null ||
+                BusinessUnit is null ||
+                string.IsNullOrWhiteSpace(Firstname) ||
+                string.IsNullOrWhiteSpace(Lastname))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public Employee? AsEmployee()
+        {
+            var result = Validate();
+            return !result ? null : new Employee
             {
                 Id = Id,
                 BusinessUnit = BusinessUnit,
-                EmployeeNumber = EmployeeNumber,
+                EmployeeNumber = EmployeeNumber!.Value,
                 Firstname = Firstname,
                 Lastname = Lastname,
                 Salutation = Salutation,

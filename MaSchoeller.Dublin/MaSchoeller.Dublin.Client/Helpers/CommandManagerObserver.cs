@@ -14,11 +14,20 @@ namespace MaSchoeller.Dublin.Client.Helpers
 
         public CommandManagerObserver()
         {
-            CommandManager.RequerySuggested += 
+            CommandManager.RequerySuggested +=
                 (s, e) => Changed?.Invoke(this, EventArgs.Empty);
         }
 
-        private static ICommandObserver _observer = new CommandManagerObserver();
+        private static readonly ICommandObserver _observer = new CommandManagerObserver();
         public static ICommandObserver Get() => _observer;
+    }
+
+    public static class CommandBuilderExtensions
+    {
+        public static ICommandBuilder ObserveCommandManager(this ICommandBuilder builder)
+        {
+            builder.AddObserver(CommandManagerObserver.Get());
+            return builder;
+        }
     }
 }

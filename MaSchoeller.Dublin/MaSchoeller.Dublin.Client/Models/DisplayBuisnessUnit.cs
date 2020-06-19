@@ -18,6 +18,7 @@ namespace MaSchoeller.Dublin.Client.Models
             Id = buisnessUnit.Id;
             _name = buisnessUnit.Name;
             _description = buisnessUnit.Description;
+            IsSynced = true;
         }
 
         public DisplayBusinessUnit()

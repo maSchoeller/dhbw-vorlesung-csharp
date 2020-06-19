@@ -23,6 +23,7 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
             _firstname = user.Firstname;
             _username = user.Username;
             _isAdmin = user.IsAdmin;
+            IsSynced = true;
         }
 
         public DisplayUser()

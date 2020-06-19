@@ -8,5 +8,9 @@ namespace MaSchoeller.Dublin.Client.Models
 {
     public class DisplayLeasing : DisplayBase
     {
+        public DisplayLeasing()
+        {
+
+        }
     }
 }

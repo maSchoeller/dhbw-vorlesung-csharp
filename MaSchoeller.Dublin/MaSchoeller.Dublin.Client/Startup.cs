@@ -47,7 +47,7 @@ namespace MaSchoeller.Dublin.Client
             router.AddRoute<CalculationUnitPage, CalculationUnitController>(DublinNavigations.CalculationUnitRoute);
             router.AddRoute<ConfigVehiclePage, ConfigVehicleController>(DublinNavigations.ConfigVehicleRoute);
             router.AddRoute<ConfigEmployeePage, ConfigEmployeeController>(DublinNavigations.ConfigEmployeeRoute);
-            router.AddRoute<ConfigBuisnessUnitPage, ConfigBuisnessUnitController>(DublinNavigations.ConfigBuisnessUnitRoute);
+            router.AddRoute<ConfigBuisnessUnitPage, ConfigBusinessUnitController>(DublinNavigations.ConfigBuisnessUnitRoute);
         }
 
         private void RegisterViewModels(ContainerBuilder services)
@@ -59,7 +59,7 @@ namespace MaSchoeller.Dublin.Client
             services.RegisterType<CalculationUnitViewModel>();
             services.RegisterType<ConfigVehicleViewModel>();
             services.RegisterType<ConfigEmployeeViewModel>();
-            services.RegisterType<ConfigBuisnessUnitViewModel>();
+            services.RegisterType<ConfigBusinessUnitViewModel>();
         }
     }
 }

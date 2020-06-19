@@ -132,6 +132,9 @@
   <data name="EmployeeIdAlreadyExists" xml:space="preserve">
     <value>Die Personalnummer ist bereits vergeben.</value>
   </data>
+  <data name="EmployeeIsNotValid" xml:space="preserve">
+    <value>Der Mitarbeiter ist nicht vollständiug angelegt.</value>
+  </data>
   <data name="ErrorOnSave" xml:space="preserve">
     <value>Beim Speichern ist etwas schief gegangen.</value>
   </data>

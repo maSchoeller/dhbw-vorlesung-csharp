@@ -15,13 +15,13 @@ using System.Windows;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
-    public class ConfigBuisnessUnitController : ControllerBase
+    public class ConfigBusinessUnitController : ControllerBase
     {
-        private readonly ConfigBuisnessUnitViewModel _viewModel;
+        private readonly ConfigBusinessUnitViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
 
-        public ConfigBuisnessUnitController(ConfigBuisnessUnitViewModel viewModel,
+        public ConfigBusinessUnitController(ConfigBusinessUnitViewModel viewModel,
                                             ClientConnectionHandler connectionHandler,
                                             ConnectionLostHelper lostHelper)
         {

@@ -9,40 +9,34 @@
       Title="AdminPage" Background="DarkCyan" >
     <Page.Resources>
         <helper:InvertBoolConverter x:Key="invertBoolConverter"/>
+        <helper:NullToBoolConverter x:Key="nullToboolConverter"/>
     </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <DataGrid ItemsSource="{Binding Users}"
                   SelectedItem="{Binding SelectedUser}"
                   AutoGenerateColumns="False"
+                  IsReadOnly="True"
                   Grid.Row="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vollständiger Name" 
-                                    IsReadOnly="True"
                                     Binding="{Binding Fullname}" />
                 <DataGridTextColumn Header="Benutzername"
-                                    IsReadOnly="True"
                                     Binding="{Binding Username}" />
                 <DataGridCheckBoxColumn Header="Admin"
-                                        Binding="{Binding IsAdmin}"
-                                        IsReadOnly="True" />
+                                        Binding="{Binding IsAdmin}"/>
                 <DataGridTextColumn Header="State"
-                                    IsReadOnly="True"
                                     Binding="{Binding EditState}" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.4*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" IsEnabled="{Binding SelectedUser,Converter={StaticResource nullToboolConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -52,34 +46,30 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label  Grid.Row="1" Grid.Column="1"
+            <Label  Grid.Row="0" 
                     Content="Benutzername"/>
-            <TextBox  Grid.Row="2" Grid.Column="1"
+            <TextBox  Grid.Row="1" 
                       Text="{Binding SelectedUser.Username, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label  Grid.Row="3" Grid.Column="1"
+            <Label  Grid.Row="2"
                     Content="Vorname"/>
-            <TextBox  Grid.Row="4" Grid.Column="1"
+            <TextBox  Grid.Row="3"
                       Text="{Binding  SelectedUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label  Grid.Row="5" Grid.Column="1"
+            <Label  Grid.Row="4" 
                     Content="Nachname"/>
-            <TextBox  Grid.Row="6" Grid.Column="1"
+            <TextBox  Grid.Row="5"
                       Text="{Binding  SelectedUser.Lastname, UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox  Grid.Row="7" Grid.Column="1"
+            <CheckBox  Grid.Row="6"
                        Content="Administrator"
                        IsChecked="{Binding  SelectedUser.IsAdmin}"/>
-            <StackPanel Grid.Row="9" Grid.Column="1"
-                        Orientation="Horizontal">
-                <Button Content="Neu" 
-                        Command="{Binding NewCommand}"/>
-                <Button Content="Speichern"
-                        Command="{Binding SaveCommand}"/>
-                <Button Content="Löschen"
-                        Command="{Binding DeleteCommand}"/>
-                <Label Content="{Binding SelectedUser.ErrorMessage}" />
-            </StackPanel>
+            <Label Grid.Row="7" 
+                   Content="{Binding SelectedUser.ErrorMessage}" />
         </Grid>
+        
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Content="Neu" Command="{Binding NewCommand}"/>
+            <Button Content="Speichern" Command="{Binding SaveCommand}"/>
+            <Button Content="Löschen" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
     </Grid>
 </Page>

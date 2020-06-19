@@ -4,10 +4,10 @@ using System.Windows.Input;
 
 namespace MaSchoeller.Dublin.Client.ViewModels
 {
-    public class ConfigBuisnessUnitViewModel : ViewModelBase
+    public class ConfigBusinessUnitViewModel : ViewModelBase
     {
 
-        public ConfigBuisnessUnitViewModel()
+        public ConfigBusinessUnitViewModel()
         {
 
         }

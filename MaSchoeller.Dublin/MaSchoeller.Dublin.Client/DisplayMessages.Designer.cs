@@ -106,6 +106,15 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Der Mitarbeiter ist nicht vollständiug angelegt..
+        /// </summary>
+        internal static string EmployeeIsNotValid {
+            get {
+                return ResourceManager.GetString("EmployeeIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beim Speichern ist etwas schief gegangen..
         /// </summary>
         internal static string ErrorOnSave {
