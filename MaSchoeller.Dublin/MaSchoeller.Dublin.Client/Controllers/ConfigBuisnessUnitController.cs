@@ -60,20 +60,26 @@ namespace MaSchoeller.Dublin.Client.Controllers
         {
             if (!(_viewModel.SelectedBuisnessUnit is null))
             {
-                var userClient = _connectionHandler.FleetsClient;
-                await _lostHelper.InvokeAsync(async () =>
+                var delete = true;
+                if (_viewModel.SelectedBuisnessUnit.IsSynced)
                 {
-                    var result = await userClient.DeleteBusinessUnitAsync(_viewModel.SelectedBuisnessUnit!.AsBusinessUnit());
-                    if (result.Reason == OperationResult.Success)
+                    var userClient = _connectionHandler.FleetsClient;
+                    await _lostHelper.InvokeAsync(async () =>
                     {
-                        _viewModel.BuisnessUnits.Remove(_viewModel.SelectedBuisnessUnit);
-                        _viewModel.SelectedBuisnessUnit = null;
-                    }
-                    else
-                    {
-                        _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMessages.UserCantDelete;
-                    }
-                });
+                        var result = await userClient.DeleteBusinessUnitAsync(_viewModel.SelectedBuisnessUnit!.AsBusinessUnit());
+                        if (result.Reason != OperationResult.Success)
+                        {
+                            _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMessages.UserCantDelete;
+                            delete = false;
+                        }
+                    });
+                }
+                if (delete)
+                {
+                    _viewModel.BuisnessUnits.Remove(_viewModel.SelectedBuisnessUnit);
+                    _viewModel.SelectedBuisnessUnit = null;
+                }
+               
             }
         }
 

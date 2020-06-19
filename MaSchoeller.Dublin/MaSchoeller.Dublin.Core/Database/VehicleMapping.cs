@@ -29,8 +29,8 @@ namespace MaSchoeller.Dublin.Core.Database
             Map(v => v.LeasingRate)
                 .Not.Nullable();
             Version(v => v.Version);
-            HasMany(v => v.VehicleEmployees).KeyColumn("VehicleId")
-                .Cascade.All();
+            //HasMany(v => v.VehicleEmployees).KeyColumn("VehicleId")
+            //    .Cascade.All();
         }
     }
 }

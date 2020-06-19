@@ -16,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Vehicles}"
-                  SelectedItem="{Binding SelectedVehicles}"
+                  SelectedItem="{Binding SelectedVehicle}"
                   SelectionMode="Single"
                   IsReadOnly="True">
             
@@ -38,9 +38,24 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="3" Grid.ColumnSpan="2"
+                        <Label Content="Kennzeichen" />
+                        <TextBox Grid.Row="1"
+                                 Text="{Binding SelectedVehicle.LicencePlate}"/>
+                        <Label Content="Marke" Grid.Column="1" />
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding SelectedVehicle.Brand}"/>
+                        <Label Content="Modell" Grid.Row="2" />
+                        <TextBox Grid.Row="3"
+                                 Text="{Binding SelectedVehicle.Model}"/>
+                        <Label Grid.Row="2" Grid.Column="1"
+                               Content="Versicherung pro Jahr" />
+                        <TextBox Grid.Row="3" Grid.Column="1"
+                                 Text="{Binding SelectedVehicle.Insurance}"/>
+
+                        <GroupBox Grid.Row="4" Grid.ColumnSpan="2"
                               Header="Leasing">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -56,26 +71,43 @@
                                 <DatePicker Grid.Row="1"
                                         SelectedDate="{Binding SelectedVehicle.LeasingFrom}"/>
                                 <Label Grid.Column="1"
-                                   Content="Leasing Ende"/>
+                                   Content="Leasing Ende" Height="26" VerticalAlignment="Top"/>
                                 <DatePicker  Grid.Row="1" Grid.Column="1"
                                          SelectedDate="{Binding SelectedVehicle.LeasingTo}"/>
                                 <Label Grid.Column="2"
                                    Content="Leasing Kosten"/>
                                 <TextBox Grid.Row="1" Grid.Column="2"
-                                     Text="{Binding SelectedVehicle.LeasingCosts, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding SelectedVehicle.LeasingRate, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
                     <StackPanel Grid.Row="4" Grid.ColumnSpan="2"
                                 Orientation="Horizontal">
                         <Button Content="Neu" Command="{Binding NewCommand}" />
-                        <Button Content="Speichern" Command="{Binding EditCommand}"/>
+                        <Button Content="Speichern" Command="{Binding SaveCommand}"/>
                         <Button Content="Löschen" Command="{Binding DeleteCommand}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="mitarbieter">
+            <TabItem Header="Mitarbieter">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Hinzufügen" Command="{Binding AddTourCommand}"/>
+                        <Button Content="Entfernen" Command="{Binding RemoveTourCommand}"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" 
+                              ItemsSource="{Binding }"
+                              SelectedItem="{Binding }"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>

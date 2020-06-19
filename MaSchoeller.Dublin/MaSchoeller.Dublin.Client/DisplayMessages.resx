@@ -133,7 +133,7 @@
     <value>Die Personalnummer ist bereits vergeben.</value>
   </data>
   <data name="EmployeeIsNotValid" xml:space="preserve">
-    <value>Der Mitarbeiter ist nicht vollständiug angelegt.</value>
+    <value>Der Mitarbeiter ist nicht vollständig oder richtig Konfiguriert.</value>
   </data>
   <data name="ErrorOnSave" xml:space="preserve">
     <value>Beim Speichern ist etwas schief gegangen.</value>
@@ -161,5 +161,11 @@
   </data>
   <data name="UserIdAlreadyExists" xml:space="preserve">
     <value>Der Benutzer existiert bereits</value>
+  </data>
+  <data name="VehicleIdAlreadyExists" xml:space="preserve">
+    <value>Die Id ist beriets vergeben. </value>
+  </data>
+  <data name="VehicleIsNotValid" xml:space="preserve">
+    <value>Das Fahrzug ist nicht vollständig oder richtig Konfiguriert.</value>
   </data>
 </root>

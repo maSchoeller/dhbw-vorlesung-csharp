@@ -27,8 +27,8 @@ namespace MaSchoeller.Dublin.Core.Database
             References(e => e.BusinessUnit).Column("BusinessUnitId")
                 .Not.Nullable()
                 .Cascade.All();
-            HasMany(e => e.VehicleEmployees).KeyColumn("EmployeeId")
-                    .Cascade.All();
+            //HasMany(e => e.VehicleEmployees).KeyColumn("EmployeeId")
+            //        .Cascade.All();
         }
     }
 }

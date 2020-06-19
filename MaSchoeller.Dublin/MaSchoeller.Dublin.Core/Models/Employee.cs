@@ -18,6 +18,10 @@ namespace MaSchoeller.Dublin.Core.Models
         public BusinessUnit BusinessUnit { get; set; } = null!;
         public int Version { get; set; }
 
-        public ICollection<VehicleEmployee> VehicleEmployees { get; set; } = new Collection<VehicleEmployee>();
+        public override string ToString()
+        {
+            return $"{Title} {Firstname} {Lastname}";
+        }
+
     }
 }

@@ -66,6 +66,9 @@ namespace MaSchoeller.Dublin.Core.Communications
         public IEnumerable<Employee> GetAllEmployees()
             => _employees.GetAll();
 
+        public IEnumerable<Employee> GetPossibleEmployeesByVehicle(int id) 
+            => _employees.GetPossibleEmployeesByVehicle(id);
+
         public SaveOrUpdateEmployeeResult SaveOrUpdateEmployee(Employee employee)
         {
             if (!Validate())
@@ -102,7 +105,32 @@ namespace MaSchoeller.Dublin.Core.Communications
             return new DeleteVehicleResult { Reason = result.result, Vehicle = result.entity };
         }
 
-        public IEnumerable<Vehicle> GetAllVehicles() 
+        public IEnumerable<Vehicle> GetAllVehicles(int id) 
             => _vehicles.GetAll();
+
+        public SaveTourResult SaveTour(Tour tour)
+        {
+            var result = _vehicles.SaveTour(tour);
+            return new SaveTourResult
+            {
+                Reason = result.result,
+                Tour = tour
+            };
+        }
+
+        public DeleteTourResult DeleteTour(Tour tour)
+        {
+            var result = _vehicles.DeleteTour(tour);
+            return new DeleteTourResult
+            {
+                Reason = result.result,
+                Tour = result.tour
+            };
+        }
+
+        public IEnumerable<Tour> GetToursByVehicle(int id)
+        {
+            return _vehicles.GetToursByVehicle(id);
+        }
     }
 }

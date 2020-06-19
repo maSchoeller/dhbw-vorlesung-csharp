@@ -1,6 +1,7 @@
 ﻿using MaSchoeller.Dublin.Client.Proxies.Fleets;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace MaSchoeller.Dublin.Client.Models
         {
             Id = vehicle.Id;
             Version = vehicle.Version;
-            _licensePlate = vehicle.LicensePlate;
+            _licencePlate = vehicle.LicensePlate;
             _brand = vehicle.Brand;
             _model = vehicle.Model;
             _insurance = vehicle.Insurance;
@@ -26,20 +27,22 @@ namespace MaSchoeller.Dublin.Client.Models
 
         public DisplayVehicle()
         {
-
+            IsSynced = false;
+            LeasingFrom = DateTime.Today;
+            LeasingTo = DateTime.Today;
         }
 
         public int Id { get; set; }
         public int Version { get; set; }
 
 
-        private string _licensePlate = string.Empty;
-        public string LicensePlate
+        private string _licencePlate = string.Empty;
+        public string LicencePlate
         {
-            get => _licensePlate;
+            get => _licencePlate;
             set
             {
-                SetProperty(ref _licensePlate, value);
+                SetProperty(ref _licencePlate, value);
                 EditState = EditState.Modified;
             }
         }
@@ -66,8 +69,8 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        public double _insurance;
-        public double Insurance
+        public double? _insurance;
+        public double? Insurance
         {
             get => _insurance;
             set
@@ -77,8 +80,8 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        public DateTime _leasingFrom;
-        public DateTime LeasingFrom
+        public DateTime? _leasingFrom;
+        public DateTime? LeasingFrom
         {
             get => _leasingFrom;
             set
@@ -88,8 +91,8 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        public DateTime _leasingTo;
-        public DateTime LeasingTo
+        public DateTime? _leasingTo;
+        public DateTime? LeasingTo
         {
             get => _leasingTo;
             set
@@ -99,8 +102,8 @@ namespace MaSchoeller.Dublin.Client.Models
             }
         }
 
-        public double _leasingRate;
-        public double LeasingRate
+        public double? _leasingRate;
+        public double? LeasingRate
         {
             get => _leasingRate;
             set
@@ -114,24 +117,43 @@ namespace MaSchoeller.Dublin.Client.Models
         {
             return !(string.IsNullOrWhiteSpace(Brand) ||
                      string.IsNullOrWhiteSpace(Model) ||
-                     string.IsNullOrWhiteSpace(LicensePlate));
+                     string.IsNullOrWhiteSpace(LicencePlate) ||
+                     LeasingTo < LeasingFrom ||
+                     LeasingFrom is null ||
+                     LeasingTo is null ||
+                     Insurance is null ||
+                     LeasingRate is null);
         }
 
 
-        public Vehicle AsVehicle()
+        private ObservableCollection<DisplayTour> _tours = new ObservableCollection<DisplayTour>();
+        public ObservableCollection<DisplayTour> Tours
         {
-            return new Vehicle
+            get => _tours;
+            set => SetProperty(ref _tours, value);
+        }
+
+        public Vehicle? AsVehicle()
+        {
+            if (Validate())
             {
-                Id = Id,
-                Version = Version,
-                LicensePlate = LicensePlate,
-                Brand = Brand,
-                Model = Model,
-                Insurance = Insurance,
-                LeasingFrom = LeasingFrom,
-                LeasingTo = LeasingTo,
-                LeasingRate = LeasingRate,
-            };
+                return new Vehicle
+                {
+                    Id = Id,
+                    Version = Version,
+                    LicensePlate = LicencePlate,
+                    Brand = Brand,
+                    Model = Model,
+                    Insurance = Insurance!.Value,
+                    LeasingFrom = LeasingFrom!.Value,
+                    LeasingTo = LeasingTo!.Value,
+                    LeasingRate = LeasingRate!.Value,
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -36,5 +36,12 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
         public Vehicle? Vehicle { get; set; }
     }
 
+    [DataContract]
+    public class DeleteTourResult : BaseResult
+    {
+        [DataMember]
+        public Tour? Tour { get; set; }
+    }
+
 }
 

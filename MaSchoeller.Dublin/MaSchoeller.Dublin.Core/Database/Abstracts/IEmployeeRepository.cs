@@ -9,5 +9,7 @@ namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
+
+        IEnumerable<Employee> GetPossibleEmployeesByVehicle(int id);
     }
 }

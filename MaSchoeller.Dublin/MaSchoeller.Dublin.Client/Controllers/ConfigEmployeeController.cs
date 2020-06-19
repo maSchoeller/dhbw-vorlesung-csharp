@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,7 +42,6 @@ namespace MaSchoeller.Dublin.Client.Controllers
             _viewModel.DeleteCommand = ConfigurableCommand.Create(ExecuteDeleteCommand, o => !(_viewModel.SelectedEmployee is null))
                                                        .Observe(_viewModel, () => _viewModel.SelectedEmployee)
                                                        .Build();
-
             return _viewModel;
         }
 
@@ -52,6 +52,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             _viewModel.Employees = new ObservableCollection<DisplayEmployee>(emp.Select(e => new DisplayEmployee(e)));
             _viewModel.BusinessUnits = await fleetclient.GetAllBusinessUnitsAsync();
         }
+
 
         private void ExecuteNewCommand(object o)
         {
@@ -82,6 +83,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             {
                                 employee.EditState = EditState.None;
                                 employee.Version = result.Employee.Version;
+                                employee.IsSynced = true;
                             }
                             break;
                             case OperationResult.AlreadyExists:
@@ -115,20 +117,26 @@ namespace MaSchoeller.Dublin.Client.Controllers
         {
             if (!(_viewModel.SelectedEmployee is null))
             {
-                var userClient = _connectionHandler.FleetsClient;
-                await _lostHelper.InvokeAsync(async () =>
+                bool delete = true;
+                if (_viewModel.SelectedEmployee.IsSynced)
                 {
-                    var result = await userClient.DeleteEmployeeAsync(_viewModel.SelectedEmployee.AsEmployee());
-                    if (result.Reason == OperationResult.Success)
+                    var userClient = _connectionHandler.FleetsClient;
+                    await _lostHelper.InvokeAsync(async () =>
                     {
-                        _viewModel.Employees.Remove(_viewModel.SelectedEmployee);
-                        _viewModel.SelectedEmployee = null;
-                    }
-                    else
-                    {
-                        _viewModel.SelectedEmployee.ErrorMessage = DisplayMessages.EmployeeCantDelete;
-                    }
-                });
+                        var result = await userClient.DeleteEmployeeAsync(_viewModel.SelectedEmployee.AsEmployee());
+                        if (result.Reason != OperationResult.Success)
+                        {
+                            _viewModel.SelectedEmployee.ErrorMessage = DisplayMessages.EmployeeCantDelete;
+                            delete = false;
+                        }
+                    });
+                }
+               
+                if (delete)
+                {
+                    _viewModel.Employees.Remove(_viewModel.SelectedEmployee);
+                    _viewModel.SelectedEmployee = null;
+                }
             }
         }
     }

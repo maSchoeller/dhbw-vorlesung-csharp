@@ -35,4 +35,11 @@ namespace MaSchoeller.Dublin.Core.Communications.Models
         [DataMember]
         public Vehicle? Vehicle { get; set; } = null!;
     }
+
+    [DataContract]
+    public class SaveTourResult : BaseResult
+    {
+        [DataMember]
+        public Tour? Tour { get; set; }
+    }
 }

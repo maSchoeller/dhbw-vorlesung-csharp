@@ -28,12 +28,12 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
 
         public DisplayUser()
         {
-
+            IsSynced = false;
         }
 
         public int Id { get; set; }
 
-        private string _username;
+        private string _username = string.Empty;
         public string Username
         {
             get => _username;
@@ -44,7 +44,7 @@ namespace MaSchoeller.Dublin.Client.Proxies.Users
             }
         }
 
-        private string _lastname;
+        private string _lastname = string.Empty;
         public string Lastname
         {
             get => _lastname;

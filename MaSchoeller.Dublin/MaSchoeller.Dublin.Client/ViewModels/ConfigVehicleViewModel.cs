@@ -42,7 +42,6 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             set => SetProperty(ref _vehicles, value);
         }
 
-
         private DisplayVehicle? _selectedVehicle;
         public DisplayVehicle? SelectedVehicle
         {
@@ -50,9 +49,27 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             set => SetProperty(ref _selectedVehicle, value);
         }
 
+        private ObservableCollection<DisplayTour> _tours
+            = new ObservableCollection<DisplayTour>();
+        public ObservableCollection<DisplayTour> Tours
+        {
+            get => _tours;
+            set => SetProperty(ref _tours, value);
+        }
+
+
+
+        private DisplayTour? _selectedTour;
+        public DisplayTour? SelectedTour
+        {
+            get => _selectedTour;
+            set => SetProperty(ref _selectedTour, value);
+        }
 
         public ICommand NewCommand { get; set; } = null!;
         public ICommand SaveCommand { get; set; } = null!;
         public ICommand DeleteCommand { get; set; } = null!;
+        public ICommand AddTourCommand { get; set; } = null!;
+        public ICommand RemoveTourCommand { get; set; } = null!;
     }
 }

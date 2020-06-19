@@ -23,7 +23,7 @@ namespace MaSchoeller.Dublin.Client.Models
 
         public DisplayBusinessUnit()
         {
-
+            IsSynced = false;
         }
 
         public int Id { get; set; }

@@ -26,7 +26,7 @@ namespace MaSchoeller.Dublin.Client.Models
         }
         public DisplayEmployee()
         {
-
+            IsSynced = false;
         }
 
         private BusinessUnit? _businessUnit;
@@ -120,17 +120,24 @@ namespace MaSchoeller.Dublin.Client.Models
         public Employee? AsEmployee()
         {
             var result = Validate();
-            return !result ? null : new Employee
+            if (result)
             {
-                Id = Id,
-                BusinessUnit = BusinessUnit,
-                EmployeeNumber = EmployeeNumber!.Value,
-                Firstname = Firstname,
-                Lastname = Lastname,
-                Salutation = Salutation,
-                Title = Title,
-                Version = Version
-            };
+                return new Employee
+                {
+                    Id = Id,
+                    BusinessUnit = BusinessUnit,
+                    EmployeeNumber = EmployeeNumber!.Value,
+                    Firstname = Firstname,
+                    Lastname = Lastname,
+                    Salutation = Salutation,
+                    Title = Title,
+                    Version = Version
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

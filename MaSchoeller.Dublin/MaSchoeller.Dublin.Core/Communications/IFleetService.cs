@@ -32,12 +32,24 @@ namespace MaSchoeller.Dublin.Core.Communications
         IEnumerable<Employee> GetAllEmployees();
 
         [OperationContract]
+        IEnumerable<Employee> GetPossibleEmployeesByVehicle(int vehicleId);
+
+        [OperationContract]
+        SaveTourResult SaveTour(Tour tour);
+        
+        [OperationContract]
+        DeleteTourResult DeleteTour(Tour tour);
+
+        [OperationContract]
+        IEnumerable<Tour> GetToursByVehicle(int id);
+
+        [OperationContract]
         SaveOrUpdateVehicleResult SaveOrUpdateVehicle(Vehicle vehicle);
 
         [OperationContract]
         DeleteVehicleResult DeleteVehicle(Vehicle vehicle);
 
         [OperationContract]
-        IEnumerable<Vehicle> GetAllVehicles();
+        IEnumerable<Vehicle> GetAllVehicles(int id);
     }
 }

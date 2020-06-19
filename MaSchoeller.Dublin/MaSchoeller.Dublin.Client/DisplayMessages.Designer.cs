@@ -106,7 +106,7 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Der Mitarbeiter ist nicht vollständiug angelegt..
+        ///   Looks up a localized string similar to Der Mitarbeiter ist nicht vollständig oder richtig Konfiguriert..
         /// </summary>
         internal static string EmployeeIsNotValid {
             get {
@@ -192,6 +192,24 @@ namespace MaSchoeller.Dublin.Client {
         internal static string UserIdAlreadyExists {
             get {
                 return ResourceManager.GetString("UserIdAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Id ist beriets vergeben. .
+        /// </summary>
+        internal static string VehicleIdAlreadyExists {
+            get {
+                return ResourceManager.GetString("VehicleIdAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Das Fahrzug ist nicht vollständig oder richtig Konfiguriert..
+        /// </summary>
+        internal static string VehicleIsNotValid {
+            get {
+                return ResourceManager.GetString("VehicleIsNotValid", resourceCulture);
             }
         }
     }
