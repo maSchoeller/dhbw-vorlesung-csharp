@@ -9,6 +9,8 @@
       Title="CalculationUnitPage">
 
     <Grid>
-        
+        <DataGrid ItemsSource="{Binding Costs}">
+            
+        </DataGrid>
     </Grid>
 </Page>

@@ -16,28 +16,32 @@ namespace MaSchoeller.Dublin.Core.Database
         public IEnumerable<BusinessUnitMonthCost> GetAllCosts()
         {
             using var session = Factory.OpenSession();
-            return session.Query<BusinessUnit>()
-                .Join(session.Query<Employee>(),
-                      b => b.Id,
-                      e => e.BusinessUnit.Id,
-                      (b, e) => new { BusinessUnit = b, Employee = e })
-                .Join(session.Query<VehicleEmployee>(),
-                      be => be.Employee.Id,
-                      ve => ve.Employee.Id,
-                      (be, ve) => new { BusinessUnitEmployee = be, VehicleEmployee = ve })
-                .Join(session.Query<Vehicle>(),
-                      beve => beve.VehicleEmployee.Vehicle.Id,
-                      v => v.Id,
-                      (beve, v) => new { beve.BusinessUnitEmployee.BusinessUnit, Costs = GetCostsPerVehicle(v) })
-                .SelectMany(bv => bv.Costs.Select(c => new { VehicleCost = c, bv.BusinessUnit}))
-                .GroupBy(cb => new { cb.VehicleCost.Month, cb.BusinessUnit })
-                .Select(cb => new BusinessUnitMonthCost { Month = cb.Key.Month, BusinessUnit=  cb.Key.BusinessUnit.Name, Costs = cb.Sum(c => c.VehicleCost.Costs)})
-                .ToArray();
+            var result = session.Query<BusinessUnit>()
+                                .Join(session.Query<Employee>(),
+                                        b => b.Id,
+                                        e => e.BusinessUnit.Id,
+                                        (b, e) => new { BusinessUnit = b, Employee = e })
+                                .Join(session.Query<VehicleEmployee>(),
+                                        be => be.Employee.Id,
+                                        ve => ve.Employee.Id,
+                                        (be, ve) => new { BusinessUnitEmployee = be, VehicleEmployee = ve })
+                                .Join(session.Query<Vehicle>(),
+                                        beve => beve.VehicleEmployee.Vehicle.Id,
+                                        v => v.Id,
+                                        (beve, v) => new { beve.BusinessUnitEmployee.BusinessUnit, beve.VehicleEmployee, Vehicle = v })
+                                .ToArray()
+                                .Select(m => new { m.BusinessUnit, Costs = GetCostsPerVehicle(m.VehicleEmployee, m.Vehicle) })
+                                .SelectMany(bv => bv.Costs.Select(c => new { VehicleCost = c, bv.BusinessUnit }))
+                                .GroupBy(cb => new { cb.VehicleCost.Month, cb.BusinessUnit })
+                                .Select(cb => new BusinessUnitMonthCost { Month = cb.Key.Month, BusinessUnit = cb.Key.BusinessUnit.Name, Costs = cb.Sum(c => c.VehicleCost.Costs) })
+                                .ToArray();
+
+            return result;
         }
 
-        private IEnumerable<VehicleMonthCost> GetCostsPerVehicle(Vehicle vehicle)
+        private IEnumerable<VehicleMonthCost> GetCostsPerVehicle(VehicleEmployee vehicleEmployee, Vehicle vehicle)
         {
-            for (DateTime i = vehicle.LeasingFrom; i < vehicle.LeasingTo; i = i.AddMonths(1))
+            for (DateTime i = vehicleEmployee.StartDate; i < (vehicleEmployee.EndDate ?? DateTime.Now); i = i.AddMonths(1))
             {
                 yield return new VehicleMonthCost
                 {
