@@ -115,11 +115,29 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Es ist ein fehler beim laden der Mitarbeiter aufgetreten..
+        /// </summary>
+        internal static string ErrorAddingTour {
+            get {
+                return ResourceManager.GetString("ErrorAddingTour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beim Speichern ist etwas schief gegangen..
         /// </summary>
         internal static string ErrorOnSave {
             get {
                 return ResourceManager.GetString("ErrorOnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Tour Konnte nicht gelöscht werden..
+        /// </summary>
+        internal static string ErrorRemovingTour {
+            get {
+                return ResourceManager.GetString("ErrorRemovingTour", resourceCulture);
             }
         }
         

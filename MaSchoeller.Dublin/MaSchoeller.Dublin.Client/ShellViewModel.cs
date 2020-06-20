@@ -43,14 +43,6 @@ namespace MaSchoeller.Dublin.Client
             {
                 logger?.LogWarning("Failed navigating to Page {0}", e.Route);
             };
-            
-            void OnDisconnect(object sender, EventArgs e)
-            {
-                if (_route != Navigation.DefaultRoute)
-                {
-                    navigationService.NavigateTo(Navigation.DefaultRoute);
-                }
-            }
         }
 
 

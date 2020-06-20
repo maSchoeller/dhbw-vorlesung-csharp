@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MaSchoeller.Dublin.Client.Views
 {
     /// <summary>
-    /// Interaction logic for AddLeasingWindow.xaml
+    /// Interaction logic for AddTourWindow.xaml
     /// </summary>
-    public partial class AddLeasingWindow : Window
+    public partial class AddTourWindow : Window
     {
-        public AddLeasingWindow()
+        public AddTourWindow()
         {
             InitializeComponent();
         }

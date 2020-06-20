@@ -10,9 +10,11 @@ namespace MaSchoeller.Dublin.Core.Database.Abstracts
 {
     public interface IVehicleRepository : IRepository<Vehicle>
     {
-        public (OperationResult result, Tour? tour) SaveTour(Tour tour);
-        public (OperationResult result, Tour? tour) DeleteTour(Tour tour);
+        (OperationResult result, Tour? tour) SaveTour(Tour tour);
+        (OperationResult result, Tour? tour) DeleteTour(Tour tour);
 
-        public IEnumerable<Tour> GetToursByVehicle(int id);
+        IEnumerable<Tour> GetToursByVehicle(int id);
+
+        IEnumerable<VehicleMonthCost> GetAllVehicleMonthCosts();
     }
 }

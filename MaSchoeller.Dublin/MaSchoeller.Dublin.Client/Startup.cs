@@ -14,9 +14,25 @@ using System.Windows;
 namespace MaSchoeller.Dublin.Client
 {
     public class Startup
-    { 
+    {
         public void ConfigureApplication(Application app)
         {
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
+            });
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
+            });
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml")
+            });
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml")
+            });
             app.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
                 Source = new Uri("DublinDefaultStyles.xaml", UriKind.Relative)
@@ -32,11 +48,6 @@ namespace MaSchoeller.Dublin.Client
             RegisterDialogs(services);
         }
 
-        private void RegisterDialogs(ContainerBuilder services)
-        {
-            services.RegisterType<ChangePasswordDialogController>();
-            services.RegisterType<ChangePasswordViewModel>();
-        }
 
         public void ConfigureNavigation(INavigationServiceBuilder router)
         {
@@ -45,9 +56,17 @@ namespace MaSchoeller.Dublin.Client
             router.AddRoute<AdminPage, AdminController>(DublinNavigations.AdminRoute);
             router.AddRoute<CalculationMonthPage, CalculationMonthController>(DublinNavigations.CalculationMonthRoute);
             router.AddRoute<CalculationUnitPage, CalculationUnitController>(DublinNavigations.CalculationUnitRoute);
-            router.AddRoute<ConfigVehiclePage, ConfigVehicleController>(DublinNavigations.ConfigVehicleRoute);
+            router.AddRoute<ConfigVehiclePage, ConfigVehicleController>(DublinNavigations.ConfigVehicleRoute, ServiceLifetime.Scoped);
             router.AddRoute<ConfigEmployeePage, ConfigEmployeeController>(DublinNavigations.ConfigEmployeeRoute);
             router.AddRoute<ConfigBuisnessUnitPage, ConfigBusinessUnitController>(DublinNavigations.ConfigBuisnessUnitRoute);
+        }
+
+        private void RegisterDialogs(ContainerBuilder services)
+        {
+            services.RegisterType<ChangePasswordDialogController>();
+            services.RegisterType<ChangePasswordViewModel>();
+            services.RegisterType<AddTourDialogController>();
+            services.RegisterType<AddTourViewModel>();
         }
 
         private void RegisterViewModels(ContainerBuilder services)

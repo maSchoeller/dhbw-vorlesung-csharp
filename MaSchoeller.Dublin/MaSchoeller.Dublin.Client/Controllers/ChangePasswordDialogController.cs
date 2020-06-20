@@ -45,7 +45,6 @@ namespace MaSchoeller.Dublin.Client.Controllers
                 DataContext = _viewModel,
                 Owner = Application.Current.MainWindow
             };
-
             Task.Run(() =>
             {
                 _blocker.WaitOne();

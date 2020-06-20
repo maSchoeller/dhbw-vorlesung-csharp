@@ -22,6 +22,7 @@ namespace MaSchoeller.Dublin.Core.Database
                 .Cascade.None();
             References(v => v.Vehicle).Column("VehicleId")
                 .Not.Nullable()
+                //.LazyLoad()
                 .Cascade.None();
         }
     }

@@ -7,14 +7,15 @@
       xmlns:helper="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ConfigBuisnessUnitPage" Background="Bisque">
+      Title="ConfigBuisnessUnitPage"
+      >
     <Page.Resources>
         <helper:NullToBoolConverter x:Key="nullToBoolConverter" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding BuisnessUnits}"

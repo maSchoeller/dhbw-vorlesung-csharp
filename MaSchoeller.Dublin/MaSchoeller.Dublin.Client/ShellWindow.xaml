@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:MaSchoeller.Dublin.Client" 
         xmlns:helpers="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
         mc:Ignorable="d"
-        Title="ShellWindow" Height="450" Width="800">
+        Title="FleetManager Dublin" 
+        Height="650" Width="1200"
+        ResizeMode="NoResize">
     <Window.Resources>
         <helpers:BooleanToHiddenConverter x:Key="BoolToHidden"/>
     </Window.Resources>

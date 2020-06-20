@@ -9,22 +9,27 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
     public class ConfigVehicleController : ControllerBase
     {
         private readonly ConfigVehicleViewModel _viewModel;
+        private readonly AddTourDialogController _addTourDialog;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
 
-        public ConfigVehicleController(ConfigVehicleViewModel viewModel, 
+        public ConfigVehicleController(ConfigVehicleViewModel viewModel,
+                                       AddTourDialogController addTourDialog,
                                        ClientConnectionHandler clientConnectionHandler,
                                        ConnectionLostHelper lostHelper)
         {
             _viewModel = viewModel;
+            _addTourDialog = addTourDialog;
             _connectionHandler = clientConnectionHandler;
             _lostHelper = lostHelper;
         }
@@ -40,23 +45,43 @@ namespace MaSchoeller.Dublin.Client.Controllers
                                                        .Observe(_viewModel, () => _viewModel.SelectedVehicle)
                                                        .Build();
 
-            _viewModel.AddTourCommand = ConfigurableCommand.Create(ExecuteAddTourCommand).Build();
-            _viewModel.RemoveTourCommand = ConfigurableCommand.Create(ExecuteRemoveTourCommand).Build();
+            _viewModel.AddTourCommand = ConfigurableCommand.Create(ExecuteAddTourCommand, o => !(_viewModel.SelectedVehicle is null || !_viewModel.SelectedVehicle.IsSynced))
+                                                           .Observe(_viewModel, () => _viewModel.SelectedVehicle)
+                                                           .Build();
+            _viewModel.RemoveTourCommand = ConfigurableCommand.Create(ExecuteRemoveTourCommand, o => !(_viewModel.SelectedTour is null))
+                                                              .Observe(_viewModel, () => _viewModel.SelectedTour)
+                                                              .Build();
 
-            _viewModel.TabChanged += ChangeTabView;
+            _viewModel.SelectedVehicleChanged += SelectedVehilceChanged;
             return _viewModel;
         }
 
-        private void ChangeTabView(object sender, EventArgs e)
+        private async void SelectedVehilceChanged(object sender, EventArgs e)
         {
-
+            if (_viewModel.SelectedTab == 1)
+            {
+                var connectionHandler = _connectionHandler.FleetsClient;
+                await _lostHelper.InvokeAsync(async () =>
+                {
+                    var tours = await connectionHandler.GetToursByVehicleAsync(_viewModel.SelectedVehicle!.Id);
+                    _viewModel.Tours = new ObservableCollection<Tour>(tours);
+                });
+            }
         }
 
         public override async Task EnterAsync()
         {
-            var vehicles = await _connectionHandler.FleetsClient.GetAllVehiclesAsync();
-            _viewModel.Vehicles = new ObservableCollection<DisplayVehicle>(vehicles.Select(v => new DisplayVehicle(v)));
+            try
+            {
+                var vehicles = await _connectionHandler.FleetsClient.GetAllVehiclesAsync();
+                _viewModel.Vehicles = new ObservableCollection<DisplayVehicle>(vehicles.Select(v => new DisplayVehicle(v)));
+            }
+            catch (Exception e)
+            {
+
+            }
             _viewModel.SelectedVehicle = null;
+            _viewModel.SelectedTab = 0;
         }
 
         public void ExecuteNewCommand(object o)
@@ -139,18 +164,39 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     _viewModel.Vehicles.Remove(_viewModel.SelectedVehicle);
                     _viewModel.SelectedVehicle = null;
                 }
-                
+
             }
         }
 
-        public void ExecuteAddTourCommand(object o)
+        public async void ExecuteAddTourCommand(object o)
         {
-
+            var tour = await _addTourDialog.ShowDialogAsync(_viewModel.SelectedVehicle!);
+            if (!(tour is null))
+            {
+                _viewModel.Tours.Add(tour);
+            }
         }
 
-        public void ExecuteRemoveTourCommand(object o)
+        public async void ExecuteRemoveTourCommand(object o)
         {
-
+            var result = MessageBox.Show("Sind Sie sicher?", "Löschen", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                await _lostHelper.InvokeAsync(async () =>
+                {
+                    var fleetClient = _connectionHandler.FleetsClient;
+                    var result = await fleetClient.DeleteTourAsync(_viewModel.SelectedTour);
+                    if (result.Reason != OperationResult.Success)
+                    {
+                        MessageBox.Show(DisplayMessages.ErrorRemovingTour);
+                    }
+                    else
+                    {
+                        _viewModel.Tours.Remove(_viewModel.SelectedTour!);
+                        _viewModel.SelectedTour = null;
+                    }
+                });
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MaSchoeller.Dublin.Core.Database
             var vehicleEmployee = session.Query<VehicleEmployee>().FirstOrDefault(ve => ve.Id == tour.Id);
             if (vehicleEmployee is null)
             {
-                return (OperationResult.NotFound,null);
+                return (OperationResult.NotFound, null);
             }
 
             try
@@ -32,9 +32,25 @@ namespace MaSchoeller.Dublin.Core.Database
             }
             catch (Exception e)
             {
-                return (OperationResult.SaveFailure,null);
+                return (OperationResult.SaveFailure, null);
             }
             return (OperationResult.Success, tour);
+        }
+
+        public IEnumerable<VehicleMonthCost> GetAllVehicleMonthCosts()
+        {
+            using var session = Factory.OpenSession();
+            var vehicles = session.Query<Vehicle>();
+            return vehicles.ToArray().SelectMany(v => GetCostsPerVehicle(v))
+                           .GroupBy(v => v.Month)
+                           .Select(vg => new VehicleMonthCost
+                           {
+                               Month = vg.Key,
+                               Count = vg.Count(),
+                               Costs = vg.Sum(v => v.Costs)
+                           })
+                           .OrderBy(v => v.Month)
+                           .ToArray();
         }
 
         public IEnumerable<Tour> GetToursByVehicle(int id)
@@ -50,7 +66,7 @@ namespace MaSchoeller.Dublin.Core.Database
                               VehicleId = ve.Vehicle.Id,
                               Start = ve.StartDate,
                               End = ve.EndDate
-                          });
+                          }).ToList();
         }
 
         public (OperationResult, Tour?) SaveTour(Tour tour)
@@ -85,5 +101,22 @@ namespace MaSchoeller.Dublin.Core.Database
             }
             return (OperationResult.Success, tour);
         }
+
+        private IEnumerable<VehicleMonthCost> GetCostsPerVehicle(Vehicle vehicle)
+        {
+            var list = new List<VehicleMonthCost>();
+            for (DateTime i = vehicle.LeasingFrom; i < vehicle.LeasingTo; i = i.AddMonths(1))
+            {
+                list.Add(new VehicleMonthCost
+                {
+                    Costs = vehicle.Insurance/12,
+                    Month = new DateTime(i.Year, i.Month, 1),
+                    Count = 1
+                });
+            }
+            return list;
+        }
+
+
     }
 }

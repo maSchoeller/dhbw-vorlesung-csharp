@@ -5,18 +5,16 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaSchoeller.Dublin.Core.Communications.Models
+namespace MaSchoeller.Dublin.Core.Models
 {
     [DataContract]
-    public class CalculationsBusinessUnitSet
+    public class BusinessUnitMonthCost
     {
         [DataMember]
         public DateTime Month { get; set; }
-        
         [DataMember]
-        public string BusinessUnitName { get; set; } = string.Empty;
-        
+        public string BusinessUnit { get; set; } = string.Empty;
         [DataMember]
-        public int Costs { get; set; }
+        public double Costs { get; set; }
     }
 }

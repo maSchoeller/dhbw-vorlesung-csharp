@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views" xmlns:helper="clr-namespace:MaSchoeller.Dublin.Client.Helpers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AdminPage" Background="DarkCyan" >
+      Title="AdminPage">
     <Page.Resources>
         <helper:InvertBoolConverter x:Key="invertBoolConverter"/>
         <helper:NullToBoolConverter x:Key="nullToboolConverter"/>
@@ -15,7 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 

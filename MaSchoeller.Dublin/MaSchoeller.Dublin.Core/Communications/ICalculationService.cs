@@ -1,4 +1,5 @@
 ﻿using MaSchoeller.Dublin.Core.Communications.Models;
+using MaSchoeller.Dublin.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace MaSchoeller.Dublin.Core.Communications
     public interface ICalculationService
     {
         [OperationContract]
-        IEnumerable<CalculationMonthSet> GetCalculationMonthSets();
+        IEnumerable<VehicleMonthCost> GetCalculationMonthSets();
 
         [OperationContract]
-        IEnumerable<CalculationsBusinessUnitSet> GetCalculationsBusinessUnitSets();
+        IEnumerable<BusinessUnitMonthCost> GetCalculationsBusinessUnitSets();
 
     }
 }

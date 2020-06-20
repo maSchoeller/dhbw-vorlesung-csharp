@@ -30,7 +30,8 @@ namespace MaSchoeller.Dublin.Core.Database
                 .Not.Nullable();
             Version(v => v.Version);
             //HasMany(v => v.VehicleEmployees).KeyColumn("VehicleId")
-            //    .Cascade.All();
+            //    .Inverse()
+            //    .Cascade.AllDeleteOrphan();
         }
     }
 }

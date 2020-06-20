@@ -15,7 +15,8 @@ namespace MaSchoeller.Dublin.Client.ViewModels
     public class ConfigVehicleViewModel : ViewModelBase
     {
 
-        public event EventHandler? TabChanged;
+        public event EventHandler? SelectedTabChanged;
+        public event EventHandler? SelectedVehicleChanged;
 
         public ConfigVehicleViewModel()
         {
@@ -23,7 +24,9 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(SelectedTab))
-                    TabChanged?.Invoke(this, EventArgs.Empty);
+                    SelectedTabChanged?.Invoke(this, EventArgs.Empty);
+                if (e.PropertyName == nameof(SelectedVehicle))
+                    SelectedVehicleChanged?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -49,9 +52,9 @@ namespace MaSchoeller.Dublin.Client.ViewModels
             set => SetProperty(ref _selectedVehicle, value);
         }
 
-        private ObservableCollection<DisplayTour> _tours
-            = new ObservableCollection<DisplayTour>();
-        public ObservableCollection<DisplayTour> Tours
+        private ObservableCollection<Tour> _tours
+            = new ObservableCollection<Tour>();
+        public ObservableCollection<Tour> Tours
         {
             get => _tours;
             set => SetProperty(ref _tours, value);
@@ -59,8 +62,8 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 
 
 
-        private DisplayTour? _selectedTour;
-        public DisplayTour? SelectedTour
+        private Tour? _selectedTour;
+        public Tour? SelectedTour
         {
             get => _selectedTour;
             set => SetProperty(ref _selectedTour, value);

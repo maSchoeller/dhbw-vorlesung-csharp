@@ -1,5 +1,6 @@
 ﻿using MaSchoeller.Dublin.Core.Communications.Models;
 using MaSchoeller.Dublin.Core.Database.Abstracts;
+using MaSchoeller.Dublin.Core.Models;
 using MaSchoeller.Dublin.Core.Services;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -11,24 +12,29 @@ namespace MaSchoeller.Dublin.Core.Communications
     [ServiceBehavior]
     internal class CalculationService : BaseService, ICalculationService
     {
+        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IBusinessUnitRepository _businessUnitRepository;
         private readonly ILogger<UserService>? _logger;
 
         public CalculationService(ISecurityHelper connectionHelper,
                                   IVehicleRepository vehicleRepository,
+                                  IBusinessUnitRepository businessUnitRepository,
                                   ILogger<UserService>? logger = null)
             : base(connectionHelper)
         {
+            _vehicleRepository = vehicleRepository;
+            _businessUnitRepository = businessUnitRepository;
             _logger = logger;
         }
 
-        public IEnumerable<CalculationMonthSet> GetCalculationMonthSets()
+        public IEnumerable<VehicleMonthCost> GetCalculationMonthSets()
         {
-            throw new System.NotImplementedException();
+            return _vehicleRepository.GetAllVehicleMonthCosts();
         }
 
-        public IEnumerable<CalculationsBusinessUnitSet> GetCalculationsBusinessUnitSets()
+        public IEnumerable<BusinessUnitMonthCost> GetCalculationsBusinessUnitSets()
         {
-            throw new System.NotImplementedException();
+            return _businessUnitRepository.GetAllCosts();
         }
     }
 }

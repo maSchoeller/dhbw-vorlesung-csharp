@@ -1,7 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MaSchoeller.Dublin.Client"
+                    xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                     x:Name="DublinDefaultStyles">
     <SolidColorBrush x:Key="MyMagicBlue"  Color="Aqua" />
-    
+    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Height" Value="40"/>
+        <!--<Setter Property="Padding" Value="5"/>-->
+    </Style>
 </ResourceDictionary>

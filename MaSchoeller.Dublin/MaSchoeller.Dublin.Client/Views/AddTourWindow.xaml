@@ -1,0 +1,36 @@
+﻿<Window x:Class="MaSchoeller.Dublin.Client.Views.AddTourWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaSchoeller.Dublin.Client.Views"
+        mc:Ignorable="d"
+        Title="AddTourWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Employees}"
+                  SelectedItem="{Binding SelectedEmployee}">
+            
+        </DataGrid>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Label Content="Start "/>
+            <DatePicker SelectedDate="{Binding StartDate}"/>
+            <Label Content="Ende"/>
+            <DatePicker SelectedDate="{Binding EndDate}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Speichern" Command="{Binding AddCommand}"/>
+            <Button Content="Abbrechen" Command="{Binding AbordCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

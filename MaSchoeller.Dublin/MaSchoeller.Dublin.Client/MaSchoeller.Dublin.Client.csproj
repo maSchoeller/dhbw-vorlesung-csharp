@@ -9,8 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Connected Services\Proxies.Calculations\**" />
+    <EmbeddedResource Remove="Connected Services\Proxies.Calculations\**" />
+    <None Remove="Connected Services\Proxies.Calculations\**" />
+    <Page Remove="Connected Services\Proxies.Calculations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaSchoeller.Extensions.Desktop" Version="0.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />

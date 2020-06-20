@@ -50,6 +50,6 @@ namespace MaSchoeller.Dublin.Core.Communications
         DeleteVehicleResult DeleteVehicle(Vehicle vehicle);
 
         [OperationContract]
-        IEnumerable<Vehicle> GetAllVehicles(int id);
+        IEnumerable<Vehicle> GetAllVehicles();
     }
 }

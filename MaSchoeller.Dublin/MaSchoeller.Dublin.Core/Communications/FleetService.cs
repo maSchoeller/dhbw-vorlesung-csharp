@@ -13,13 +13,13 @@ namespace MaSchoeller.Dublin.Core.Communications
     [ServiceBehavior]
     internal class FleetService : BaseService, IFleetService
     {
-        private readonly IBuisnessUnitRepository _buisnesses;
+        private readonly IBusinessUnitRepository _buisnesses;
         private readonly IEmployeeRepository _employees;
         private readonly IVehicleRepository _vehicles;
         private readonly ILogger<UserService>? _logger;
 
         public FleetService(ISecurityHelper connectionHelper,
-                            IBuisnessUnitRepository buisnesses,
+                            IBusinessUnitRepository buisnesses,
                             IEmployeeRepository employees,
                             IVehicleRepository vehicles,
                             ILogger<UserService>? logger = null)
@@ -105,7 +105,7 @@ namespace MaSchoeller.Dublin.Core.Communications
             return new DeleteVehicleResult { Reason = result.result, Vehicle = result.entity };
         }
 
-        public IEnumerable<Vehicle> GetAllVehicles(int id) 
+        public IEnumerable<Vehicle> GetAllVehicles() 
             => _vehicles.GetAll();
 
         public SaveTourResult SaveTour(Tour tour)
@@ -131,6 +131,11 @@ namespace MaSchoeller.Dublin.Core.Communications
         public IEnumerable<Tour> GetToursByVehicle(int id)
         {
             return _vehicles.GetToursByVehicle(id);
+        }
+
+        public IEnumerable<Employee> GetPossibleEmployeeByVehicle(int id)
+        {
+            return _employees.GetPossibleEmployeesByVehicle(id);
         }
     }
 }

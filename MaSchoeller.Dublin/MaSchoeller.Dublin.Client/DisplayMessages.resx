@@ -135,8 +135,14 @@
   <data name="EmployeeIsNotValid" xml:space="preserve">
     <value>Der Mitarbeiter ist nicht vollständig oder richtig Konfiguriert.</value>
   </data>
+  <data name="ErrorAddingTour" xml:space="preserve">
+    <value>Es ist ein fehler beim laden der Mitarbeiter aufgetreten.</value>
+  </data>
   <data name="ErrorOnSave" xml:space="preserve">
     <value>Beim Speichern ist etwas schief gegangen.</value>
+  </data>
+  <data name="ErrorRemovingTour" xml:space="preserve">
+    <value>Die Tour Konnte nicht gelöscht werden.</value>
   </data>
   <data name="NewPasswordAreNotSame" xml:space="preserve">
     <value>Die neuen Passwörter stimmen nicht über ein.</value>

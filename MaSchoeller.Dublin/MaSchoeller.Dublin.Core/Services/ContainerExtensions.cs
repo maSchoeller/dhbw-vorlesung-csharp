@@ -45,7 +45,7 @@ namespace MaSchoeller.Dublin.Core.Services
                      .As<IVehicleRepository>()
                      .InstancePerLifetimeScope();
             container.RegisterType<BusinessUnitRepository>()
-                    .As<IBuisnessUnitRepository>()
+                    .As<IBusinessUnitRepository>()
                     .InstancePerLifetimeScope();
             return container;
         }

@@ -29,5 +29,7 @@ namespace MaSchoeller.Dublin.Core.Models
         public double LeasingRate { get; set; }
         [DataMember]
         public int Version { get; set; }
+
+        //public ICollection<VehicleEmployee> VehicleEmployees { get; set; }
     }
 }
