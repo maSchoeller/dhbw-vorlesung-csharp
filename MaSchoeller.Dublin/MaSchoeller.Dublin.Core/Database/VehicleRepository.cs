@@ -14,6 +14,28 @@ namespace MaSchoeller.Dublin.Core.Database
         public VehicleRepository(IConnectionFactory factory, ILogger<VehicleRepository>? logger = null)
             : base(factory, logger) { }
 
+        public override (OperationResult result, Vehicle entity) Save(Vehicle entity)
+        {
+            using var session = Factory.OpenSession();
+            var emp = session.Query<Vehicle>().FirstOrDefault(v => v.LicensePlate.ToUpperInvariant() == entity.LicensePlate.ToUpperInvariant());
+            if (!(emp is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Save(entity);
+        }
+
+        public override (OperationResult result, Vehicle entity) Update(Vehicle entity)
+        {
+            using var session = Factory.OpenSession();
+            var emp = session.Query<Vehicle>().FirstOrDefault(v => v.LicensePlate.ToUpperInvariant() == entity.LicensePlate.ToUpperInvariant());
+            if (!(emp is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Update(entity);
+        }
+
         public (OperationResult, Tour?) DeleteTour(Tour tour)
         {
             using var session = Factory.OpenSession();
@@ -109,7 +131,7 @@ namespace MaSchoeller.Dublin.Core.Database
             {
                 list.Add(new VehicleMonthCost
                 {
-                    Costs = vehicle.Insurance/12,
+                    Costs = vehicle.Insurance / 12,
                     Month = new DateTime(i.Year, i.Month, 1),
                     Count = 1
                 });

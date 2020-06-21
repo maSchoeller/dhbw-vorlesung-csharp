@@ -44,8 +44,9 @@
 
                     <Grid IsEnabled="{Binding SelectedVehicle, Converter={StaticResource nullToBoolConverter}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="397*"/>
+                            <ColumnDefinition Width="233*"/>
+                            <ColumnDefinition Width="164*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -54,21 +55,21 @@
                             <RowDefinition/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Label Content="Kennzeichen" />
+                        <Label Content="Kennzeichen" Margin="0,0,0,18" Grid.RowSpan="2" />
                         <TextBox Grid.Row="1"
-                                 Text="{Binding SelectedVehicle.LicencePlate}"/>
-                        <Label Content="Marke" Grid.Column="1" />
+                                 Text="{Binding SelectedVehicle.LicencePlate}" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                        <Label Content="Marke" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,18" Grid.RowSpan="2" />
                         <TextBox Grid.Row="1" Grid.Column="1"
-                                 Text="{Binding SelectedVehicle.Brand}"/>
-                        <Label Content="Modell" Grid.Row="2" />
+                                 Text="{Binding SelectedVehicle.Brand}" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                        <Label Content="Modell" Grid.Row="2" Margin="0,0,0,18" Grid.RowSpan="2" />
                         <TextBox Grid.Row="3"
-                                 Text="{Binding SelectedVehicle.Model}"/>
+                                 Text="{Binding SelectedVehicle.Model}" Margin="0,0,0,73" Grid.RowSpan="2"/>
                         <Label Grid.Row="2" Grid.Column="1"
-                               Content="Versicherung pro Jahr" />
+                               Content="Versicherung pro Jahr" Grid.ColumnSpan="2" Margin="0,0,0,18" Grid.RowSpan="2" />
                         <TextBox Grid.Row="3" Grid.Column="1"
-                                 Text="{Binding SelectedVehicle.Insurance}"/>
+                                 Text="{Binding SelectedVehicle.Insurance}" Grid.ColumnSpan="2" Margin="0,0,0,73" Grid.RowSpan="2"/>
 
-                        <GroupBox Grid.Row="4" Grid.ColumnSpan="2"
+                        <GroupBox Grid.Row="4" Grid.ColumnSpan="3"
                               Header="Leasing">
                             <Grid>
                                 <Grid.ColumnDefinitions>

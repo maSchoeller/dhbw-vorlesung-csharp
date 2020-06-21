@@ -26,7 +26,7 @@ namespace MaSchoeller.Dublin.Core.Services
         private readonly JwtSecurityTokenHandler _handler;
         public JwtHelper(ServerConfiguration configuration,
                          IUserRepository repository,
-                         ILogger<JwtHelper>? logger)
+                         ILogger<JwtHelper>? logger = null)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));

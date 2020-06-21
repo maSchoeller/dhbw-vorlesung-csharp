@@ -15,6 +15,28 @@ namespace MaSchoeller.Dublin.Core.Database
         public EmployeeRepository(IConnectionFactory factory, ILogger<EmployeeRepository>? logger = null) 
             : base(factory, logger) { }
 
+        public override (OperationResult result, Employee entity) Save(Employee entity)
+        {
+            using var session = Factory.OpenSession();
+            var emp = session.Query<Employee>().FirstOrDefault(e => e.EmployeeNumber == entity.EmployeeNumber);
+            if (!(emp is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Save(entity);
+        }
+
+        public override (OperationResult result, Employee entity) Update(Employee entity)
+        {
+            using var session = Factory.OpenSession();
+            var emp = session.Query<Employee>().FirstOrDefault(e => e.EmployeeNumber == entity.EmployeeNumber);
+            if (!(emp is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Update(entity);
+        }
+
         public IEnumerable<Employee> GetPossibleEmployeesByVehicle(int id)
         {
             using var session = Factory.OpenSession();
