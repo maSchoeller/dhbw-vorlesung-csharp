@@ -6,11 +6,8 @@ using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.ServiceModel.Channels;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -71,6 +68,12 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public override async Task EnterAsync()
         {
+            _viewModel.IsBusy = true;
+            _viewModel.SelectedTab = 0;
+            _viewModel.SelectedVehicle = null;
+            _viewModel.SelectedTour = null;
+            _viewModel.Vehicles = new ObservableCollection<DisplayVehicle>();
+            _viewModel.Tours = new ObservableCollection<Tour>();
             try
             {
                 var vehicles = await _connectionHandler.FleetsClient.GetAllVehiclesAsync();
@@ -78,10 +81,9 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
-
+                _lostHelper.ShowConnectionLost();
             }
-            _viewModel.SelectedVehicle = null;
-            _viewModel.SelectedTab = 0;
+            _viewModel.IsBusy = false;
         }
 
         public void ExecuteNewCommand(object o)
@@ -93,6 +95,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public async void ExecuteSaveCommand(object o)
         {
+            _viewModel.IsBusy = true;
             var client = _connectionHandler.FleetsClient;
             foreach (var vehicle in _viewModel.Vehicles)
             {
@@ -139,10 +142,12 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     });
                 }
             }
+            _viewModel.IsBusy = false;
         }
 
         public async void ExecuteDeleteCommand(object o)
         {
+            _viewModel.IsBusy = true;
             if (!(_viewModel.SelectedVehicle is null))
             {
                 var delete = true;
@@ -164,8 +169,8 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     _viewModel.Vehicles.Remove(_viewModel.SelectedVehicle);
                     _viewModel.SelectedVehicle = null;
                 }
-
             }
+            _viewModel.IsBusy = false;
         }
 
         public async void ExecuteAddTourCommand(object o)
@@ -179,6 +184,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public async void ExecuteRemoveTourCommand(object o)
         {
+            _viewModel.IsBusy = true;
             var result = MessageBox.Show("Sind Sie sicher?", "Löschen", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
@@ -197,6 +203,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                 });
             }
+            _viewModel.IsBusy = false;
         }
     }
 }

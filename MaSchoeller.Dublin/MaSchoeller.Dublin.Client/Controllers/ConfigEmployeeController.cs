@@ -9,10 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
@@ -22,7 +20,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
 
-        public ConfigEmployeeController(ConfigEmployeeViewModel viewModel, 
+        public ConfigEmployeeController(ConfigEmployeeViewModel viewModel,
                                         ClientConnectionHandler connectionHandler,
                                         ConnectionLostHelper lostHelper)
         {
@@ -47,10 +45,23 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public override async Task EnterAsync()
         {
-            var fleetclient = _connectionHandler.FleetsClient;
-            var emp = await fleetclient.GetAllEmployeesAsync();
-            _viewModel.Employees = new ObservableCollection<DisplayEmployee>(emp.Select(e => new DisplayEmployee(e)));
-            _viewModel.BusinessUnits = await fleetclient.GetAllBusinessUnitsAsync();
+            _viewModel.IsBusy = true;
+            _viewModel.Employees = new ObservableCollection<DisplayEmployee>();
+            _viewModel.SelectedEmployee = null;
+            _viewModel.BusinessUnits = new List<BusinessUnit>();
+            _viewModel.SelectedEmployee = null;
+            try
+            {
+                var fleetclient = _connectionHandler.FleetsClient;
+                var emp = await fleetclient.GetAllEmployeesAsync();
+                _viewModel.Employees = new ObservableCollection<DisplayEmployee>(emp.Select(e => new DisplayEmployee(e)));
+                _viewModel.BusinessUnits = await fleetclient.GetAllBusinessUnitsAsync();
+            }
+            catch (Exception e)
+            {
+                _lostHelper.ShowConnectionLost();
+            }
+            _viewModel.IsBusy = false;
         }
 
 
@@ -63,6 +74,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         private async void ExecuteSaveCommand(object o)
         {
+            _viewModel.IsBusy = true;
             var client = _connectionHandler.FleetsClient;
             foreach (var employee in _viewModel.Employees)
             {
@@ -111,10 +123,12 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     });
                 }
             }
+            _viewModel.IsBusy = false;
         }
 
         private async void ExecuteDeleteCommand(object o)
         {
+            _viewModel.IsBusy = true;
             if (!(_viewModel.SelectedEmployee is null))
             {
                 bool delete = true;
@@ -131,13 +145,14 @@ namespace MaSchoeller.Dublin.Client.Controllers
                         }
                     });
                 }
-               
+
                 if (delete)
                 {
                     _viewModel.Employees.Remove(_viewModel.SelectedEmployee);
                     _viewModel.SelectedEmployee = null;
                 }
             }
+            _viewModel.IsBusy = false;
         }
     }
 }

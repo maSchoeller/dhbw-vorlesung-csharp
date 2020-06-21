@@ -24,6 +24,7 @@ namespace MaSchoeller.Dublin.Client.Models
                 {
                     SetProperty(ref _editstate, EditState.InValid);
                 }
+                RaisePropertyChanged(nameof(EditMessage));
             }
         }
 
@@ -38,10 +39,27 @@ namespace MaSchoeller.Dublin.Client.Models
         public bool IsSynced
         {
             get => _isSynced;
-            set => SetProperty(ref _isSynced, value);
+            set
+            {
+                SetProperty(ref _isSynced, value);
+                RaisePropertyChanged(nameof(EditMessage));
+            }
         }
 
         public virtual bool Validate()
             => true;
+
+
+        public string EditMessage
+            => (EditState, IsSynced) switch
+            {
+                (EditState.Modified, false) => "Ungesichert(1)",
+                (EditState.None, true) => "Gesichert(2)",
+                (EditState.InValid, false) => "Ungesichert/Invalide(3)",
+                (EditState.None, false) => "Ungesichert(4)",
+                (EditState.Modified, true) => "Ungesichert(5)",
+                (EditState.InValid, true) => "Invalide(6)",
+                _ => "Unbekannt"
+            };
     }
 }

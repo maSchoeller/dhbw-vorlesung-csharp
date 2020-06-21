@@ -20,6 +20,7 @@ namespace MaSchoeller.Dublin.Client
                               ClientConnectionHandler connectionHandler,
                               ILogger<ShellViewModel>? logger = null)
         {
+            var c = connectionHandler;
             NavigationCommand = ConfigurableCommand.Create(
             async o =>
             {
@@ -29,7 +30,7 @@ namespace MaSchoeller.Dublin.Client
             o =>
             {
                 var name = o as string;
-                return name!.ToUpperInvariant() != Route;
+                return name!.ToUpperInvariant() != Route && (c.ActiveUser is null || name != DublinNavigations.AdminRoute || c.ActiveUser.IsAdmin);
             }
             ).Observe(this, () => Route).Build();
 

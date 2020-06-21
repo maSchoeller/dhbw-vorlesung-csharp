@@ -1,10 +1,9 @@
-﻿using MaSchoeller.Dublin.Client.Services;
+﻿using MaSchoeller.Dublin.Client.Proxies.Calculations;
+using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.Controllers
@@ -32,11 +31,18 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public override async Task EnterAsync()
         {
-            await _lostHelper.InvokeAsync(async () =>
+            _viewModel.IsBusy = true;
+            _viewModel.Costs = new List<BusinessUnitMonthCost>();
+            try
             {
                 var client = _connectionHandler.CalculationClient;
                 _viewModel.Costs = await client.GetCalculationsBusinessUnitSetsAsync();
-            });
+            }
+            catch (Exception e)
+            {
+                _lostHelper.ShowConnectionLost();
+            }
+            _viewModel.IsBusy = false;
         }
     }
 }

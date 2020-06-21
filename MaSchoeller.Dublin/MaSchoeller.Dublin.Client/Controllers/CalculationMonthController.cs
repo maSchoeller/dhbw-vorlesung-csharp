@@ -1,10 +1,9 @@
-﻿using MaSchoeller.Dublin.Client.Services;
+﻿using MaSchoeller.Dublin.Client.Proxies.Calculations;
+using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MaSchoeller.Dublin.Client.Controllers
@@ -13,12 +12,15 @@ namespace MaSchoeller.Dublin.Client.Controllers
     {
         private readonly CalculationMonthViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
+        private readonly ConnectionLostHelper _lostHelper;
 
         public CalculationMonthController(CalculationMonthViewModel viewModel,
-                                          ClientConnectionHandler connectionHandler)
+                                          ClientConnectionHandler connectionHandler,
+                                          ConnectionLostHelper lostHelper)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
+            _lostHelper = lostHelper;
         }
 
         public override object Initialize()
@@ -28,8 +30,18 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public override async Task EnterAsync()
         {
-            var client = _connectionHandler.CalculationClient;
-            _viewModel.Costs = await client.GetCalculationMonthSetsAsync();
+            _viewModel.IsBusy = true;
+            _viewModel.Costs = new List<VehicleMonthCost>();
+            try
+            {
+                var client = _connectionHandler.CalculationClient;
+                _viewModel.Costs = await client.GetCalculationMonthSetsAsync();
+            }
+            catch (Exception e)
+            {
+                _lostHelper.ShowConnectionLost();
+            }
+            _viewModel.IsBusy = false;
         }
     }
 }

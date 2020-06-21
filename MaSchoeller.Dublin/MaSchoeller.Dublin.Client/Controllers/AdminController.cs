@@ -5,6 +5,7 @@ using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,6 +56,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         private async void ExecuteDeleteCommand(object o)
         {
+            _viewModel.IsBusy = true;
             if (!(_viewModel.SelectedUser is null))
             {
                 var userClient = _connectionHandler.UserClient;
@@ -72,10 +74,13 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     }
                 });
             }
+            _viewModel.IsBusy = false;
         }
 
         private async void ExecuteSaveCommand(object o)
         {
+            _viewModel.IsBusy = true;
+
             var client = _connectionHandler.UserClient;
             foreach (var user in _viewModel.Users)
             {
@@ -117,16 +122,26 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     });
                 }
             }
+            _viewModel.IsBusy = false;
         }
 
         public override async Task EnterAsync()
         {
-            var userClient = _connectionHandler.UserClient;
-            await _lostHelper.InvokeAsync(async () =>
+            _viewModel.IsBusy = true;
+            _viewModel.SelectedUser = null;
+            _viewModel.Users = new ObservableCollection<DisplayUser>();
+            try
             {
+                var userClient = _connectionHandler.UserClient;
                 var result = await userClient.GetAllUsersAsync();
                 _viewModel.Users = new ObservableCollection<DisplayUser>(result.Select(u => new DisplayUser(u)));
-            });
+            }
+            catch (Exception e)
+            {
+                _lostHelper.ShowConnectionLost();
+            }
+            _viewModel.IsBusy = false;
+
         }
     }
 }

@@ -4,13 +4,6 @@ using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Abstracts;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
-using System;
-using System.Security;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Security;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {

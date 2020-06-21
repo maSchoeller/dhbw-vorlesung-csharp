@@ -3,6 +3,7 @@ using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +32,11 @@ namespace MaSchoeller.Dublin.Client.Services
                 return false;
             }
             return true;
+        }
+
+        public void ShowConnectionLost()
+        {
+            MessageBox.Show(DisplayMessages.ConnectionLost,"Fehler",MessageBoxButton.OK);
         }
     }
 }

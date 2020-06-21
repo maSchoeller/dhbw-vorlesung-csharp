@@ -11,6 +11,7 @@
       >
     <Page.Resources>
         <helper:NullToBoolConverter x:Key="nullToBoolConverter" />
+        <helper:BooleanToHiddenConverter x:Key="boolToHiddenConverter" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,8 +21,15 @@
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding BuisnessUnits}"
                   SelectedItem="{Binding SelectedBuisnessUnit}"
+                  AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Beschreibung" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding EditMessage}" />
+                <DataGridTextColumn Header="Fehlermeldung" Binding="{Binding ErrorMessage}" />
+            </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="1" IsEnabled="{Binding SelectedBuisnessUnit, Converter={StaticResource nullToBoolConverter}}">
             <Grid.RowDefinitions>
@@ -35,11 +43,36 @@
             <Label Grid.Row="2" Content="Beschreibung"/>
             <TextBox Grid.Row="3" Text="{Binding SelectedBuisnessUnit.Description, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
-        
+
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Neu" Command="{Binding NewCommand}" />
             <Button Content="Speichern" Command="{Binding SaveCommand}" />
             <Button Content="Löschen" Command="{Binding DeleteCommand}" />
         </StackPanel>
+        <Grid Grid.RowSpan="3" 
+              Visibility="{Binding IsBusy, Converter={StaticResource boolToHiddenConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="AliceBlue"
+                                 Opacity="0.7"  
+                    />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ProgressBar Grid.Row="2" Grid.Column="1" 
+                         IsIndeterminate="True"
+                         Height="20"/>
+            <Label Grid.Row="1" Grid.Column="1" 
+                   Content="Lade Inhalte"
+                   HorizontalContentAlignment="Center"/>
+        </Grid>
     </Grid>
 </Page>

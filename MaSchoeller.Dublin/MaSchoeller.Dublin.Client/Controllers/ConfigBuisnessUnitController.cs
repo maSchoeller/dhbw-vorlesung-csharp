@@ -6,12 +6,9 @@ using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace MaSchoeller.Dublin.Client.Controllers
 {
@@ -58,6 +55,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         private async void ExecuteDeleteCommand(object o)
         {
+            _viewModel.IsBusy = true;
             if (!(_viewModel.SelectedBuisnessUnit is null))
             {
                 var delete = true;
@@ -79,12 +77,14 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     _viewModel.BuisnessUnits.Remove(_viewModel.SelectedBuisnessUnit);
                     _viewModel.SelectedBuisnessUnit = null;
                 }
-               
+
             }
+            _viewModel.IsBusy = false;
         }
 
         private async void ExecuteSaveCommand(object o)
         {
+            _viewModel.IsBusy = true;
             var client = _connectionHandler.FleetsClient;
             foreach (var businessUnit in _viewModel.BuisnessUnits)
             {
@@ -98,6 +98,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.Success:
                             {
                                 businessUnit.EditState = EditState.None;
+                                businessUnit.IsSynced = true;
                                 businessUnit.Version = result.BuisnessUnit.Version;
                             }
                             break;
@@ -125,16 +126,25 @@ namespace MaSchoeller.Dublin.Client.Controllers
                     });
                 }
             }
+            _viewModel.IsBusy = false;
         }
 
         public override async Task EnterAsync()
         {
-            var fleetclient = _connectionHandler.FleetsClient;
-            await _lostHelper.InvokeAsync(async () =>
+            _viewModel.IsBusy = true;
+            _viewModel.SelectedBuisnessUnit = null;
+            _viewModel.BuisnessUnits = new ObservableCollection<DisplayBusinessUnit>();
+            try
             {
+                var fleetclient = _connectionHandler.FleetsClient;
                 var result = await fleetclient.GetAllBusinessUnitsAsync();
                 _viewModel.BuisnessUnits = new ObservableCollection<DisplayBusinessUnit>(result.Select(u => new DisplayBusinessUnit(u)));
-            });
+            }
+            catch (Exception e)
+            {
+                _lostHelper.ShowConnectionLost();
+            }
+            _viewModel.IsBusy = false;
         }
     }
 }

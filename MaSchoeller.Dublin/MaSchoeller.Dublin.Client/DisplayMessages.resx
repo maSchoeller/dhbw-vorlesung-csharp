@@ -120,6 +120,9 @@
   <data name="ConcurrentServerException" xml:space="preserve">
     <value>Der Server besitzt bereits eine neue Version des Models.</value>
   </data>
+  <data name="ConnectionLost" xml:space="preserve">
+    <value>Die Verbindung zum Server wurde unterbrochen.</value>
+  </data>
   <data name="DisconnectMessage" xml:space="preserve">
     <value>Die Verbindung zum Server ist aus unbekannten Gründen verloren gegangen. Sie werden abgemeldet.</value>
   </data>
@@ -160,7 +163,7 @@
     <value>Der Server ist momentan leider nicht erreichbar.</value>
   </data>
   <data name="UnkonwError" xml:space="preserve">
-    <value>Ein unbekannter Fehler ist aufgetreten.</value>
+    <value>Ein unbekannter Fehler ist aufgetreten. Starten Sie die Applikation neu und versuchen SIe es erneut</value>
   </data>
   <data name="UserCantDelete" xml:space="preserve">
     <value>Benutzer konnte nicht gelöscht werden.</value>

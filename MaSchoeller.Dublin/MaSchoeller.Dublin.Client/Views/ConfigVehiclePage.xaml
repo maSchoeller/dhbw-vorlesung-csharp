@@ -9,6 +9,7 @@
       Title="ConfigVehiclePage">
     <Page.Resources>
         <helper:NullToBoolConverter x:Key="nullToBoolConverter" />
+        <helper:BooleanToHiddenConverter x:Key="boolToHiddenConverter" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -108,5 +109,30 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Grid Grid.RowSpan="3" 
+              Visibility="{Binding IsBusy, Converter={StaticResource boolToHiddenConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="AliceBlue"
+                                 Opacity="0.7"  
+                    />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ProgressBar Grid.Row="2" Grid.Column="1" 
+                         IsIndeterminate="True"
+                         Height="20"/>
+            <Label Grid.Row="1" Grid.Column="1" 
+                   Content="Lade Inhalte"
+                   HorizontalContentAlignment="Center"/>
+        </Grid>
     </Grid>
 </Page>

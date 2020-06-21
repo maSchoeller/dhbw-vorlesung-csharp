@@ -70,6 +70,15 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Die Verbindung zum Server wurde unterbrochen..
+        /// </summary>
+        internal static string ConnectionLost {
+            get {
+                return ResourceManager.GetString("ConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Die Verbindung zum Server ist aus unbekannten Gründen verloren gegangen. Sie werden abgemeldet..
         /// </summary>
         internal static string DisconnectMessage {
@@ -187,7 +196,7 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ein unbekannter Fehler ist aufgetreten..
+        ///   Looks up a localized string similar to Ein unbekannter Fehler ist aufgetreten. Starten Sie die Applikation neu und versuchen SIe es erneut.
         /// </summary>
         internal static string UnkonwError {
             get {
