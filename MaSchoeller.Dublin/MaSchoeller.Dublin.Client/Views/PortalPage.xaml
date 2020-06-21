@@ -10,16 +10,24 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="auto"/>
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" 
-                Grid.Row="1"
+        <StackPanel Grid.Column="1"
+               Grid.Row="1" >
+            <Label Content="Willkommen beim Flottenmanager Dublin:" />
+            <Label Content="{Binding Username}"/>
+            <Label  Content="{Binding Name}"/>
+        </StackPanel>
+        <Button Grid.Column="3" 
+                Grid.Row="3"
                 Content="Password Ändern"
                 Command="{Binding ChangePassswordCommand}"/>
     </Grid>

@@ -13,6 +13,30 @@ namespace MaSchoeller.Dublin.Core.Database
         public BusinessUnitRepository(IConnectionFactory factory, ILogger<BusinessUnitRepository>? logger = null)
             : base(factory, logger) { }
 
+
+        public override (OperationResult result, BusinessUnit entity) Save(BusinessUnit entity)
+        {
+            using var session = Factory.OpenSession();
+            var bu = session.Query<BusinessUnit>().FirstOrDefault(e => e.Name.ToUpperInvariant() == entity.Name.ToUpperInvariant());
+            if (!(bu is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Save(entity);
+        }
+
+        public override (OperationResult result, BusinessUnit entity) Update(BusinessUnit entity)
+        {
+            using var session = Factory.OpenSession();
+            var bu = session.Query<BusinessUnit>().FirstOrDefault(e => e.Name.ToUpperInvariant() == entity.Name.ToUpperInvariant());
+            if (!(bu is null))
+            {
+                return (OperationResult.AlreadyExists, entity);
+            }
+            return base.Update(entity);
+        }
+
+
         public IEnumerable<BusinessUnitMonthCost> GetAllCosts()
         {
             using var session = Factory.OpenSession();

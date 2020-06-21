@@ -82,9 +82,9 @@ namespace MaSchoeller.Dublin.Client.Services
 
             foreach (var claim in jwtToken.Claims)
             {
-                if (claim.Type == NameIdentifier)
+                if (claim.Type == FullnameIdentifier)
                 {
-                    ActiveUser.Username = claim.Value;
+                    ActiveUser.Fullname = claim.Value;
                 }
                 if (claim.Type == NameIdentifier)
                 {

@@ -61,6 +61,15 @@ namespace MaSchoeller.Dublin.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Das Modell konnte nicht gelöscht werden, evtl. sind Abhängigkeiten vorhanden..
+        /// </summary>
+        internal static string CantDelete {
+            get {
+                return ResourceManager.GetString("CantDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Der Server besitzt bereits eine neue Version des Models..
         /// </summary>
         internal static string ConcurrentServerException {
@@ -147,6 +156,15 @@ namespace MaSchoeller.Dublin.Client {
         internal static string ErrorRemovingTour {
             get {
                 return ResourceManager.GetString("ErrorRemovingTour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Das Modell existiert bereits und kann nicht neu angelegt werden mit diesen Eigenschaften..
+        /// </summary>
+        internal static string ModelAlreadyExists {
+            get {
+                return ResourceManager.GetString("ModelAlreadyExists", resourceCulture);
             }
         }
         

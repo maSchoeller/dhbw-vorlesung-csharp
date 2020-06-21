@@ -71,7 +71,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                         var result = await userClient.DeleteBusinessUnitAsync(_viewModel.SelectedBuisnessUnit!.AsBusinessUnit());
                         if (result.Reason != OperationResult.Success)
                         {
-                            _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMessages.UserCantDelete;
+                            _viewModel.SelectedBuisnessUnit!.ErrorMessage = DisplayMessages.CantDelete;
                             delete = false;
                         }
                     });
@@ -109,7 +109,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.AlreadyExists:
                             {
                                 businessUnit.EditState = EditState.InValid;
-                                businessUnit.ErrorMessage = DisplayMessages.UserIdAlreadyExists;
+                                businessUnit.ErrorMessage = DisplayMessages.ModelAlreadyExists;
 
                             }
                             break;

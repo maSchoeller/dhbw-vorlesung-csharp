@@ -14,8 +14,14 @@
         </Grid.RowDefinitions>
 
         <DataGrid ItemsSource="{Binding Employees}"
-                  SelectedItem="{Binding SelectedEmployee}">
-            
+                  SelectedItem="{Binding SelectedEmployee}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Personal Nr." Binding="{Binding EmployeeNumber}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Fullname}" />
+                <DataGridTextColumn Header="Geschäftsbereich" Binding="{Binding BusinessUnit.Name}" />
+            </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Row="1"

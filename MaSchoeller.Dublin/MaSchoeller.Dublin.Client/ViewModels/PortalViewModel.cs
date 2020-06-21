@@ -10,7 +10,8 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 {
     public class PortalViewModel : ViewModelBase
     {
-
+        public string Username { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public ICommand ChangePassswordCommand { get; set; } = null!;
     }
 }

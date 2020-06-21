@@ -37,7 +37,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                                                        .Observe(_viewModel, () => _viewModel.StartDate)
                                                        .Observe(_viewModel, () => _viewModel.SelectedEmployee)
                                                        .Build();
-            _viewModel.AbordCommamnd = ConfigurableCommand.Create(ExecuteAbordCommand).Build();
+            _viewModel.AbordCommand = ConfigurableCommand.Create(ExecuteAbordCommand).Build();
         }
 
         private void ExecuteAbordCommand(object obj)
@@ -85,7 +85,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             {
                 var client = _connectionHandler.FleetsClient;
                 var result = await client.GetPossibleEmployeesByVehicleAsync(displayVehicle.Id);
-                _viewModel.Employees = new ObservableCollection<Employee>(result);
+                _viewModel.Employees = new ObservableCollection<Proxies.Fleets.Employee>(result);
             }
             catch (Exception e)
             {

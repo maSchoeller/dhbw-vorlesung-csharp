@@ -13,17 +13,17 @@ namespace MaSchoeller.Dublin.Client.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
-        private ObservableCollection<Employee> _employees = new ObservableCollection<Employee>();
+        private ObservableCollection<Proxies.Fleets.Employee> _employees = new ObservableCollection<Proxies.Fleets.Employee>();
 
-        public ObservableCollection<Employee> Employees
+        public ObservableCollection<Proxies.Fleets.Employee> Employees
         {
             get => _employees;
             set => SetProperty(ref _employees, value);
         }
 
-        private Employee? _selectedEmployee;
+        private Proxies.Fleets.Employee? _selectedEmployee;
 
-        public Employee? SelectedEmployee
+        public Proxies.Fleets.Employee? SelectedEmployee
         {
             get => _selectedEmployee;
             set => SetProperty(ref _selectedEmployee, value);
@@ -46,7 +46,7 @@ namespace MaSchoeller.Dublin.Client.ViewModels
         }
 
         public ICommand AddCommand { get; set; } = null!;
-        public ICommand AbordCommamnd { get; set; } = null!;
+        public ICommand AbordCommand { get; set; } = null!;
 
 
 

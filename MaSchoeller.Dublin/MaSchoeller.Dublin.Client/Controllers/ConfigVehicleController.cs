@@ -128,7 +128,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                             case OperationResult.AlreadyExists:
                             {
                                 vehicle.EditState = EditState.InValid;
-                                vehicle.ErrorMessage = DisplayMessages.EmployeeIdAlreadyExists;
+                                vehicle.ErrorMessage = DisplayMessages.ModelAlreadyExists;
                             }
                             break;
                             case OperationResult.SaveConflict:
@@ -164,7 +164,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
                         var result = await userClient.DeleteVehicleAsync(_viewModel.SelectedVehicle!.AsVehicle());
                         if (result.Reason != OperationResult.Success)
                         {
-                            _viewModel.SelectedVehicle!.ErrorMessage = DisplayMessages.UserCantDelete;
+                            _viewModel.SelectedVehicle!.ErrorMessage = DisplayMessages.CantDelete;
                             delete = false;
                         }
                     });

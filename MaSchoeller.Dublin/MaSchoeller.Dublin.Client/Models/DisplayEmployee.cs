@@ -12,7 +12,7 @@ namespace MaSchoeller.Dublin.Client.Models
 {
     public class DisplayEmployee : DisplayBase
     {
-        public DisplayEmployee(Employee employee)
+        public DisplayEmployee(Proxies.Fleets.Employee employee)
         {
             Id = employee.Id;
             Version = employee.Version;
@@ -117,12 +117,12 @@ namespace MaSchoeller.Dublin.Client.Models
             return true;
         }
 
-        public Employee? AsEmployee()
+        public Proxies.Fleets.Employee? AsEmployee()
         {
             var result = Validate();
             if (result)
             {
-                return new Employee
+                return new Proxies.Fleets.Employee
                 {
                     Id = Id,
                     BusinessUnit = BusinessUnit,
