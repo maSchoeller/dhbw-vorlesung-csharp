@@ -2,6 +2,7 @@
 using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,14 +14,17 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly CalculationUnitViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
+        private readonly ILogger<CalculationUnitController>? _logger;
 
         public CalculationUnitController(CalculationUnitViewModel viewModel, 
                                          ClientConnectionHandler connectionHandler, 
-                                         ConnectionLostHelper lostHelper)
+                                         ConnectionLostHelper lostHelper,
+                                         ILogger<CalculationUnitController>? logger = null)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
             _lostHelper = lostHelper;
+            _logger = logger;
         }
 
 
@@ -40,6 +44,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
+                _logger?.LogWarning(e, "");
                 _lostHelper.ShowConnectionLost();
             }
             _viewModel.IsBusy = false;

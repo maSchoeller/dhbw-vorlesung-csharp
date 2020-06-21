@@ -5,6 +5,7 @@ using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,14 +20,17 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly ConfigEmployeeViewModel _viewModel;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
+        private readonly ILogger<ConfigEmployeeController>? _logger;
 
         public ConfigEmployeeController(ConfigEmployeeViewModel viewModel,
                                         ClientConnectionHandler connectionHandler,
-                                        ConnectionLostHelper lostHelper)
+                                        ConnectionLostHelper lostHelper,
+                                        ILogger<ConfigEmployeeController>? logger = null)
         {
             _viewModel = viewModel;
             _connectionHandler = connectionHandler;
             _lostHelper = lostHelper;
+            _logger = logger;
         }
 
         public override object Initialize()
@@ -59,6 +63,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
+                _logger?.LogWarning(e, "");
                 _lostHelper.ShowConnectionLost();
             }
             _viewModel.IsBusy = false;

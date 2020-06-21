@@ -19,8 +19,20 @@
         <DataGrid ItemsSource="{Binding Vehicles}"
                   SelectedItem="{Binding SelectedVehicle}"
                   SelectionMode="Single"
-                  IsReadOnly="True">
-            
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Kennzeichen"
+                                    Binding="{Binding LicencePlate}"/>
+                <DataGridTextColumn Header="Modell" 
+                                    Binding="{Binding Model}" />
+                <DataGridTextColumn Header="Marke"
+                                    Binding="{Binding Brand}"/>
+                <DataGridTextColumn Header="Status"
+                                    Binding="{Binding EditMessage}" />
+                <DataGridTextColumn Header="Fehlermeldung"
+                                    Binding="{Binding ErrorMessage}" />
+            </DataGrid.Columns>
         </DataGrid>
         <TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTab}">
             <TabItem Header="Allgemein">
@@ -131,7 +143,7 @@
                          IsIndeterminate="True"
                          Height="20"/>
             <Label Grid.Row="1" Grid.Column="1" 
-                   Content="Lade Inhalte"
+                   Content="Verbinde zum Server.."
                    HorizontalContentAlignment="Center"/>
         </Grid>
     </Grid>

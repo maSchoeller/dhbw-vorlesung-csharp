@@ -8,9 +8,9 @@ namespace MaSchoeller.Dublin.Client.Helpers
 {
     public class UserContext
     {
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
-        public string Fullname { get; set; }
+        public string Fullname { get; set; } = string.Empty;
 
         public bool IsAdmin { get; set; }
     }

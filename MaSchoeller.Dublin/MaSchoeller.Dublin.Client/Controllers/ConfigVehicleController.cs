@@ -5,6 +5,7 @@ using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Extensions.Desktop.Helpers;
 using MaSchoeller.Extensions.Desktop.Mvvm;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,16 +20,19 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly AddTourDialogController _addTourDialog;
         private readonly ClientConnectionHandler _connectionHandler;
         private readonly ConnectionLostHelper _lostHelper;
+        private readonly ILogger<ConfigVehicleController>? _logger;
 
         public ConfigVehicleController(ConfigVehicleViewModel viewModel,
                                        AddTourDialogController addTourDialog,
                                        ClientConnectionHandler clientConnectionHandler,
-                                       ConnectionLostHelper lostHelper)
+                                       ConnectionLostHelper lostHelper,
+                                       ILogger<ConfigVehicleController>? logger = null)
         {
             _viewModel = viewModel;
             _addTourDialog = addTourDialog;
             _connectionHandler = clientConnectionHandler;
             _lostHelper = lostHelper;
+            _logger = logger;
         }
 
         public override object Initialize()
@@ -81,6 +85,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
+                _logger?.LogWarning(e, "");
                 _lostHelper.ShowConnectionLost();
             }
             _viewModel.IsBusy = false;

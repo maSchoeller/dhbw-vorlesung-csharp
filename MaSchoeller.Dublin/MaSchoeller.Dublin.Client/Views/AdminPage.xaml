@@ -96,7 +96,7 @@
                          IsIndeterminate="True"
                          Height="20"/>
             <Label Grid.Row="1" Grid.Column="1" 
-                   Content="Lade Inhalte"
+                   Content="Verbinde zum Server.."
                    HorizontalContentAlignment="Center"/>
         </Grid>
     </Grid>

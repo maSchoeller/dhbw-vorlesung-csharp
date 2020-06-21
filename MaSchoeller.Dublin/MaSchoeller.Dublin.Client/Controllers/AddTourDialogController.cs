@@ -4,6 +4,7 @@ using MaSchoeller.Dublin.Client.Services;
 using MaSchoeller.Dublin.Client.ViewModels;
 using MaSchoeller.Dublin.Client.Views;
 using MaSchoeller.Extensions.Desktop.Mvvm;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
@@ -17,6 +18,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
         private readonly AddTourViewModel _viewModel;
         private readonly ConnectionLostHelper _lostHelper;
         private readonly ClientConnectionHandler _connectionHandler;
+        private readonly ILogger<AddTourDialogController>? _logger;
         private readonly AutoResetEvent _blocker = new AutoResetEvent(false);
 
         private Tour? _tour;
@@ -24,12 +26,13 @@ namespace MaSchoeller.Dublin.Client.Controllers
 
         public AddTourDialogController(AddTourViewModel viewModel,
                                        ConnectionLostHelper lostHelper,
-                                       ClientConnectionHandler connectionHandler)
+                                       ClientConnectionHandler connectionHandler,
+                                       ILogger<AddTourDialogController>? logger = null)
         {
             _viewModel = viewModel;
             _lostHelper = lostHelper;
             _connectionHandler = connectionHandler;
-
+            _logger = logger;
             _viewModel.AddCommand = ConfigurableCommand.Create(ExecuteAddCommand, o => !(_viewModel.SelectedEmployee is null || _viewModel.StartDate is null))
                                                        .Observe(_viewModel, () => _viewModel.StartDate)
                                                        .Observe(_viewModel, () => _viewModel.SelectedEmployee)
@@ -67,6 +70,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogWarning(e, "");
                 MessageBox.Show(DisplayMessages.ErrorAddingTour, "Fehler", MessageBoxButton.OK);
             }
 
@@ -85,6 +89,7 @@ namespace MaSchoeller.Dublin.Client.Controllers
             }
             catch (Exception e)
             {
+                _logger?.LogWarning(e, "");
                 MessageBox.Show(DisplayMessages.ErrorAddingTour,"Fehler",MessageBoxButton.OK);
                 return null;
             }
