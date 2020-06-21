@@ -31,3 +31,6 @@ jobs:
       - name: MSBuild Uebung5
         working-directory: Aufgabenblatt_05
         run: msbuild /t:Restore /p:Configuration=Release Aufgabenblatt_05.sln
+      - name: MSBuild Dublin
+        working-directory:  MaSchoeller.Dublin
+        run: msbuild /t:Restore /p:Configuration=Release MaSchoeller.Dublin.sln 
